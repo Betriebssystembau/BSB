@@ -22,14 +22,15 @@
 #include "object/strbuf.h"
 #include "strbuf.h"
 
-class O_Stream : public Stringbuffer
-/* Hier muesst ihr selbst Code vervollstaendigen */
-{
+
+class O_Stream : public Stringbuffer {
+
 private:
-    O_Stream(const O_Stream &copy); // Verhindere Kopieren
-/* Hier muesst ihr selbst Code vervollstaendigen */
+    O_Stream(const O_Stream &copy);
 
 public:
+    short base = 10;
+
     O_Stream() {}
 
     O_Stream &operator<<(unsigned char c);
@@ -79,6 +80,15 @@ public:
 /* zu beeinflussen, z.B durch die Wahl des Zahlensystems.                    */
 /*---------------------------------------------------------------------------*/
 
+O_Stream &endl(O_Stream &os);
+
+O_Stream &bin(O_Stream &os);
+
+O_Stream &oct(O_Stream &os);
+
+O_Stream &dec(O_Stream &os);
+
+O_Stream &hex(O_Stream &os);
 // ENDL: fuegt einen Zeilenumbruch in die Ausgabe ein.
 /* Hier muesst ihr selbst Code vervollstaendigen */
 

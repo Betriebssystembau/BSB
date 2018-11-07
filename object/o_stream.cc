@@ -29,6 +29,29 @@ O_Stream &O_Stream::operator<<(char c) {
     return *this;
 }
 
+long long numberToDec(long long number) {
+    if (number < 0) {
+        this->put('-');
+        number *= -1;
+    }
+    char ascii_start = 48;
+    char ascii_alpha_start = 65;
+    long long div = 1;
+    while (div <= number / this->base) {
+        div *= this->base;
+    }
+
+    while (number > 0) {
+        if(number/div > 10){
+            this->put((number/div) + ascii_alpha_start);
+        }else {
+            this->put((number / div) + ascii_start);
+        }
+        number %= div;
+        div /= this->base;
+    }
+}
+
 O_Stream &O_Stream::operator<<(unsigned short number) {
     short ascii_start = 48;
     short div = 1;
@@ -145,32 +168,34 @@ O_Stream &O_Stream::operator<<(char *text) {
 }
 
 O_Stream &O_Stream::operator<<(O_Stream &(*fkt)(O_Stream &)) {
-
-    return *this;
+    return fkt(*this);
 }
 
 
 O_Stream &endl(O_Stream &os) {
-
+    os << '\n';
     return os;
 }
 
 O_Stream &bin(O_Stream &os) {
-
+    os.base = 2;
+    os << "0b";
     return os;
 }
 
 O_Stream &oct(O_Stream &os) {
-
+    os.base = 8;
+    os << "0o";
     return os;
 }
 
 O_Stream &dec(O_Stream &os) {
-
+    os.base = 10;
     return os;
 }
 
 O_Stream &hex(O_Stream &os) {
-
+    os.base = 16;
+    os << "0x";
     return os;
 }

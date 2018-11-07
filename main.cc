@@ -9,7 +9,7 @@ int main() {
     CGA_Stream cga_stream;
     unsigned short i = 5234;
     long l = -54324532356;
-    cga_stream << 'h' << 'a' << 'l' << 'l' << 'o' << "test" << i << '\n' << 'a' << l << " test2";
+    cga_stream << 'h' << 'a' << 'l' << 'l' << 'o' << "test" << i << 'a' << endl << l << " test2";
     cga_stream.flush();
 
 /* Hier muesst ihr selbst Code vervollstaendigen */
