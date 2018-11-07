@@ -16,12 +16,19 @@
 #ifndef __strbuf_include__
 #define __strbuf_include__
 
-class Stringbuffer
- {
+class Stringbuffer {
 private:
-      Stringbuffer(const Stringbuffer &copy); // Verhindere Kopieren
+    Stringbuffer(const Stringbuffer &copy); // Verhindere Kopieren
+protected:
+    int size = 80;
+    int index = 0;
+    char text[80];
+public:
+    Stringbuffer() {}
 
-/* Hier muesst ihr selbst Code vervollstaendigen */     
- };
+    void put(char c);
+
+    virtual void flush() = 0;
+};
 
 #endif

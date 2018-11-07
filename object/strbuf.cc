@@ -15,4 +15,10 @@
 
 #include "object/strbuf.h"
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+/* Hier muesst ihr selbst Code vervollstaendigen */
+void Stringbuffer::put(char c) {
+    this->text[index++] = c;
+    if (index == size) {
+        flush();
+    }
+}
