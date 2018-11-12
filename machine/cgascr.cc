@@ -27,11 +27,27 @@ void CGA_Screen::show(int x, int y, char c, int attrib) {
 }
 
 void CGA_Screen::setpos(int x, int y) {
+    //TODO
+    char *cursorHigh = (char *)14;
+    char *cursorLow = (char *)15;
+    char *indexRegister = (char *) 0x3d4;
+    char *dataRegister = (char *) 0x3d5;
+
     this->posX = x;
     this->posY = y;
+
+    int cursorValue = y * 80 + x;
+
+    *cursorHigh = cursorValue / 256;
+    *cursorLow = cursorValue % 256;
+
+    IO_Port io_port(*indexRegister);
+    io_port.outb(*cursorHigh);
+    io_port.outb(*cursorLow);
 }
 
 void CGA_Screen::getpos(int &x, int &y) {
+    //TODO
     x = this->posX;
     y = this->posY;
 }

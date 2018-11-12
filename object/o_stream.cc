@@ -29,14 +29,14 @@ O_Stream &O_Stream::operator<<(char c) {
     return *this;
 }
 
-long long numberToDec(long long number) {
+O_Stream &O_Stream::operator<<(unsigned short number) {
     if (number < 0) {
         this->put('-');
         number *= -1;
     }
-    char ascii_start = 48;
-    char ascii_alpha_start = 65;
-    long long div = 1;
+    char ascii_start = '0';
+    char ascii_alpha_start = 'a';
+    unsigned short div = 1;
     while (div <= number / this->base) {
         div *= this->base;
     }
@@ -50,20 +50,6 @@ long long numberToDec(long long number) {
         number %= div;
         div /= this->base;
     }
-}
-
-O_Stream &O_Stream::operator<<(unsigned short number) {
-    short ascii_start = 48;
-    short div = 1;
-    while (div <= number / 10) {
-        div *= 10;
-    }
-
-    while (number > 0) {
-        this->put((number / div) + ascii_start);
-        number %= div;
-        div /= 10;
-    }
     return *this;
 }
 
@@ -72,31 +58,45 @@ O_Stream &O_Stream::operator<<(short number) {
         this->put('-');
         number *= -1;
     }
-    short ascii_start = 48;
+    char ascii_start = '0';
+    char ascii_alpha_start = 'a';
     short div = 1;
-    while (div <= number / 10) {
-        div *= 10;
+    while (div <= number / this->base) {
+        div *= this->base;
     }
 
     while (number > 0) {
-        this->put((number / div) + ascii_start);
+        if(number/div > 10){
+            this->put((number/div) + ascii_alpha_start);
+        }else {
+            this->put((number / div) + ascii_start);
+        }
         number %= div;
-        div /= 10;
+        div /= this->base;
     }
     return *this;
 }
 
 O_Stream &O_Stream::operator<<(unsigned int number) {
-    short ascii_start = 48;
+    if (number < 0) {
+        this->put('-');
+        number *= -1;
+    }
+    char ascii_start = '0';
+    char ascii_alpha_start = 'a';
     unsigned int div = 1;
-    while (div <= number / 10) {
-        div *= 10;
+    while (div <= number / this->base) {
+        div *= this->base;
     }
 
     while (number > 0) {
-        this->put((number / div) + ascii_start);
+        if(number/div > 10){
+            this->put((number/div) + ascii_alpha_start);
+        }else {
+            this->put((number / div) + ascii_start);
+        }
         number %= div;
-        div /= 10;
+        div /= this->base;
     }
     return *this;
 }
@@ -106,31 +106,45 @@ O_Stream &O_Stream::operator<<(int number) {
         this->put('-');
         number *= -1;
     }
-    short ascii_start = 48;
+    char ascii_start = '0';
+    char ascii_alpha_start = 'a';
     int div = 1;
-    while (div <= number / 10) {
-        div *= 10;
+    while (div <= number / this->base) {
+        div *= this->base;
     }
 
     while (number > 0) {
-        this->put((number / div) + ascii_start);
+        if(number/div > 10){
+            this->put((number/div) + ascii_alpha_start);
+        }else {
+            this->put((number / div) + ascii_start);
+        }
         number %= div;
-        div /= 10;
+        div /= this->base;
     }
     return *this;
 }
 
 O_Stream &O_Stream::operator<<(unsigned long number) {
-    short ascii_start = 48;
+    if (number < 0) {
+        this->put('-');
+        number *= -1;
+    }
+    char ascii_start = '0';
+    char ascii_alpha_start = 'a';
     unsigned long div = 1;
-    while (div <= number / 10) {
-        div *= 10;
+    while (div <= number / this->base) {
+        div *= this->base;
     }
 
     while (number > 0) {
-        this->put((number / div) + ascii_start);
+        if(number/div > 10){
+            this->put((number/div) + ascii_alpha_start);
+        }else {
+            this->put((number / div) + ascii_start);
+        }
         number %= div;
-        div /= 10;
+        div /= this->base;
     }
     return *this;
 }
@@ -140,22 +154,47 @@ O_Stream &O_Stream::operator<<(long number) {
         this->put('-');
         number *= -1;
     }
-    short ascii_start = 48;
+    char ascii_start = '0';
+    char ascii_alpha_start = 'a';
     long div = 1;
-    while (div <= number / 10) {
-        div *= 10;
+    while (div <= number / this->base) {
+        div *= this->base;
     }
 
     while (number > 0) {
-        this->put((number / div) + ascii_start);
+        if(number/div > 10){
+            this->put((number/div) + ascii_alpha_start);
+        }else {
+            this->put((number / div) + ascii_start);
+        }
         number %= div;
-        div /= 10;
+        div /= this->base;
     }
     return *this;
 }
 
 O_Stream &O_Stream::operator<<(void *pointer) {
+    int number = *(int*)pointer;
+    if (number < 0) {
+        this->put('-');
+        number *= -1;
+    }
+    char ascii_start = '0';
+    char ascii_alpha_start = 'a';
+    long long div = 1;
+    while (div <= number / this->base) {
+        div *= 16;
+    }
 
+    while (number > 0) {
+        if(number/div > 10){
+            this->put((number/div) + ascii_alpha_start);
+        }else {
+            this->put((number / div) + ascii_start);
+        }
+        number %= div;
+        div /= 16;
+    }
     return *this;
 }
 
