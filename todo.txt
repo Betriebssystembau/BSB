@@ -1,3 +1,2 @@
 scrollen implementieren
-0 ausgeben
 key_hit maus abfangen
