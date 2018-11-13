@@ -17,13 +17,9 @@
 
 class CGA_Screen {
 private:
-    int posX;
-    int posY;
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
-
-   CGA_Screen(const CGA_Screen &copy);
+    CGA_Screen(const CGA_Screen &copy);
 public:
-   CGA_Screen() /* Hier muesst ihr selbst Code vervollstaendigen */ {}
+    CGA_Screen();
 
     void show(int x, int y, char c, int attrib);
 

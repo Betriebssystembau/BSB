@@ -14,6 +14,10 @@
 
 #include "machine/cgascr.h"
 
+CGA_Screen::CGA_Screen(){
+    //this->setpos(0,0);
+}
+
 /* Hier muesst ihr selbst Code vervollstaendigen */
 void CGA_Screen::show(int x, int y, char c, int attrib) {
     char *CGA_START = (char *) 0xb8000;
@@ -27,37 +31,50 @@ void CGA_Screen::show(int x, int y, char c, int attrib) {
 }
 
 void CGA_Screen::setpos(int x, int y) {
-    //TODO
-    char *cursorHigh = (char *)14;
-    char *cursorLow = (char *)15;
-    char *indexRegister = (char *) 0x3d4;
-    char *dataRegister = (char *) 0x3d5;
-
-    this->posX = x;
-    this->posY = y;
+    char cursorHigh;
+    char cursorLow;
 
     int cursorValue = y * 80 + x;
 
-    *cursorHigh = cursorValue / 256;
-    *cursorLow = cursorValue % 256;
+    cursorHigh = cursorValue / 256;
+    cursorLow = cursorValue % 256;
 
-    IO_Port io_port(*indexRegister);
-    io_port.outb(*cursorHigh);
-    io_port.outb(*cursorLow);
+    IO_Port ioIndex(0x3d4);
+    IO_Port ioData(0x3d5);
+    ioIndex.outb(14);
+    ioData.outb(cursorHigh);
+    ioIndex.outb(15);
+    ioData.outb(cursorLow);
 }
 
 void CGA_Screen::getpos(int &x, int &y) {
-    //TODO
-    x = this->posX;
-    y = this->posY;
+    IO_Port ioIndex(0x3d4);
+    IO_Port ioData(0x3d5);
+    ioIndex.outb(14);
+    char cursorHigh = ioData.inb();
+    ioIndex.outb(15);
+    char cursorLow = ioData.inb();
+
+    int cursorValue = cursorHigh * 256 + cursorLow;
+    x = cursorValue % 80;
+    y = (cursorValue - x) / 80;
 }
 
 void CGA_Screen::print(char *text, int length, unsigned char attrib) {
+    int x = 0;
+    int y = 0;
+    this->getpos(x, y);
     for (int i = 0; i < length; i++) {
         if (text[i] == '\n') {
-            this->posX = 0;
-            this->posY++;
+            y++;
+            x = 0;
         }
-        show(this->posX++, this->posY, text[i], attrib);
+        show(x, y, text[i], attrib);
+        x++;
+        if(x == 80){
+            y++;
+            x = 0;
+        }
+        this->setpos(x,y);
     }
 }
