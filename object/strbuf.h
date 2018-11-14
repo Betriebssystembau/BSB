@@ -20,9 +20,9 @@ class Stringbuffer {
 private:
     Stringbuffer(const Stringbuffer &copy); // Verhindere Kopieren
 protected:
-    int size = 80;
+    int size = 1920;
     int index = 0;
-    char text[80];
+    char text[1920];
 public:
     Stringbuffer() {}
 

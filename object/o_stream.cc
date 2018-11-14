@@ -174,6 +174,7 @@ O_Stream &O_Stream::operator<<(long number) {
 }
 
 O_Stream &O_Stream::operator<<(void *pointer) {
+    //TODO: 0 ausgeben
     int number = *(int*)pointer;
     if (number < 0) {
         this->put('-');

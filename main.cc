@@ -9,8 +9,8 @@
 int main() {
     CGA_Stream cga_stream;
     unsigned short i = 5234;
-    long l = -54324532356;
-    cga_stream << 'h' << 'a' << 'l' << 'l' << 'o' << "test" << i << 'a' << endl << l << " test2";
+    long l = -54356;
+    cga_stream << 'h' << 'a' << "test" << hex << i << 'a' << endl << oct << l << " test2";
     cga_stream.flush();
     Keyboard_Controller keyboard;
     Key key;
