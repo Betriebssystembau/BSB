@@ -250,12 +250,18 @@ Keyboard_Controller::Keyboard_Controller() :
 
 Key Keyboard_Controller::key_hit() {
     Key invalid;  // nicht explizit initialisierte Tasten sind ungueltig
-    this->key_decoded();
-/* Hier muesst ihr selbst Code vervollstaendigen */
-/* Hier muesst ihr selbst Code vervollstaendigen */
+    int status;
+    do {
+        status = ctrl_port.inb();
+    } while ((status & inpb) == 0);
+
+
+    while (this->key_decoded());
 
 /* Hier muesst ihr selbst Code vervollstaendigen */
-    return invalid;
+/* Hier muesst ihr selbst Code vervollstaendigen */
+/* Hier muesst ihr selbst Code vervollstaendigen */
+    return gather;
 }
 
 // REBOOT: Fuehrt einen Neustart des Rechners durch. Ja, beim PC macht
@@ -286,8 +292,26 @@ void Keyboard_Controller::reboot() {
 //                  (sehr langsam).
 
 void Keyboard_Controller::set_repeat_rate(int speed, int delay) {
+    int status;
     if (delay >= 0 && delay <= 3 && speed >= 0 && speed <= 31) {
-        int value = (speed << 2) | delay;
+        int value = (speed << 3) | (delay << 1);
+        do {
+            status = ctrl_port.inb();     // warten, bis das letzte Kommando
+        } while ((status & inpb) != 0);   // verarbeitet wurde.
+        ctrl_port.outb(kbd_cmd::set_speed);            // set value
+        data_port.outb(value);
+//        do {
+//            status = ctrl_port.inb();
+//        } while ((status & outb) != 1);
+
+//        if (data_port.inb() == kbd_reply::ack) {
+//            return;
+//        } else {
+//            this->set_repeat_rate(speed, delay);
+//        }
+
+
+
     }
 /* Hier muesst ihr selbst Code vervollstaendigen */
 
@@ -298,13 +322,16 @@ void Keyboard_Controller::set_repeat_rate(int speed, int delay) {
 // SET_LED: setzt oder loescht die angegebene Leuchtdiode
 
 void Keyboard_Controller::set_led(char led, bool on) {
-    switch (led){
-        case caps_lock:
-            break;
-        case num_lock:
-            break;
-        case scroll_lock:
-            break;
+    int status;
+    do {
+        status = ctrl_port.inb();     // warten, bis das letzte Kommando
+    } while ((status & inpb) != 0);   // verarbeitet wurde.
+
+    ctrl_port.outb(kbd_cmd::set_led);            // set value
+    if (on){
+        data_port.outb(led);
+    } else {
+        data_port.outb(0);
     }
 /* Hier muesst ihr selbst Code vervollstaendigen */
 
