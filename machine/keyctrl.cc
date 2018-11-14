@@ -253,15 +253,18 @@ Key Keyboard_Controller::key_hit() {
     int status;
     do {
         status = ctrl_port.inb();
-    } while ((status & inpb) == 0);
+    } while ((status & outb) == 0);
 
-
-    while (this->key_decoded());
+    code = data_port.inb();
+    if (this->key_decoded()){
+        return gather;
+    }
+    return invalid;
 
 /* Hier muesst ihr selbst Code vervollstaendigen */
 /* Hier muesst ihr selbst Code vervollstaendigen */
 /* Hier muesst ihr selbst Code vervollstaendigen */
-    return gather;
+
 }
 
 // REBOOT: Fuehrt einen Neustart des Rechners durch. Ja, beim PC macht
@@ -298,8 +301,10 @@ void Keyboard_Controller::set_repeat_rate(int speed, int delay) {
         do {
             status = ctrl_port.inb();     // warten, bis das letzte Kommando
         } while ((status & inpb) != 0);   // verarbeitet wurde.
-        ctrl_port.outb(kbd_cmd::set_speed);            // set value
+        data_port.outb(kbd_cmd::set_speed);            // set value
+
         data_port.outb(value);
+
 //        do {
 //            status = ctrl_port.inb();
 //        } while ((status & outb) != 1);
@@ -327,7 +332,7 @@ void Keyboard_Controller::set_led(char led, bool on) {
         status = ctrl_port.inb();     // warten, bis das letzte Kommando
     } while ((status & inpb) != 0);   // verarbeitet wurde.
 
-    ctrl_port.outb(kbd_cmd::set_led);            // set value
+    data_port.outb(kbd_cmd::set_led);            // set value
     if (on){
         data_port.outb(led);
     } else {

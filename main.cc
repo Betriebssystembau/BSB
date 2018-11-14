@@ -11,18 +11,16 @@ int main() {
     unsigned short i = 5234;
     long l = -54324532356;
     cga_stream << 'h' << 'a' << 'l' << 'l' << 'o' << "test" << i << 'a' << endl << l << " test2";
-
+    cga_stream.flush();
     Keyboard_Controller keyboard;
     Key key;
-    for(int i = 0; i < 4; i++) {
+    while(true) {
         key = keyboard.key_hit();
         if (key.valid()) {
-            cga_stream << key.ascii();
-        } else {
-            cga_stream << "error";
+            cga_stream << (char)key;
         }
+        cga_stream.flush();
     }
-    cga_stream.flush();
     /*CGA_Screen cga_screen;
     cga_screen.setpos(10, 10);*/
 
