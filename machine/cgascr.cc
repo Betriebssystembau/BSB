@@ -20,16 +20,16 @@ CGA_Screen::CGA_Screen(){
 
 /* Hier muesst ihr selbst Code vervollstaendigen */
 void CGA_Screen::show(int x, int y, char c, int attrib) {
-    char *CGA_START = (char *) 0xb8000;
-    char *pos;
+    unsigned char *CGA_START = (unsigned char *) 0xb8000;
+    unsigned char *pos;
     pos = CGA_START + 2 * (x + y * 80);
     *pos = c;
     *(pos + 1) = attrib;
 }
 
 void CGA_Screen::setpos(int x, int y) {
-    char cursorHigh;
-    char cursorLow;
+    unsigned char cursorHigh;
+    unsigned char cursorLow;
 
     int cursorValue = y * 80 + x;
 
@@ -48,9 +48,9 @@ void CGA_Screen::getpos(int &x, int &y) {
     IO_Port ioIndex(0x3d4);
     IO_Port ioData(0x3d5);
     ioIndex.outb(14);
-    char cursorHigh = ioData.inb();
+    unsigned char cursorHigh = ioData.inb();
     ioIndex.outb(15);
-    char cursorLow = ioData.inb();
+    unsigned char cursorLow = ioData.inb();
 
     int cursorValue = cursorHigh * 256 + cursorLow;
     x = cursorValue % 80;
