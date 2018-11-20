@@ -25,6 +25,8 @@ void CGA_Screen::show(int x, int y, char c, int attrib) {
     pos = CGA_START + 2 * (x + y * 80);
     *pos = c;
     *(pos + 1) = attrib;
+    this->output[x + y * 80] = c;
+    this->attributes[x + y * 80] = attrib;
 }
 
 void CGA_Screen::setpos(int x, int y) {
@@ -57,20 +59,35 @@ void CGA_Screen::getpos(int &x, int &y) {
     y = (cursorValue - x) / 80;
 }
 
+void CGA_Screen::scroll(){
+    for(int x = 0; x < 80; x++){
+        for(int y = 0; y < 23; y++){
+            this->show(x, y, this->output[x + 80* (y + 1)], this->attributes[x + 80*(y + 1)]);
+        }
+    }
+}
+
+void CGA_Screen::increaseY(int &x, int &y){
+    y++;
+    x = 0;
+    if(y == 25){
+        y = 24;
+        this->scroll();
+    }
+}
+
 void CGA_Screen::print(char *text, int length, unsigned char attrib) {
     int x = 0;
     int y = 0;
     this->getpos(x, y);
     for (int i = 0; i < length; i++) {
         if (text[i] == '\n') {
-            y++;
-            x = 0;
+            increaseY(x, y);
         }
         show(x, y, text[i], attrib);
         x++;
         if(x == 80){
-            y++;
-            x = 0;
+            increaseY(x, y);
         }
         this->setpos(x,y);
     }
