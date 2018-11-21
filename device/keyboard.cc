@@ -17,10 +17,8 @@ extern Plugbox plugbox;
 
 void Keyboard::plugin() {
     PIC pic;
-
     plugbox.assign(33, *this);
     pic.allow(1);
-    
 }
  
 void Keyboard::trigger() {
