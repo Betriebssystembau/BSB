@@ -12,7 +12,7 @@ int main() {
     CPU cpu;
     cpu.enable_int();
     PIC pic;
-    pic.allow(0);
+    pic.allow(1);
     while(true) {
         cpu.idle();
     }

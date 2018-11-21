@@ -27,8 +27,6 @@ private:
     IO_Port masterUp;
     IO_Port slaveLow;
     IO_Port slaveUp;
-    char allowedInterruptsMaster = 0;
-    char allowedInterruptsSlave = 0;
 
 public:
     PIC() : masterLow(0x20), masterUp(0x21), slaveLow(0xa0), slaveUp(0xa1) {}

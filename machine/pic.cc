@@ -19,18 +19,34 @@
 
 void PIC::allow (int interrupt_device){
     if(interrupt_device < 8) {
-        this->allowedInterruptsMaster |= (1 << interrupt_device);
-        masterUp.outb(this->allowedInterruptsMaster);
+        char allowedInterrupts = masterUp.inb();
+        allowedInterrupts &= ~(1 << interrupt_device);
+        masterUp.outb(allowedInterrupts);
     } else {
-        this->allowedInterruptsSlave |= (1 << interrupt_device - 8);
-        slaveUp.outb(this->allowedInterruptsSlave);
+        char allowedInterrupts = slaveUp.inb();
+        allowedInterrupts &= ~(1 << interrupt_device - 8);
+        slaveUp.outb(allowedInterrupts);
     }
 }
 
 void PIC::forbid (int interrupt_device){
-
+    if(interrupt_device < 8) {
+        char allowedInterrupts = masterUp.inb();
+        allowedInterrupts |= (1 << interrupt_device);
+        masterUp.outb(allowedInterrupts);
+    } else {
+        char allowedInterrupts = slaveUp.inb();
+        allowedInterrupts |= (1 << interrupt_device - 8);
+        slaveUp.outb(allowedInterrupts);
+    }
 }
 
 bool PIC::is_masked (int interrupt_device){
-
+    char allowedInterrupts;
+    if(interrupt_device < 8){
+        allowedInterrupts = masterUp.inb();
+    } else {
+        allowedInterrupts = slaveUp.inb();
+    }
+    return (allowedInterrupts & (1 << interrupt_device)) != 0;
 }
