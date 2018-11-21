@@ -65,6 +65,9 @@ void CGA_Screen::scroll(){
             this->show(x, y, this->output[x + 80* (y + 1)], this->attributes[x + 80*(y + 1)]);
         }
     }
+    /*fo0r(int x = 0; x < 80; x++){
+        this->show(x, 23, ' ',  0x0f);
+    }*/
 }
 
 void CGA_Screen::increaseY(int &x, int &y){
@@ -83,11 +86,12 @@ void CGA_Screen::print(char *text, int length, unsigned char attrib) {
     for (int i = 0; i < length; i++) {
         if (text[i] == '\n') {
             increaseY(x, y);
-        }
-        show(x, y, text[i], attrib);
-        x++;
-        if(x == 80){
-            increaseY(x, y);
+        } else {
+            show(x, y, text[i], attrib);
+            x++;
+            if (x == 80) {
+                increaseY(x, y);
+            }
         }
         this->setpos(x,y);
     }
