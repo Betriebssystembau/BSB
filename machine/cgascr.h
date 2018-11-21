@@ -19,8 +19,8 @@ class CGA_Screen {
 private:
     CGA_Screen(const CGA_Screen &copy);
 
-    char output[1920] = {0};
-    int attributes[1920] = {0};
+    char output[2000] = {0};
+    int attributes[2000] = {0};
 
     void scroll();
     void increaseY(int &x, int &y);

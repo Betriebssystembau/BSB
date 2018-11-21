@@ -61,13 +61,13 @@ void CGA_Screen::getpos(int &x, int &y) {
 
 void CGA_Screen::scroll(){
     for(int x = 0; x < 80; x++){
-        for(int y = 0; y < 23; y++){
+        for(int y = 0; y <= 24; y++){
             this->show(x, y, this->output[x + 80* (y + 1)], this->attributes[x + 80*(y + 1)]);
         }
     }
-    /*fo0r(int x = 0; x < 80; x++){
-        this->show(x, 23, ' ',  0x0f);
-    }*/
+    for(int x = 0; x < 80; x++){
+        this->show(x, 24, ' ',  0x0f);
+    }
 }
 
 void CGA_Screen::increaseY(int &x, int &y){
