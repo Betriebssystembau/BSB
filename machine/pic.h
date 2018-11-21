@@ -23,11 +23,15 @@ class PIC
  {
 private:
     PIC(const PIC &copy); // Verhindere Kopieren
-    IO_Port port20;
-    IO_Port port21;
+    IO_Port masterLow;
+    IO_Port masterUp;
+    IO_Port slaveLow;
+    IO_Port slaveUp;
+    char allowedInterruptsMaster = 0;
+    char allowedInterruptsSlave = 0;
 
 public:
-    PIC() : port20(0x20), port21(0x21) {}
+    PIC() : masterLow(0x20), masterUp(0x21), slaveLow(0xa0), slaveUp(0xa1) {}
 
     enum {
         timer    = 0,

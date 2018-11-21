@@ -18,7 +18,13 @@
 #include "pic.h"
 
 void PIC::allow (int interrupt_device){
-
+    if(interrupt_device < 8) {
+        this->allowedInterruptsMaster |= (1 << interrupt_device);
+        masterUp.outb(this->allowedInterruptsMaster);
+    } else {
+        this->allowedInterruptsSlave |= (1 << interrupt_device - 8);
+        slaveUp.outb(this->allowedInterruptsSlave);
+    }
 }
 
 void PIC::forbid (int interrupt_device){

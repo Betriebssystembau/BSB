@@ -6,9 +6,18 @@
 #include "device/cgastr.h"
 #include "machine/keyctrl.h"
 #include "machine/cpu.h"
+#include "machine/pic.h"
 
 int main() {
-    CGA_Stream cga_stream;
+    CPU cpu;
+    cpu.enable_int();
+    PIC pic;
+    pic.allow(0);
+    while(true) {
+        cpu.idle();
+    }
+
+    /*CGA_Stream cga_stream;
     unsigned short i = 5234;
     int speed = 31;
      int delay = 1;
@@ -25,7 +34,7 @@ int main() {
             cga_stream << (char)key;
         }
         cga_stream.flush();
-    }
+    }*/
     /*CGA_Screen cga_screen;
     cga_screen.setpos(10, 10);*/
 

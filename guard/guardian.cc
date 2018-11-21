@@ -21,7 +21,7 @@ extern "C" void guardian (unsigned int slot);
 void guardian (unsigned int slot)
  {
   CGA_Stream cga_stream;
-  cga_stream << "test";
+  cga_stream << "testweatsdfhfghdzfghjhfghjfdfgh";
   cga_stream << slot;
   cga_stream.flush();
  }
