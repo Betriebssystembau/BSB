@@ -10,7 +10,7 @@
 /*****************************************************************************/
 
 /* INCLUDES */
-
+#include "device/cgastr.h"
 /* FUNKTIONEN */
                
 extern "C" void guardian (unsigned int slot);
@@ -20,5 +20,8 @@ extern "C" void guardian (unsigned int slot);
 
 void guardian (unsigned int slot)
  {
- 
+  CGA_Stream cga_stream;
+  cga_stream << "test";
+  cga_stream << slot;
+  cga_stream.flush();
  }

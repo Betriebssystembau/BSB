@@ -14,4 +14,16 @@
 /* kann mit Hilfe der Klasse CPU festgelegt werden.                          */
 /*****************************************************************************/
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+/* Hier muesst ihr selbst Code vervollstaendigen */
+
+void PIC::allow (int interrupt_device){
+
+}
+
+void PIC::forbid (int interrupt_device){
+
+}
+
+bool PIC::is_masked (int interrupt_device){
+
+}

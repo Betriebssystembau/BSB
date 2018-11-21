@@ -260,11 +260,6 @@ Key Keyboard_Controller::key_hit() {
         return gather;
     }
     return invalid;
-
-/* Hier muesst ihr selbst Code vervollstaendigen */
-/* Hier muesst ihr selbst Code vervollstaendigen */
-/* Hier muesst ihr selbst Code vervollstaendigen */
-
 }
 
 // REBOOT: Fuehrt einen Neustart des Rechners durch. Ja, beim PC macht
@@ -327,19 +322,25 @@ void Keyboard_Controller::set_repeat_rate(int speed, int delay) {
 // SET_LED: setzt oder loescht die angegebene Leuchtdiode
 
 void Keyboard_Controller::set_led(char led, bool on) {
+    if(on){
+        this->leds | led;
+    } else {
+        this->leds & ~led;
+    };
     int status;
     do {
         status = ctrl_port.inb();     // warten, bis das letzte Kommando
     } while ((status & inpb) != 0);   // verarbeitet wurde.
 
     data_port.outb(kbd_cmd::set_led);            // set value
-    if (on){
-        data_port.outb(led);
-    } else {
-        data_port.outb(0);
-    }
-/* Hier muesst ihr selbst Code vervollstaendigen */
 
-/* Hier muesst ihr selbst Code vervollstaendigen */
+    do {
+        status = ctrl_port.inb();
+    } while((status & kbd_reply::ack) != 0);
 
+    data_port.outb(this->leds);
+
+    /*do {
+        status = ctrl_port.inb();
+    } while ((status & kbd_reply::ack) != 0);*/
 }

@@ -5,9 +5,10 @@
 #include "machine/cgascr.h"
 #include "device/cgastr.h"
 #include "machine/keyctrl.h"
+#include "machine/cpu.h"
 
 int main() {
-    CGA_Stream cga_stream;
+    /*CGA_Stream cga_stream;
     unsigned short i = 5234;
     long l = -54356;
     cga_stream << 'h' << 'a' << "test" << hex << i << 'a' << endl << oct << l << " test2";
