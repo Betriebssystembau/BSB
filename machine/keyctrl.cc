@@ -336,20 +336,30 @@ void Keyboard_Controller::set_led(char led, bool on) {
     } else {
         this->leds & ~led;
     };
-    int status;
-    do {
-        status = ctrl_port.inb();     // warten, bis das letzte Kommando
-    } while ((status & inpb) != 0);   // verarbeitet wurde.
 
-    data_port.outb(kbd_cmd::set_led);            // set value
+    int status;
+    int data;
 
     do {
         status = ctrl_port.inb();
-    } while((status & kbd_reply::ack) != 0);
+    } while ((status & inpb) != 0);
+    data_port.outb(kbd_cmd::set_led);
+
+    do {
+        status = ctrl_port.inb();
+        if ((status & outb) != 0) {
+            data = data_port.inb();
+
+        }
+    } while (data != kbd_reply::ack);
 
     data_port.outb(this->leds);
 
-    /*do {
-        status = ctrl_port.inb();
-    } while ((status & kbd_reply::ack) != 0);*/
+    do {
+        status = ctrl_port.inb();     // 2tes ACK
+        if ((status & outb) != 0) {
+            data = data_port.inb();
+
+        }
+    } while (data != kbd_reply::ack);
 }

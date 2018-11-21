@@ -8,7 +8,7 @@
 #include "machine/cpu.h"
 
 int main() {
-    /*CGA_Stream cga_stream;
+    CGA_Stream cga_stream;
     unsigned short i = 5234;
     int speed = 31;
      int delay = 1;

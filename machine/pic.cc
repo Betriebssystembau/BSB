@@ -15,6 +15,7 @@
 /*****************************************************************************/
 
 /* Hier muesst ihr selbst Code vervollstaendigen */
+#include "pic.h"
 
 void PIC::allow (int interrupt_device){
 
