@@ -238,7 +238,7 @@ Keyboard_Controller::Keyboard_Controller() :
     set_led(led::num_lock, false);
 
     // maximale Geschwindigkeit, minimale Verzoegerung
-    set_repeat_rate(0, 0);
+    set_repeat_rate(31, 3);
 }
 
 // KEY_HIT: Dient der Tastaturabfrage nach dem Auftreten einer Tastatur-
@@ -260,11 +260,6 @@ Key Keyboard_Controller::key_hit() {
         return gather;
     }
     return invalid;
-
-/* Hier muesst ihr selbst Code vervollstaendigen */
-/* Hier muesst ihr selbst Code vervollstaendigen */
-/* Hier muesst ihr selbst Code vervollstaendigen */
-
 }
 
 // REBOOT: Fuehrt einen Neustart des Rechners durch. Ja, beim PC macht
@@ -296,32 +291,41 @@ void Keyboard_Controller::reboot() {
 
 void Keyboard_Controller::set_repeat_rate(int speed, int delay) {
     int status;
+    int data;
+    data = 0;
     if (delay >= 0 && delay <= 3 && speed >= 0 && speed <= 31) {
         int value = speed | (delay << 5);
-        do {
-            status = ctrl_port.inb();     // warten, bis das letzte Kommando
-        } while ((status & inpb) != 0);   // verarbeitet wurde.
-        data_port.outb(kbd_cmd::set_speed);            // set value
 
+        do {
+            status = ctrl_port.inb();
+        } while ((status & inpb) != 0);
+        data_port.outb(kbd_cmd::set_speed);
+
+        do {
+            status = ctrl_port.inb();
+            if ((status & outb) != 0) {
+                data = data_port.inb();
+
+            }
+        } while (data != kbd_reply::ack);
+        
         data_port.outb(value);
 
         do {
-           status = ctrl_port.inb();
-        } while ((status & outb) != 1);
+            status = ctrl_port.inb();     // 2tes ACK
+            if ((status & outb) != 0) {
+                data = data_port.inb();
 
-        if (data_port.inb() == kbd_reply::ack) {
-            return;
-        } else {
-            this->set_repeat_rate(speed, delay);
+            }
+        } while (data != kbd_reply::ack);
+
+/*
+        do {
+            data = data_port.inb();
         }
-
-
-
+        while ((data & kbd_reply::ack) == 0);
+*/
     }
-/* Hier muesst ihr selbst Code vervollstaendigen */
-
-/* Hier muesst ihr selbst Code vervollstaendigen */
-
 }
 
 // SET_LED: setzt oder loescht die angegebene Leuchtdiode
