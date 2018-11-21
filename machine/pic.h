@@ -23,9 +23,11 @@ class PIC
  {
 private:
     PIC(const PIC &copy); // Verhindere Kopieren
+    IO_Port port20;
+    IO_Port port21;
 
 public:
-    PIC() {}
+    PIC() : port20(0x20), port21(0x21) {}
 
     enum {
         timer    = 0,

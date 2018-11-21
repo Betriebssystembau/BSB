@@ -235,7 +235,7 @@ Keyboard_Controller::Keyboard_Controller() :
     this->leds = 0;
     // alle LEDs ausschalten (bei vielen PCs ist NumLock nach dem Booten an)
     set_led(led::caps_lock, false);
-    set_led(led::scroll_lock, true);
+    set_led(led::scroll_lock, false);
     set_led(led::num_lock, false);
 
     // maximale Geschwindigkeit, minimale Verzoegerung
