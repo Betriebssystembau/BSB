@@ -232,9 +232,10 @@ void Keyboard_Controller::get_ascii_code() {
 
 Keyboard_Controller::Keyboard_Controller() :
         ctrl_port(0x64), data_port(0x60) {
+    this->leds = 0;
     // alle LEDs ausschalten (bei vielen PCs ist NumLock nach dem Booten an)
     set_led(led::caps_lock, false);
-    set_led(led::scroll_lock, false);
+    set_led(led::scroll_lock, true);
     set_led(led::num_lock, false);
 
     // maximale Geschwindigkeit, minimale Verzoegerung
@@ -318,13 +319,6 @@ void Keyboard_Controller::set_repeat_rate(int speed, int delay) {
 
             }
         } while (data != kbd_reply::ack);
-
-/*
-        do {
-            data = data_port.inb();
-        }
-        while ((data & kbd_reply::ack) == 0);
-*/
     }
 }
 
@@ -332,9 +326,9 @@ void Keyboard_Controller::set_repeat_rate(int speed, int delay) {
 
 void Keyboard_Controller::set_led(char led, bool on) {
     if(on){
-        this->leds | led;
+        this->leds = this->leds | led;
     } else {
-        this->leds & ~led;
+        this->leds = this->leds & ~led;
     };
 
     int status;
@@ -343,13 +337,13 @@ void Keyboard_Controller::set_led(char led, bool on) {
     do {
         status = ctrl_port.inb();
     } while ((status & inpb) != 0);
+
     data_port.outb(kbd_cmd::set_led);
 
     do {
         status = ctrl_port.inb();
         if ((status & outb) != 0) {
             data = data_port.inb();
-
         }
     } while (data != kbd_reply::ack);
 
@@ -359,7 +353,6 @@ void Keyboard_Controller::set_led(char led, bool on) {
         status = ctrl_port.inb();     // 2tes ACK
         if ((status & outb) != 0) {
             data = data_port.inb();
-
         }
     } while (data != kbd_reply::ack);
 }
