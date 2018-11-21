@@ -13,17 +13,19 @@
 #include "machine/pic.h"
 #include "machine/plugbox.h"
 
+extern Plugbox plugbox;
+
 void Keyboard::plugin() {
-    Plugbox plugbox;
     PIC pic;
 
-    plugbox.assign(1, this);
+    plugbox.assign(33, *this);
     pic.allow(1);
     
 }
  
 void Keyboard::trigger() {
     CGA_Stream cga_stream;
+    cga_stream.flush();
     Key key;
     key = key_hit();
     if (key.valid()) {

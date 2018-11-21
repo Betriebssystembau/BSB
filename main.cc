@@ -4,15 +4,19 @@
 
 #include "machine/cgascr.h"
 #include "device/cgastr.h"
+#include "device/keyboard.h"
 #include "machine/keyctrl.h"
 #include "machine/cpu.h"
 #include "machine/pic.h"
+#include "machine/plugbox.h"
+
+Plugbox plugbox;
 
 int main() {
     CPU cpu;
     cpu.enable_int();
-    PIC pic;
-    pic.allow(1);
+    Keyboard keyboard;
+    keyboard.plugin();
     while(true) {
         cpu.idle();
     }
