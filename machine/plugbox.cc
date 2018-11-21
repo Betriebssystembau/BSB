@@ -15,8 +15,7 @@
 
 Plugbox::Plugbox(){
     for(int i= 0; i < 64; i++){
-        Panic *panic;
-        this->gates[i] = panic;
+        this->gates[i] = &this->panic;
     }
 }
 
@@ -25,5 +24,5 @@ void Plugbox::assign (unsigned int slot, Gate& gate){
 }
 
 Gate& Plugbox::report (unsigned int slot){
-    this->gates[slot]->trigger();
+    return *this->gates[slot];
 }

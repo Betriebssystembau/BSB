@@ -18,7 +18,8 @@
 
 class Plugbox
  {
-
+private:
+    Panic panic;
     /**
      * Interrupt-Nummer des Timer Bausteins
      */
@@ -29,12 +30,12 @@ class Plugbox
     const int keyboard = 33;
 
     Gate *gates[64];
-private:
-     /**
+    /**
       * Im Konstruktor wird für alle Unterbrechungen und Ausnahmen das global bekannte Panic-Objekt panic eingetragen, das eine minimale Unterbrechungsbehandlung sicherstellt.
       * @param copy
       */
 
+ public:
      Plugbox ();
     Plugbox(const Plugbox &copy);
 
