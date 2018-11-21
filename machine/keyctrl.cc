@@ -253,10 +253,10 @@ Key Keyboard_Controller::key_hit() {
     int status;
     do {
         status = ctrl_port.inb();
-    } while ((status & outb) == 0);
+    } while ((status & outb ) == 0);
 
     code = data_port.inb();
-    if (this->key_decoded()){
+    if (this->key_decoded() && (status & auxb) == 0){
         return gather;
     }
     return invalid;
@@ -297,7 +297,7 @@ void Keyboard_Controller::reboot() {
 void Keyboard_Controller::set_repeat_rate(int speed, int delay) {
     int status;
     if (delay >= 0 && delay <= 3 && speed >= 0 && speed <= 31) {
-        int value = (speed << 3) | (delay << 1);
+        int value = speed | (delay << 5);
         do {
             status = ctrl_port.inb();     // warten, bis das letzte Kommando
         } while ((status & inpb) != 0);   // verarbeitet wurde.
@@ -305,15 +305,15 @@ void Keyboard_Controller::set_repeat_rate(int speed, int delay) {
 
         data_port.outb(value);
 
-//        do {
-//            status = ctrl_port.inb();
-//        } while ((status & outb) != 1);
+        do {
+           status = ctrl_port.inb();
+        } while ((status & outb) != 1);
 
-//        if (data_port.inb() == kbd_reply::ack) {
-//            return;
-//        } else {
-//            this->set_repeat_rate(speed, delay);
-//        }
+        if (data_port.inb() == kbd_reply::ack) {
+            return;
+        } else {
+            this->set_repeat_rate(speed, delay);
+        }
 
 
 
