@@ -11,6 +11,7 @@
 /* INCLUDES */
 
 #include "machine/keyctrl.h"
+#include "machine/pic.h"
 
 /* STATIC MEMERS */
 
@@ -291,6 +292,8 @@ void Keyboard_Controller::reboot() {
 //                  (sehr langsam).
 
 void Keyboard_Controller::set_repeat_rate(int speed, int delay) {
+    PIC pic;
+    //pic.forbid(PIC::keyboard);
     int status;
     int data;
     data = 0;
@@ -320,11 +323,15 @@ void Keyboard_Controller::set_repeat_rate(int speed, int delay) {
             }
         } while (data != kbd_reply::ack);
     }
+    //TODO: dieses Allow disabled das Interrupt
+    pic.allow(PIC::keyboard);
 }
 
 // SET_LED: setzt oder loescht die angegebene Leuchtdiode
 
 void Keyboard_Controller::set_led(char led, bool on) {
+    PIC pic;
+    //pic.forbid(PIC::keyboard);
     if(on){
         this->leds = this->leds | led;
     } else {
@@ -355,4 +362,6 @@ void Keyboard_Controller::set_led(char led, bool on) {
             data = data_port.inb();
         }
     } while (data != kbd_reply::ack);
+    //TODO: dieses Allow disabled das Interrupt
+    pic.allow(PIC::keyboard);
 }

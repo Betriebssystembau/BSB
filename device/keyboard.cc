@@ -13,6 +13,7 @@
 #include "machine/pic.h"
 #include "machine/plugbox.h"
 
+extern CGA_Stream cga_stream;
 extern Plugbox plugbox;
 
 void Keyboard::plugin() {
@@ -22,7 +23,6 @@ void Keyboard::plugin() {
 }
  
 void Keyboard::trigger() {
-    CGA_Stream cga_stream;
     cga_stream.flush();
     Key key;
     key = key_hit();

@@ -11,6 +11,7 @@
 #include "machine/plugbox.h"
 
 Plugbox plugbox;
+CGA_Stream cga_stream;
 
 int main() {
     CPU cpu;
