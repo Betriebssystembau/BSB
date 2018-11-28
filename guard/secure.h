@@ -17,15 +17,21 @@
 
 /* Die Methoden der Klasse sind so kurz, dass sie am besten inline definiert werden sollten.*/
 class Secure {
+    extern Guard guard;
+
     /**
      * Im Konstruktor wird der durch das Guard Objekt guard geschützte kritische Abschnitt betreten.
      */
-    Secure() {}
+    Secure() {
+        guard.enter();
+    }
 
     /**
      * Im Destruktor wird der kritische Abschnitt wieder verlassen.
      */
-    ~Secure() {}
+    ~Secure() {
+        guard.leave();
+    }
 };
 
 #endif

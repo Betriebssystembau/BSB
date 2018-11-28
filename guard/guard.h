@@ -16,12 +16,14 @@
 
 #include "locker.h"
 #include "gate.h"
+#include "object/queue.h"
 
 /* Hier muesst ihr selbst Code vervollstaendigen */
 
 class Guard : public Locker {
 private:
     Guard(const Guard &copy); // Verhindere Kopieren
+    Queue queue;
 public:
     Guard() {}
 /* Hier muesst ihr selbst Code vervollstaendigen */
