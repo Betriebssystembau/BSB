@@ -9,9 +9,12 @@
 #include "machine/pic.h"
 #include "machine/plugbox.h"
 #include "user/appl.h"
+#include "guard/guard.h"
 
 Plugbox plugbox;
 CGA_Stream cga_stream;
+Guard guard;
+PIC pic;
 
 int main() {
     Application app;

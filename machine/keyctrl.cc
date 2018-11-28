@@ -14,6 +14,7 @@
 #include "machine/pic.h"
 
 /* STATIC MEMERS */
+extern PIC pic;
 
 unsigned char Keyboard_Controller::normal_tab[] =
         {
@@ -253,12 +254,9 @@ Keyboard_Controller::Keyboard_Controller() :
 Key Keyboard_Controller::key_hit() {
     Key invalid;  // nicht explizit initialisierte Tasten sind ungueltig
     int status;
-    do {
-        status = ctrl_port.inb();
-    } while ((status & outb ) == 0);
 
     code = data_port.inb();
-    if (this->key_decoded() && (status & auxb) == 0){
+    if (this->key_decoded() && (status & auxb) == 0) {
         if (gather.alt() && gather.ctrl() && (gather.scancode() == Key::scan::del)) {
             reboot();
         }
@@ -295,8 +293,6 @@ void Keyboard_Controller::reboot() {
 //                  (sehr langsam).
 
 void Keyboard_Controller::set_repeat_rate(int speed, int delay) {
-    PIC pic;
-    //pic.forbid(PIC::keyboard);
     int status;
     int data;
     data = 0;
@@ -319,7 +315,7 @@ void Keyboard_Controller::set_repeat_rate(int speed, int delay) {
 
             }
         } while (data != kbd_reply::ack);
-        
+
         data_port.outb(value);
 
         do {
@@ -338,12 +334,11 @@ void Keyboard_Controller::set_repeat_rate(int speed, int delay) {
 // SET_LED: setzt oder loescht die angegebene Leuchtdiode
 
 void Keyboard_Controller::set_led(char led, bool on) {
-    PIC pic;
     bool reset = !pic.is_masked(PIC::keyboard);
     if (reset) {
         pic.forbid(PIC::keyboard);
     }
-    if(on){
+    if (on) {
         this->leds = this->leds | led;
     } else {
         this->leds = this->leds & ~led;

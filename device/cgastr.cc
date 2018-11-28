@@ -19,5 +19,4 @@ void CGA_Stream::flush() {
     this->print(this->text, index, 0x0f);
     this->text[0] = '\0';
     this->index = 0;
-
 }

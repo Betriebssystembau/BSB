@@ -15,9 +15,9 @@
 
 extern CGA_Stream cga_stream;
 extern Plugbox plugbox;
+extern PIC pic;
 
 void Keyboard::plugin() {
-    PIC pic;
     plugbox.assign(33, *this);
     pic.allow(PIC::keyboard);
 }

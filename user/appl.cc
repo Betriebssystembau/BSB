@@ -26,12 +26,9 @@ void Application::action() {
     CPU cpu;
     cpu.enable_int();
     while (true) {
-        int oldX = 0;
-        int oldY = 0;
-        cga_stream.getpos(oldX, oldY);
         cga_stream.setpos(0, 0);
         cga_stream << "Testausgabe";
-        //cga_stream.setpos(oldX, oldY);
-        cpu.idle();
+        cga_stream.setpos(0, 0);
+        cga_stream.flush();
     }
 }

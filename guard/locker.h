@@ -15,11 +15,15 @@
 #ifndef __Locker_include__
 #define __Locker_include__
 
-class Locker
- {
+class Locker {
 private:
     Locker(const Locker &copy); // Verhindere Kopieren
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
- };
+/* Hier muesst ihr selbst Code vervollstaendigen */
+public:
+    /**
+     * Eventuell muss der wieder weg
+     */
+    Locker() {}
+};
 
 #endif
