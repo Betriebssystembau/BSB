@@ -1,2 +1,5 @@
-scrollen implementieren
-key_hit maus abfangen
+interrupt slave behandeln
+plugbox range check, außerhalb panic zurückgeben
+pic global machen
+schleife raus in keyhit
+cga in panic global nehmen
