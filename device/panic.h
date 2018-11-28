@@ -16,17 +16,21 @@
 #include "guard/gate.h"
 
 class Panic : public Gate
-/* Hier muesst ihr selbst Code vervollstaendigen */         
- {
+/* Hier muesst ihr selbst Code vervollstaendigen */
+{
 private:
-    Panic (const Panic &copy); // Verhindere Kopieren
+    Panic(const Panic &copy); // Verhindere Kopieren
 public:
-    Panic () {}
+    Panic() {}
 
-    void trigger();
-/* Hier muesst ihr selbst Code vervollstaendigen */                  
-          
- };
+    /**
+     * Einfachste Form der Unterbrechungsbehandlung: Es wird eine Fehlermeldung ausgegeben und der Prozessor angehalten.
+     * @return
+     */
+    bool prologue();
+
+    void epilogue() {}
+};
 
 #endif
 

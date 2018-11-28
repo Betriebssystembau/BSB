@@ -17,6 +17,7 @@
 #include "locker.h"
 #include "gate.h"
 #include "object/queue.h"
+#include "object/chain.h"
 
 /* Hier muesst ihr selbst Code vervollstaendigen */
 

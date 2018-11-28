@@ -42,7 +42,7 @@ public:
     void enter() {
         if (!this->isFree) {
             Panic panic;
-            panic.trigger();
+            panic.prologue();
         }
         this->isFree = false;
     }
@@ -53,7 +53,7 @@ public:
     void retne() {
         if (this->isFree) {
             Panic panic;
-            panic.trigger();
+            panic.prologue();
         }
         this->isFree = true;
     }

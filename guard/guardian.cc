@@ -13,12 +13,12 @@
 #include "device/cgastr.h"
 #include "machine/plugbox.h"
 /* FUNKTIONEN */
-               
-extern "C" void guardian (unsigned int slot);
+
+extern "C" void guardian(unsigned int slot);
 extern Plugbox plugbox;
 /* GUARDIAN: Low-Level Interrupt-Behandlung. Die Funktion wird spaeter noch */
 /*           erweitert.                                                     */
 
-void guardian (unsigned int slot) {
-    plugbox.report(slot).trigger();
+void guardian(unsigned int slot) {
+    plugbox.report(slot).prologue();
 }

@@ -15,10 +15,11 @@
 
 extern CGA_Stream cga_stream;
 
-void Panic::trigger() {
+bool Panic::prologue() {
     cga_stream << "FEUER!!!!";
     cga_stream.flush();
 
     CPU cpu;
     cpu.halt();
+    return false;
 }

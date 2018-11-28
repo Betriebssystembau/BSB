@@ -14,7 +14,11 @@
 #include "guard.h"
 
 void Guard::leave() {
+    this->retne();
+    Chain *currentChain;
+    while ((currentChain = this->queue.dequeue()) != 0) {
 
+    }
 }
 
 void Guard::relay(Gate *item) {

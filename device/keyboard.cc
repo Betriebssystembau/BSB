@@ -22,12 +22,14 @@ void Keyboard::plugin() {
     pic.allow(PIC::keyboard);
 }
 
-void Keyboard::trigger() {
-    cga_stream.flush();
-    Key key;
-    key = key_hit();
-    if (key.valid()) {
-        cga_stream << (unsigned char) key;
+bool Keyboard::prologue() {
+    this->currentKey = key_hit();
+    return true;
+}
+
+void Keyboard::epilogue() {
+    if (this->currentKey.valid()) {
+        cga_stream << (unsigned char) this->currentKey;
     }
     cga_stream.flush();
 }
