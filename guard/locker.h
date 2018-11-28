@@ -15,35 +15,56 @@
 #ifndef __Locker_include__
 #define __Locker_include__
 
+
 /*
     Die Methoden der Klasse sind so kurz, dass sie am besten inline definiert werden sollten.
     Doppelte enter- oder retne-Aufrufe (d.h. Betreten des kritischen Abschnitts aus dem kritischen Abschnitt heraus bzw. doppeltes Verlassen ebendieses) sind oft Zeichen für Implementierungsfehler im Betriebssystem. Es kann sich lohnen, in diesem Fall eine Fehlermeldung auszugeben und das System anzuhalten.
 */
+
+#include "device/panic.h"
+
 class Locker {
 private:
     Locker(const Locker &copy); // Verhindere Kopieren
-/* Hier muesst ihr selbst Code vervollstaendigen */
+
+    bool isFree;
 public:
     /**
      * Initialisiert die Sperrvariable so, dass der kritische Abschnitt als frei markiert wird.
      */
-    Locker() {}
+    Locker() {
+        this->isFree = true;
+    }
 
     /**
      * Diese Methode muss aufgerufen werden, wenn der kritische Abschnitt betreten wird.
      */
-    void enter() {}
+    void enter() {
+        if (!this->isFree) {
+            Panic panic;
+            panic.trigger();
+        }
+        this->isFree = false;
+    }
 
     /**
      * Mit dieser Methode wird der kritische Abschnitt wieder verlassen.
      */
-    void retne() {}
+    void retne() {
+        if (this->isFree) {
+            Panic panic;
+            panic.trigger();
+        }
+        this->isFree = true;
+    }
 
     /**
      * Diese Methode gibt an, ob der kritische Abschnitt frei ist.
      * @return
      */
-    bool avail() {}
+    bool avail() {
+        return this->isFree;
+    }
 };
 
 #endif
