@@ -12,15 +12,26 @@
 
 #include "user/appl.h"
 #include "device/cgastr.h"
-/* Hier muesst ihr selbst Code vervollstaendigen */         
-         
+/* Hier muesst ihr selbst Code vervollstaendigen */
+
 /* GLOBALE VARIABLEN */
 
-extern CGA_Stream kout;
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
-         
-void Application::action ()
- {
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
- 
- }
+extern CGA_Stream cga_stream;
+
+/* Hier muesst ihr selbst Code vervollstaendigen */
+
+void Application::action() {
+    Keyboard keyboard;
+    keyboard.plugin();
+    CPU cpu;
+    cpu.enable_int();
+    while (true) {
+        int oldX = 0;
+        int oldY = 0;
+        cga_stream.getpos(oldX, oldY);
+        cga_stream.setpos(0, 0);
+        cga_stream << "Testausgabe";
+        //cga_stream.setpos(oldX, oldY);
+        cpu.idle();
+    }
+}

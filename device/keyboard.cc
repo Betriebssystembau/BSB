@@ -27,7 +27,7 @@ void Keyboard::trigger() {
     Key key;
     key = key_hit();
     if (key.valid()) {
-        cga_stream << (char)key;
+        cga_stream << (unsigned char)key;
     }
     cga_stream.flush();
 }

@@ -11,16 +11,20 @@
 #ifndef __application_include__
 #define __application_include__
 
-class Application 
- 
- {
+#include "device/keyboard.h"
+#include "machine/cpu.h"
+
+class Application {
 private:
-    Application (const Application &copy); // Verhindere Kopieren
+    Application(const Application &copy); // Verhindere Kopieren
+    Keyboard keyboard;
 
 public:
-/* Hier muesst ihr selbst Code vervollstaendigen */                  
-          
-    void action ();
- };
+/* Hier muesst ihr selbst Code vervollstaendigen */
+    Application() {
+    }
+
+    void action();
+};
 
 #endif
