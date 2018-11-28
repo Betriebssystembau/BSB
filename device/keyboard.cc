@@ -21,13 +21,13 @@ void Keyboard::plugin() {
     plugbox.assign(33, *this);
     pic.allow(PIC::keyboard);
 }
- 
+
 void Keyboard::trigger() {
     cga_stream.flush();
     Key key;
     key = key_hit();
     if (key.valid()) {
-        cga_stream << (unsigned char)key;
+        cga_stream << (unsigned char) key;
     }
     cga_stream.flush();
 }
