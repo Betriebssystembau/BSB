@@ -259,6 +259,9 @@ Key Keyboard_Controller::key_hit() {
 
     code = data_port.inb();
     if (this->key_decoded() && (status & auxb) == 0){
+        if (gather.alt() && gather.ctrl() && (gather.scancode() == Key::scan::del)) {
+            reboot();
+        }
         return gather;
     }
     return invalid;
@@ -297,6 +300,10 @@ void Keyboard_Controller::set_repeat_rate(int speed, int delay) {
     int status;
     int data;
     data = 0;
+    bool reset = !pic.is_masked(PIC::keyboard);
+    if (reset) {
+        pic.forbid(PIC::keyboard);
+    }
     if (delay >= 0 && delay <= 3 && speed >= 0 && speed <= 31) {
         int value = speed | (delay << 5);
 
@@ -323,15 +330,19 @@ void Keyboard_Controller::set_repeat_rate(int speed, int delay) {
             }
         } while (data != kbd_reply::ack);
     }
-    //TODO: dieses Allow disabled das Interrupt
-    pic.allow(PIC::keyboard);
+    if (reset) {
+        pic.allow(PIC::keyboard);
+    }
 }
 
 // SET_LED: setzt oder loescht die angegebene Leuchtdiode
 
 void Keyboard_Controller::set_led(char led, bool on) {
     PIC pic;
-    //pic.forbid(PIC::keyboard);
+    bool reset = !pic.is_masked(PIC::keyboard);
+    if (reset) {
+        pic.forbid(PIC::keyboard);
+    }
     if(on){
         this->leds = this->leds | led;
     } else {
@@ -362,6 +373,7 @@ void Keyboard_Controller::set_led(char led, bool on) {
             data = data_port.inb();
         }
     } while (data != kbd_reply::ack);
-    //TODO: dieses Allow disabled das Interrupt
-    pic.allow(PIC::keyboard);
+    if (reset) {
+        pic.allow(PIC::keyboard);
+    }
 }
