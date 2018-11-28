@@ -15,6 +15,7 @@
 #define __Guard_include__
 
 #include "locker.h"
+#include "gate.h"
 
 /* Hier muesst ihr selbst Code vervollstaendigen */
 
@@ -24,6 +25,20 @@ private:
 public:
     Guard() {}
 /* Hier muesst ihr selbst Code vervollstaendigen */
+
+    /**
+     * Mit dieser Methode wird der kritische Abschnitt verlassen und die angestauten Epiloge werden abgearbeitet.
+     */
+    void leave();
+
+    /**
+     * Diese Methode wird von guardian () aufgerufen, falls der zuvor ausgeführte Prolog durch einen Rückgabewert true
+     * angezeigt hat, dass sein Epilog ausgeführt werden soll. Ob der Epilog sofort behandelt oder zunächst nur in die
+     * Epilogliste eingehängt wird, hängt davon ab, ob der kritische Abschnitt frei oder besetzt ist.
+     * @param item
+     */
+    void relay(Gate *item);
+
 };
 
 #endif

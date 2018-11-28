@@ -15,6 +15,17 @@
 #ifndef __Secure_include__
 #define __Secure_include__
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+/* Die Methoden der Klasse sind so kurz, dass sie am besten inline definiert werden sollten.*/
+class Secure {
+    /**
+     * Im Konstruktor wird der durch das Guard Objekt guard geschützte kritische Abschnitt betreten.
+     */
+    Secure() {}
+
+    /**
+     * Im Destruktor wird der kritische Abschnitt wieder verlassen.
+     */
+    ~Secure() {}
+};
 
 #endif
