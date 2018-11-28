@@ -12,25 +12,27 @@
 
 #include "user/appl.h"
 #include "device/cgastr.h"
+#include "guard/secure.h"
 /* Hier muesst ihr selbst Code vervollstaendigen */
 
 /* GLOBALE VARIABLEN */
 
 extern CGA_Stream cga_stream;
+extern CPU cpu;
 
 /* Hier muesst ihr selbst Code vervollstaendigen */
 
 void Application::action() {
     Keyboard keyboard;
     keyboard.plugin();
-    CPU cpu;
     cpu.enable_int();
     while (true) {
-        cpu.disable_int();
-        cga_stream.setpos(0, 0);
-        cga_stream << "Testausgabe";
-        cga_stream.setpos(0, 0);
-        cga_stream.flush();
-        cpu.enable_int();
+        {
+            Secure secure;
+            cga_stream.setpos(0, 0);
+            cga_stream << "Testausgabe";
+            cga_stream.setpos(0, 0);
+            cga_stream.flush();
+        }
     }
 }

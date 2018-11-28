@@ -15,6 +15,7 @@ Plugbox plugbox;
 CGA_Stream cga_stream;
 Guard guard;
 PIC pic;
+CPU cpu;
 
 int main() {
     Application app;

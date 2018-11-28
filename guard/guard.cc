@@ -17,14 +17,17 @@ void Guard::leave() {
     this->retne();
     Chain *currentChain;
     while ((currentChain = this->queue.dequeue()) != 0) {
-        ((Gate *) currentChain)->epilogue();
+        Gate *currentGate = (Gate *) currentChain;
+        currentGate->queued(false);
+        currentGate->epilogue();
     }
 }
 
 void Guard::relay(Gate *item) {
     if (this->avail()) {
         item->epilogue();
-    } else {
+    } else if (!item->queued()) {
         this->queue.enqueue(item);
+        item->queued(true);
     }
 }
