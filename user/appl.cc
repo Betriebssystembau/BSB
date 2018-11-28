@@ -26,11 +26,12 @@ void Application::action() {
     CPU cpu;
     cpu.enable_int();
     while (true) {
-        cpu.disable_int();
+        //cpu.disable_int();
         cga_stream.setpos(0, 0);
         cga_stream << "Testausgabe";
         cga_stream.setpos(0, 0);
         cga_stream.flush();
-        cpu.enable_int();
+        //cpu.enable_int();
+        //cpu.idle();
     }
 }
