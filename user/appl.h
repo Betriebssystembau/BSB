@@ -14,16 +14,22 @@
 #include "device/keyboard.h"
 #include "machine/cpu.h"
 
-class Application {
+class Application : public Coroutine {
 private:
     Application(const Application &copy); // Verhindere Kopieren
     Keyboard keyboard;
 
 public:
-/* Hier muesst ihr selbst Code vervollstaendigen */
-    Application() {
-    }
 
+    /**
+     * Der Konstruktor gibt dem Anwendungsprozess einen Stack. Dabei muss tos bereits auf das Ende des Stacks zeigen, da Stacks beim PC von den hohen zu den niedrigen Adressen wachsen.
+     * @param tos
+     */
+    Application(void *tos);
+
+    /**
+     * Diese Methode enthält die Aktion der Anwendung.
+     */
     void action();
 };
 

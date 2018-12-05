@@ -18,8 +18,8 @@ PIC pic;
 CPU cpu;
 
 int main() {
-    Application app;
-    app.action();
+    /*Application app;
+    app.action();*/
 
     /*CGA_Stream cga_stream;
     unsigned short i = 5234;

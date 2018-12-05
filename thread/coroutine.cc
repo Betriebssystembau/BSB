@@ -20,7 +20,18 @@
 // muessen als extern "C" deklariert werden, da sie nicht dem Name-Mangeling
 // von C++ entsprechen.
 extern "C"
- {
-/* Hier muesst ihr selbst Code vervollstaendigen */       
- }
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+{
+/* Hier muesst ihr selbst Code vervollstaendigen */
+}
+
+Coroutine::Coroutine(void *tos) {
+
+}
+
+void Coroutine::go() {
+
+}
+
+void Coroutine::resume(Coroutine &next) {
+
+}

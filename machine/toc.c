@@ -14,9 +14,10 @@
 
 #include "machine/toc.h"
 
-// TOC_SETTLE: bereitet den Kontext der Koroutine fuer den ersten
-//             Aufruf vor.
-void toc_settle (struct toc* regs, void* tos, void (*kickoff)(void*), void* object)
- {
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
- }
+/**
+ * TOC_SETTLE: bereitet den Kontext der Koroutine fuer den ersten Aufruf vor.
+ */
+
+void toc_settle(struct toc *regs, void *tos, void (*kickoff)(void *), void *object) {
+
+}

@@ -20,6 +20,7 @@ extern "C" void guardian(unsigned int slot);
 extern Plugbox plugbox;
 extern Guard guard;
 extern CPU cpu;
+extern CGA_Stream cga_stream;
 /* GUARDIAN: Low-Level Interrupt-Behandlung. Die Funktion wird spaeter noch */
 /*           erweitert.                                                     */
 

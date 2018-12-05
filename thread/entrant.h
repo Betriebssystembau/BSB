@@ -11,14 +11,22 @@
 #ifndef __entrant_include__
 #define __entrant_include__
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
-        
-class Entrant 
-/* Hier muesst ihr selbst Code vervollstaendigen */         
- {
+#include "coroutine.h"
+
+/* Hier muesst ihr selbst Code vervollstaendigen */
+
+class Entrant : Chain, Coroutine
+/* Hier muesst ihr selbst Code vervollstaendigen */
+{
 private:
-      Entrant (const Entrant &copy); // Verhindere Kopieren
-/* Hier muesst ihr selbst Code vervollstaendigen */          
- };
+    Entrant(const Entrant &copy); // Verhindere Kopieren
+
+public:
+    /**
+     * Der Entrant Konstruktor gibt nur den Parameter tos an den Coroutinen Konstruktor weiter.
+     * @param tos
+     */
+    Entrant(void *tos);
+};
 
 #endif
