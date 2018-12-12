@@ -13,6 +13,7 @@
 
 #include "device/keyboard.h"
 #include "machine/cpu.h"
+#include "thread/coroutine.h"
 
 class Application : public Coroutine {
 private:

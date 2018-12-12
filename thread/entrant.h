@@ -15,7 +15,7 @@
 
 /* Hier muesst ihr selbst Code vervollstaendigen */
 
-class Entrant : Chain, Coroutine
+class Entrant : public Chain, public Coroutine
 /* Hier muesst ihr selbst Code vervollstaendigen */
 {
 private:

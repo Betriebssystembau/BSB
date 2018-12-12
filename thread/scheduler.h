@@ -13,6 +13,7 @@
 
 #include "dispatch.h"
 #include "object/queue.h"
+#include "thread/entrant.h"
 
 /* Hier muesst ihr selbst Code vervollstaendigen */
 
