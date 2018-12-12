@@ -21,7 +21,7 @@ void Guard::leave() {
     Chain *currentChain;
     cpu.disable_int();
     while ((currentChain = this->queue.dequeue()) != 0) {
-        cga_stream << "             dequeue";
+        cga_stream << "dequeue";
         cga_stream.flush();
         Gate *currentGate = (Gate *) currentChain;
         currentGate->queued(false);
@@ -38,18 +38,18 @@ void Guard::relay(Gate *item) {
         cpu.enable_int();
         {
             Secure epi;
-            cga_stream << "              relay avail -> epilogue";
+            cga_stream << "relay avail -> epilogue";
             cga_stream.flush();
             item->epilogue();
-            cga_stream << "             epilogue finished";
+            cga_stream << "epilogue finished";
             cga_stream.flush();
         }
     } else if (!item->queued()) {
-        cga_stream << "                queued";
+        cga_stream << "queued";
         cga_stream.flush();
         //cpu.disable_int();
         this->queue.enqueue(item);
-        cga_stream << "               enqued";
+        cga_stream << "enqued";
         cga_stream.flush();
         item->queued(true);
         cpu.enable_int();

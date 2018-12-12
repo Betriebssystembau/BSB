@@ -30,7 +30,7 @@ void Application::action() {
         {
             //Secure secure;
             //cga_stream.setpos(0, 0);
-            cga_stream << "Test42";
+            cga_stream << "42";
             //cga_stream.setpos(0, 0);
             cga_stream.flush();
         }

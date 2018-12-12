@@ -24,10 +24,13 @@ void Keyboard::plugin() {
 
 bool Keyboard::prologue() {
     this->currentKey = key_hit();
+    cga_stream << "keyboard prologue";
+    cga_stream.flush();
     return true;
 }
 
 void Keyboard::epilogue() {
+    cga_stream<<"keyboard epilogue";
     if (this->currentKey.valid()) {
         cga_stream << (unsigned char) this->currentKey;
     }
