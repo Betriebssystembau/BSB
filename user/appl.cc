@@ -28,10 +28,10 @@ void Application::action() {
     cpu.enable_int();
     while (true) {
         {
-            Secure secure;
-            cga_stream.setpos(0, 0);
-            cga_stream << "Test4";
-            cga_stream.setpos(0, 0);
+            //Secure secure;
+            //cga_stream.setpos(0, 0);
+            cga_stream << "Test42";
+            //cga_stream.setpos(0, 0);
             cga_stream.flush();
         }
     }
