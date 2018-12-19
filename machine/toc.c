@@ -24,12 +24,9 @@ void toc_settle(struct toc *regs, void *tos, void (*kickoff)(void *), void *obje
     regs->r13 = 0;
     regs->r14 = 0;
     regs->r15 = 0;
-    *(void **) tos - 2 = kickoff;
-    *(void **) tos - 3 = object;
-
-    toss = (void *) 0;
-    regs->rbp = toss - 2;
-    regs->rsp = toss - 3 * sizeof(void *);
+    *(void ) tos - 1 * sizeof(void *) = object;
+    *(void ) tos - 2 * sizeof(void *) = 0;
+    *(void ) tos - 3 * sizeof(void *) = kickoff;
 
     for (int i = 0; i < sizeof(regs->fpu); i++) {
         regs->fpu[i] = 0;
