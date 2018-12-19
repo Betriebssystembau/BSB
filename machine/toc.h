@@ -39,4 +39,7 @@ struct toc {
 	char fpu[108]; // Optional: 108 Byte extended CPU state (MMX, SSE, ...)
 };
 
+void toc_settle(struct toc *regs, void *tos, void (*kickoff)(void*, void*, void*, void*, void*, void*, void*),
+         void *object);
+
 #endif

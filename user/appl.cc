@@ -9,13 +9,14 @@
 /*****************************************************************************/
 
 /* INCLUDES */
-
 #include "user/appl.h"
+#include "user/counter.h"
 #include "device/cgastr.h"
 #include "guard/secure.h"
 /* Hier muesst ihr selbst Code vervollstaendigen */
 
 /* GLOBALE VARIABLEN */
+
 
 extern CGA_Stream cga_stream;
 extern CPU cpu;
@@ -23,16 +24,12 @@ extern CPU cpu;
 /* Hier muesst ihr selbst Code vervollstaendigen */
 
 void Application::action() {
-    Keyboard keyboard;
-    keyboard.plugin();
-    cpu.enable_int();
-    while (true) {
-        {
-            Secure secure;
-            cga_stream.setpos(0, 0);
-            cga_stream << "Testausgabe";
-            cga_stream.setpos(0, 0);
-            cga_stream.flush();
-        }
-    }
+    cga_stream << "Application action";
+    cga_stream.flush();
+    cpu.halt();
+    //Counter counter((void*) this->stack_start, 'a');
+    //this->resume(counter);
+
+    //Counter counter2((void*) this->stack_start, 'n');
+    
 }

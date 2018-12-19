@@ -19,11 +19,12 @@
 #ifndef __Coroutine_include__
 #define __Coroutine_include__
 
-#include "machine/toc.h"
+
 
 class Coroutine {
 private:
     Coroutine(const Coroutine &copy); // Verhindere Kopieren
+
 
 public:
     /**
@@ -54,6 +55,8 @@ public:
      * kann action erst in einer spezialisierten Klasse (z.B. in Application) definiert werden.
      */
     virtual void action() = 0;
+
+    struct toc *regs {};
 };
 
 #endif

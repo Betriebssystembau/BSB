@@ -17,6 +17,9 @@ Guard guard;
 PIC pic;
 CPU cpu;
 
+static void * stack_end [256];
+static void * stack_start = stack_end + 255;
+
 int main() {
     /*Application app;
     app.action();*/
@@ -41,12 +44,14 @@ int main() {
     }*/
     /*CGA_Screen cga_screen;
     cga_screen.setpos(10, 10);*/
-
-/* Hier muesst ihr selbst Code vervollstaendigen */
-
-/* Hier muesst ihr selbst Code vervollstaendigen */
-
-/* Hier muesst ihr selbst Code vervollstaendigen */
+    cga_stream << "Main Start";
+    cga_stream.flush();
+    Application app(stack_start);
+    cga_stream << "App create";
+    cga_stream.flush();    
+    app.go();
+    cga_stream << "App go";
+    cga_stream.flush();
 
     return 0;
 }
