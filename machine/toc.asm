@@ -44,7 +44,7 @@ toc_go:
 ;                              struct toc* reg_then);
 
 toc_switch:
-    mov [rdi + rbx_offset], rdx
+    mov [rdi + rbx_offset], rbx
     mov [rdi + r12_offset], r12
     mov [rdi + r13_offset], r13
     mov [rdi + r14_offset], r14
