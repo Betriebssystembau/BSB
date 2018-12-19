@@ -44,10 +44,10 @@ int main() {
     }*/
     /*CGA_Screen cga_screen;
     cga_screen.setpos(10, 10);*/
-    cga_stream << "Main Start";
+    cga_stream << "Main Start " << (long) stack_end << endl;
     cga_stream.flush();
     Application app(stack_start);
-    cga_stream << "App create";
+    cga_stream << "App create" << endl;
     cga_stream.flush();    
     app.go();
     cga_stream << "App go";

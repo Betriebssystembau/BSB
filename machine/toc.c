@@ -20,18 +20,20 @@
 
 void toc_settle(struct toc *regs, void *tos, void (*kickoff)(void*, void*, void*, void*, void*, void*, void*),
          void *object) {
+
+    void **sp = &tos;
+
+    *(--sp) = object;
+    *(--sp) = 0;
+    *(--sp) = (void*) kickoff;
+
     regs->rbx = 0;
     regs->r12 = 0;
     regs->r13 = 0;
     regs->r14 = 0;
     regs->r15 = 0;
-    regs->rbp = tos - 2;
-    regs->rsp = tos - 2;
-
-    *((void **) tos) = object;
-    *((void **) tos - 1) = 0;
-    *((void **) tos - 2) = (void*) kickoff;
-    
+    regs->rbp = sp;
+    regs->rsp = sp;    
 
     for (int i = 0; i < sizeof(regs->fpu); i++) {
         regs->fpu[i] = 0;

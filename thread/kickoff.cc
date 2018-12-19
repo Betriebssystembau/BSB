@@ -14,9 +14,11 @@
 
 
 #include "coroutine.h"
+#include "kickoff.h"
 #include "machine/cpu.h"
-
+#include "device/cgastr.h"
 extern CPU cpu;
+extern CGA_Stream cga_stream;
 /**
  * Diese Methode realisiert den Sprung von der C Ebene zur C++ Ebene, indem sie ganz einfach die Methode action() des als Parameter vorgefundenen Koroutinenobjektes object aufruft.
  * @param dummy1
@@ -28,6 +30,8 @@ extern CPU cpu;
  * @param object
  */
 void kickoff(void *dummy1, void *dummy2, void *dummy3, void *dummy4, void *dummy5, void *dummy6, void *object) {
+    cga_stream << "kickoff" << endl;
+    cga_stream.flush();
     ((Coroutine*) object)->action();
     while (true);
 }

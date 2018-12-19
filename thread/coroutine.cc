@@ -17,9 +17,11 @@
 #include "thread/coroutine.h"
 #include "thread/kickoff.h"
 #include "machine/toc.c"
+#include "device/cgastr.h"
 // Funktionen, die auf der C- oder Assembler-Ebene implementiert werden,
 // muessen als extern "C" deklariert werden, da sie nicht dem Name-Mangeling
 // von C++ entsprechen.
+extern CGA_Stream cga_stream;
 extern "C"
 {
     void toc_go (struct toc* regs);
@@ -29,12 +31,20 @@ extern "C"
 };
 
 Coroutine::Coroutine(void *tos) {
+    cga_stream  << (long)tos << endl;
+    cga_stream.flush();
     toc_settle(this->regs, tos, kickoff, (void*) this);
 
 
 }
 
 void Coroutine::go() {
+    cga_stream << *(void **) this->regs->rsp << endl;
+    cga_stream << (void **) this->regs->rsp << endl;
+
+    cga_stream << (void*) kickoff << endl;
+    cga_stream.flush();
+    while(true);
     toc_go(this->regs);
 
 }
