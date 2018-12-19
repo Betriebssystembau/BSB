@@ -24,7 +24,7 @@ void toc_settle(struct toc *regs, void *tos, void (*kickoff)(void *), void *obje
     regs->r13 = 0;
     regs->r14 = 0;
     regs->r15 = 0;
-    *(void ) tos - 1 * sizeof(void *) = object;
+    tos - 1 * sizeof(void *) = object;
     *(void ) tos - 2 * sizeof(void *) = 0;
     *(void ) tos - 3 * sizeof(void *) = kickoff;
 
