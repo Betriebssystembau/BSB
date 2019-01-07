@@ -34,4 +34,5 @@ void kickoff(void *dummy1, void *dummy2, void *dummy3, void *dummy4, void *dummy
     cga_stream << "kickoff" << endl;
 
     ((Coroutine*) object)->action();
+    while (true);
 }
