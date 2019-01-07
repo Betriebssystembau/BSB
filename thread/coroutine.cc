@@ -25,28 +25,34 @@ extern CGA_Stream cga_stream;
 extern "C"
 {
     void toc_go (struct toc* regs);
-    void toc_switch (struct toc* regs_now,
-            struct toc* reg_then);
+    void toc_switch (struct toc* regs_now, struct toc* reg_then);
 
 };
 
 Coroutine::Coroutine(void *tos) {
-    cga_stream  << (long)tos << endl;
-    cga_stream.flush();
+    cga_stream << "Coroutine constructor tos: " << (long) tos << endl;
     toc_settle(this->regs, tos, kickoff, (void*) this);
-
-
+    cga_stream << "Coroutine reg sp: " << (long) regs->rsp << endl;
+    tos = regs->rsp;
+    cga_stream << "Stack content: kickoff, return, this" << endl;
+    void** sp = (void **) regs->rsp;
+    cga_stream << (long) sp[0] << endl;
+    cga_stream << (long) sp[1] << endl;
+    cga_stream << (long) sp[2] << endl;
 }
 
 void Coroutine::go() {
-    cga_stream << *(void **) this->regs->rsp << endl;
-    cga_stream << (void **) this->regs->rsp << endl;
+    cga_stream << "Coroutine go rsp kickoff" << endl;
+    cga_stream << (long) this->regs->rsp << endl;
 
-    cga_stream << (void*) kickoff << endl;
-    cga_stream.flush();
-    while(true);
+    cga_stream << (long) kickoff << endl;
+    //while(true);
     toc_go(this->regs);
 
+}
+
+void* Coroutine::getTos() {
+    return regs->rsp;
 }
 
 void Coroutine::resume(Coroutine &next) {

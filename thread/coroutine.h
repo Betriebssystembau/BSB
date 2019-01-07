@@ -36,6 +36,11 @@ public:
     Coroutine(void *tos);
 
     /**
+     * Gibt aktuellen tos zurück
+     */
+    void* getTos();
+
+    /**
      * Diese Methode dient der ersten Aktivierung der ersten Koroutine im System.
      * Daher müssen hier keine Registerwerte gerettet werden.
      */

@@ -24,8 +24,8 @@ extern CPU cpu;
 /* Hier muesst ihr selbst Code vervollstaendigen */
 
 void Application::action() {
-    cga_stream << "Application action";
-    cga_stream.flush();
+    cga_stream << "Application action" << endl;
+    while(true);
     //Counter counter((void*) this->stack_start, 'a');
     //this->resume(counter);
 

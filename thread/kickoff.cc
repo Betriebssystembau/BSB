@@ -20,7 +20,8 @@
 extern CPU cpu;
 extern CGA_Stream cga_stream;
 /**
- * Diese Methode realisiert den Sprung von der C Ebene zur C++ Ebene, indem sie ganz einfach die Methode action() des als Parameter vorgefundenen Koroutinenobjektes object aufruft.
+ * Diese Methode realisiert den Sprung von der C Ebene zur C++ Ebene,
+ * indem sie ganz einfach die Methode action() des als Parameter vorgefundenen Koroutinenobjektes object aufruft.
  * @param dummy1
  * @param dummy2
  * @param dummy3
@@ -31,7 +32,6 @@ extern CGA_Stream cga_stream;
  */
 void kickoff(void *dummy1, void *dummy2, void *dummy3, void *dummy4, void *dummy5, void *dummy6, void *object) {
     cga_stream << "kickoff" << endl;
-    cga_stream.flush();
+
     ((Coroutine*) object)->action();
-    while (true);
 }
