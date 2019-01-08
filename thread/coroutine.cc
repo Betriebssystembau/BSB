@@ -46,7 +46,6 @@ void Coroutine::go() {
     cga_stream << (long) this->regs->rsp << endl;
 
     cga_stream << (long) kickoff << endl;
-    //while(true);
     toc_go(this->regs);
 
 }
@@ -56,5 +55,7 @@ void* Coroutine::getTos() {
 }
 
 void Coroutine::resume(Coroutine &next) {
+    cga_stream << "Resume called" << endl;
     toc_switch(this->regs, next.regs);
+    cga_stream << "Resume finished" << endl;
 }

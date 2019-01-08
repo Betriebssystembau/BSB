@@ -6,17 +6,11 @@ class Counter : public Coroutine{
     public:
         Counter (void* tos, char start) :Coroutine(tos){
             this->start = start;
-            cga_stream << "Counter constructor, start: " << start;
-            cga_stream.flush();
+            cga_stream << "Counter constructor, start: " << start << endl;
         }
 
         void action(){
-            cga_stream << "Counter action";
-            cga_stream.flush();
-            for (int i = 0; i < this->count; i++) {
-                cga_stream << (this->start + i);
-                cga_stream.flush();
-            }
+            cga_stream << "Counter action, would be counting now" << endl;
         }
     private:
         char start;

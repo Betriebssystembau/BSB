@@ -31,7 +31,7 @@ extern CGA_Stream cga_stream;
  * @param object
  */
 void kickoff(void *dummy1, void *dummy2, void *dummy3, void *dummy4, void *dummy5, void *dummy6, void *object) {
-    cga_stream << "kickoff" << endl;
+    cga_stream << "kickoff called" << endl;
 
     ((Coroutine*) object)->action();
     while (true);

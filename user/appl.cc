@@ -20,15 +20,12 @@
 
 extern CGA_Stream cga_stream;
 extern CPU cpu;
+extern void* tos;
 
 /* Hier muesst ihr selbst Code vervollstaendigen */
 
 void Application::action() {
     cga_stream << "Application action" << endl;
-    while(true);
-    //Counter counter((void*) this->stack_start, 'a');
-    //this->resume(counter);
-
-    //Counter counter2((void*) this->stack_start, 'n');
-    
+    Counter counter((void*) this->stack_start, 'a');
+    this->resume(counter);
 }

@@ -29,8 +29,5 @@ int main() {
     cga_stream << "New tos" << (long) tos << endl;
     tos = app.getTos();
     app.go();
-    cga_stream << "App go";
-
-
-    return 0;
+    cga_stream << "App go terminated" << endl;
 }

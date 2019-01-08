@@ -24,7 +24,7 @@ void toc_settle(struct toc *regs, void *tos, void (*kickoff)(void*, void*, void*
     void **sp = (void**) tos;
     sp--;
     *(sp) = object;
-    *(--sp) = sp;
+    *(--sp) = 0;
     *(--sp) = (void*) kickoff;
 
     regs->rbx = 0;
