@@ -38,7 +38,7 @@ Coroutine::Coroutine(void *tos) {
     cga_stream << "Stack content: kickoff, return, this" << endl;
     void **sp = (void **) regs->rsp;
     cga_stream << "sp[0]: kickoff " << (long) sp[0] << endl;
-    cga_stream << "sp[1]: return " << (long) sp[1] << endl;
+    //cga_stream << "sp[1]: return " << (long) sp[1] << endl;
     cga_stream << "sp[2]: this " << (long) sp[2] << endl;
 }
 
@@ -47,7 +47,7 @@ void Coroutine::go() {
     cga_stream << "Coroutine go rsp: " << (long) this->regs->rsp << endl;
     void **sp = (void **) regs->rsp;
     cga_stream << "sp[0]: kickoff " << (long) sp[0] << endl;
-    cga_stream << "sp[1]: return " << (long) sp[1] << endl;
+    //cga_stream << "sp[1]: return " << (long) sp[1] << endl;
     cga_stream << "sp[2]: this " << (long) sp[2] << endl;
     cga_stream << "Coroutine go kickoff: " << (long) kickoff << endl;
     toc_go(this->regs);
@@ -62,19 +62,19 @@ void Coroutine::resume(Coroutine &next) {
     cga_stream << "Resume called" << endl;
     void **sp = (void **) next.regs->rsp;
     cga_stream << "sp[0]: kickoff " << (long) sp[0] << endl;
-    cga_stream << "sp[1]: return " << (long) sp[1] << endl;
+    //cga_stream << "sp[1]: return " << (long) sp[1] << endl;
     cga_stream << "sp[2]: this " << (long) sp[2] << endl;
     void **sp1 = (void **) this->regs->rsp;
     cga_stream << "before switch:" << endl;
     cga_stream << "sp[0]: kickoff " << (long) sp1[0] << endl;
-    cga_stream << "sp[1]: return " << (long) sp1[1] << endl;
+    //cga_stream << "sp[1]: return " << (long) sp1[1] << endl;
     cga_stream << "sp[2]: this " << (long) sp1[2] << endl;
     cga_stream << "Resume finished" << endl;
     toc_switch(this->regs, next.regs);
-    void **sp2 = (void **) this->regs->rsp;
+    /*void **sp2 = (void **) this->regs->rsp;
     cga_stream << "after switch:" << endl;
     cga_stream << "sp[0]: kickoff " << (long) sp2[0] << endl;
     cga_stream << "sp[1]: return " << (long) sp2[1] << endl;
     cga_stream << "sp[2]: this " << (long) sp2[2] << endl;
-    cga_stream << "Resume finished" << endl;
+    cga_stream << "Resume finished" << endl;*/
 }
