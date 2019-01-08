@@ -11,7 +11,18 @@
 /* naechstes laufen soll.                                                    */
 /*****************************************************************************/
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
- 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
- 
+#include "user/loop.h"
+#include "device/cgastr.h"
+
+extern CGA_Stream cga_stream;
+
+
+
+void Loop::action() {
+    int sum = 0;
+    for (int i = start; i <= end; i++) {
+        sum += i;
+    }
+    cga_stream << "Sum from " << start << " to " << end << " is " << sum << endl;
+}
+

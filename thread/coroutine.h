@@ -54,6 +54,8 @@ public:
      * kann action erst in einer spezialisierten Klasse (z.B. in Application) definiert werden.
      */
     virtual void action() = 0;
+
+    struct toc* regs;
 };
 
 #endif

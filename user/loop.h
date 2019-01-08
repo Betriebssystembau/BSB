@@ -13,6 +13,21 @@
 #ifndef __loop_include__
 #define __loop_include__
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
- 
+#include "thread/coroutine.h"
+#include "device/cgastr.h"
+extern CGA_Stream cga_stream;
+class Loop : public Coroutine {
+
+    private:
+        Loop(const Loop& loop);
+
+        int start = 0;
+        int end = 0;
+    public:
+        Loop(void* tos, int start, int end) : Coroutine(tos){
+            cga_stream << "Loop constructor: " << start << "-" << end << endl;
+        }
+
+        void action();
+};
 #endif

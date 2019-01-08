@@ -13,25 +13,35 @@
 /* jedes Koroutinenobjekt eine Struktur toc, in dem die Werte der nicht-     */
 /* fluechtigen Register gesichert werden koennen.                            */
 /*****************************************************************************/
+#include "device/cgastr.h"
+
+#include "machine/toc.c"
 
 #include "thread/coroutine.h"
+#include "thread/kickoff.h"
 
 // Funktionen, die auf der C- oder Assembler-Ebene implementiert werden,
 // muessen als extern "C" deklariert werden, da sie nicht dem Name-Mangeling
 // von C++ entsprechen.
+extern CGA_Stream cga_stream;
 extern "C"
 {
-/* Hier muesst ihr selbst Code vervollstaendigen */
-}
+    void toc_go(struct toc *regs);
+    void toc_switch(struct toc *regs_now, struct toc *reg_then);
+};
 
 Coroutine::Coroutine(void *tos) {
-
+    cga_stream << "Creating a coroutine" << endl;
+    toc_settle(this->regs, tos, kickoff, this);
 }
 
 void Coroutine::go() {
-
+    toc_go(this->regs);
 }
 
 void Coroutine::resume(Coroutine &next) {
-
+    cga_stream << "Resume" << endl;
+    cga_stream << "Switching stack from - to " << (long) this->regs->rsp;
+    cga_stream << " - " << (long) next.regs->rsp << endl;
+    //toc_switch(this->regs, next.regs);
 }
