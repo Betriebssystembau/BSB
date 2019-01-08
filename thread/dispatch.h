@@ -22,6 +22,8 @@ class Dispatcher {
 private:
     Dispatcher(const Dispatcher &copy); // Verhindere Kopieren
 
+    Coroutine* life;
+
 public:
 
     /**
