@@ -27,6 +27,7 @@ private:
     Entrant *currentEntrant;
 
 public:
+    Scheduler() {};
     /**
     * Mit dieser Methode wird der Prozess that beim Scheduler angemeldet. Er wird an das Ende der Ready-Liste angefügt.
     */
