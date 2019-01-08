@@ -232,7 +232,7 @@ O_Stream &O_Stream::operator<<(void *pointer) {
     char ascii_start = '0';
     char ascii_alpha_start = 'a';
     *this << "0x";
-    int number = *(int *) pointer;
+    unsigned int number = *(unsigned int *) pointer;
     if (number == 0) {
         this->put(ascii_start);
         return *this;

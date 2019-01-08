@@ -18,15 +18,15 @@ PIC pic;
 CPU cpu;
 const int stack_size = 1024;
 
-void* stack_end [stack_size];
-void* tos = stack_end + stack_size - 1;
+void *stack_end[stack_size];
+void *tos = stack_end + stack_size - 1;
 
 
 int main() {
     cga_stream << "Main Start tos " << (long) tos << endl;
     Application app(tos);
     cga_stream << "App created" << endl;
-    cga_stream << "New tos" << (long) tos << endl;
+    cga_stream << "New tos " << (long) tos << endl;
     tos = app.getTos();
     app.go();
     cga_stream << "App go terminated" << endl;
