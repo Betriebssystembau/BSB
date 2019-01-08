@@ -18,35 +18,11 @@ PIC pic;
 CPU cpu;
 
 int main() {
-    /*Application app;
-    app.action();*/
-
-    /*CGA_Stream cga_stream;
-    unsigned short i = 5234;
-    int speed = 31;
-     int delay = 1;
-     int test = speed | (delay << 5);
-    long l = -54356;
-    cga_stream << 'h' << 'a' << "test" << hex << i << 'a' << endl << oct << l << " test2";
-    cga_stream << "Repeat test: " << dec << test;
-    cga_stream.flush();
-    Keyboard_Controller keyboard;
-    Key key;
-    while(true) {
-        key = keyboard.key_hit();
-        if (key.valid()) {
-            cga_stream << (char)key;
-        }
-        cga_stream.flush();
-    }*/
-    /*CGA_Screen cga_screen;
-    cga_screen.setpos(10, 10);*/
-
-/* Hier muesst ihr selbst Code vervollstaendigen */
-
-/* Hier muesst ihr selbst Code vervollstaendigen */
-
-/* Hier muesst ihr selbst Code vervollstaendigen */
-
+    cga_stream << "Main started" << endl;
+    void* app_stack[64];
+    void* app_tos = &app_stack[63];
+    Application app(app_tos);
+    app.go();
+    cga_stream << "End of main reached!" << endl;
     return 0;
 }
