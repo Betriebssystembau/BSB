@@ -55,7 +55,7 @@ public:
      */
     virtual void action() = 0;
 
-    struct toc* regs;
+    struct toc regs = {};
 };
 
 #endif

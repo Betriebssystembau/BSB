@@ -23,10 +23,6 @@ extern CPU cpu;
 
 void Application::action() {
     cga_stream << "App action called!" << endl;
-    void* loop_stack[64];
-    void* loop_tos = &loop_stack[63];
-    cga_stream << "Creating Loop app" << endl;
-    Loop loop(loop_tos, 0, 9);
-    this->resume(loop);
+    resume(*(loop));
     while(true);
 }
