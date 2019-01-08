@@ -23,7 +23,8 @@ void Scheduler::schedule() {
 void Scheduler::exit() {
     this->currentEntrant = (Entrant * )
     this->queue.dequeue();
-    this->currentEntrant->go();
+    Coroutine &cur = *this->currentEntrant;
+    this->dispatch(cur);
 }
 
 void Scheduler::kill(Entrant &that) {
@@ -34,5 +35,5 @@ void Scheduler::resume() {
     this->queue.enqueue((Chain * ) & this->currentEntrant);
     this->currentEntrant = (Entrant * )
     this->queue.dequeue();
-    this->currentEntrant->go();
+    this->dispatch(*this->currentEntrant);
 }

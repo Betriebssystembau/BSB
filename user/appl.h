@@ -23,16 +23,14 @@ class Application : public Coroutine {
 private:
     Application(const Application &copy); // Verhindere Kopieren
     Keyboard keyboard;
-    Loop* loop;
 public:
 
     /**
      * Der Konstruktor gibt dem Anwendungsprozess einen Stack. Dabei muss tos bereits auf das Ende des Stacks zeigen, da Stacks beim PC von den hohen zu den niedrigen Adressen wachsen.
      * @param tos
      */
-    Application(void *tos, Loop* loop) : Coroutine(tos) {
+    Application(void *tos) : Coroutine(tos) {
         cga_stream << "App constructor called" << endl;
-        this->loop = loop;
     }
 
     /**

@@ -14,15 +14,17 @@
 #include "user/loop.h"
 #include "device/cgastr.h"
 #include "guard/secure.h"
-/* Hier muesst ihr selbst Code vervollstaendigen */
+#include "thread/dispatch.h"
 
 /* GLOBALE VARIABLEN */
 
 extern CGA_Stream cga_stream;
 extern CPU cpu;
+extern Dispatcher dispatcher;
 
 void Application::action() {
-    cga_stream << "App action called!" << endl;
-    resume(*(loop));
-    while(true);
+    void* loop_stack[64];
+    void* loop_tos = &loop_stack[63];
+    Loop loop_app(loop_tos, 0, 9);
+    dispatcher.dispatch(loop_app);
 }

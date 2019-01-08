@@ -12,10 +12,16 @@
 /* Ruecksprungadresse interpretiert werden und der Rechner abstuerzen.       */
 /*****************************************************************************/
 
-#include "thread/kickoff.h"
-#include "thread/coroutine.h"
+
+#include "coroutine.h"
+#include "kickoff.h"
+#include "machine/cpu.h"
+#include "device/cgastr.h"
+extern CPU cpu;
+extern CGA_Stream cga_stream;
 /**
- * Diese Methode realisiert den Sprung von der C Ebene zur C++ Ebene, indem sie ganz einfach die Methode action() des als Parameter vorgefundenen Koroutinenobjektes object aufruft.
+ * Diese Methode realisiert den Sprung von der C Ebene zur C++ Ebene,
+ * indem sie ganz einfach die Methode action() des als Parameter vorgefundenen Koroutinenobjektes object aufruft.
  * @param dummy1
  * @param dummy2
  * @param dummy3
@@ -24,7 +30,9 @@
  * @param dummy6
  * @param object
  */
-void kickoff(void *dummy1, void *dummy2, void *dummy3, void *dummy4, void *dummy5, void *dummy6, void* object) {
+void kickoff(void *dummy1, void *dummy2, void *dummy3, void *dummy4, void *dummy5, void *dummy6, void *object) {
+    cga_stream << "kickoff called" << endl;
+
     ((Coroutine*) object)->action();
     while (true);
 }
