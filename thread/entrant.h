@@ -11,10 +11,10 @@
 #ifndef __entrant_include__
 #define __entrant_include__
 
-#include "coroutine.h"
+#include "thread/coroutine.h"
+#include "object/chain.h"
 
-class Entrant : public Chain, public Coroutine
-{
+class Entrant: public Chain, public Coroutine {
 private:
     Entrant(const Entrant &copy); // Verhindere Kopieren
 
