@@ -26,6 +26,8 @@ class Loop : public Coroutine {
     public:
         Loop(void* tos, int start, int end) : Coroutine(tos){
             cga_stream << "Loop constructor: " << start << "-" << end << endl;
+            this->start = start;
+            this->end = end;
         }
 
         void action();

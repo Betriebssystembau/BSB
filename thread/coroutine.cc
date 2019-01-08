@@ -32,16 +32,17 @@ extern "C"
 
 Coroutine::Coroutine(void *tos) {
     cga_stream << "Creating a coroutine" << endl;
-    toc_settle(this->regs, tos, kickoff, this);
+    toc_settle(&regs, tos, kickoff, this);
+    cga_stream << "toc settled" << endl;
 }
 
 void Coroutine::go() {
-    toc_go(this->regs);
+    toc_go(&regs);
 }
 
 void Coroutine::resume(Coroutine &next) {
     cga_stream << "Resume" << endl;
-    cga_stream << "Switching stack from - to " << (long) this->regs->rsp;
-    cga_stream << " - " << (long) next.regs->rsp << endl;
-    //toc_switch(this->regs, next.regs);
+    cga_stream << "Switching stack from - to: " << (long) &regs.rsp;
+    cga_stream << " - " << (long) next.regs.rsp << endl;
+    toc_switch(&regs, &(next.regs));
 }
