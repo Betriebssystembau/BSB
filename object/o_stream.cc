@@ -150,13 +150,21 @@ O_Stream &O_Stream::operator<<(int number) {
         div *= this->base;
     }
 
+
     while (number > 0) {
         if (number / div > 10) {
             this->put((number / div) + ascii_alpha_start);
         } else {
             this->put((number / div) + ascii_start);
         }
+
+        bool gt = number >= div && div != 1;
         number %= div;
+
+        if (number == 0 && gt == true) {
+            this->put('0');
+        }
+
         div /= this->base;
     }
     return *this;
