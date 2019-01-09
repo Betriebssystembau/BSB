@@ -18,14 +18,12 @@ void Watch::plugin() {
 }
 
 void Watch::windup() {
-    pic.allow(pic.timer);
+    pic.allow(PIC::timer);
+    cga_stream << "windup" << endl;
 }
 
 bool Watch::prologue() {
-    cga_stream << "prologue" << endl;
-    //while (true);
 }
 
 void Watch::epilogue() {
-    cga_stream << "epilogue" << endl;
 }

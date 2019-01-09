@@ -5,6 +5,7 @@
 #include "machine/cgascr.h"
 #include "device/cgastr.h"
 #include "machine/keyctrl.h"
+#include "device/keyboard.h"
 #include "machine/cpu.h"
 #include "machine/pic.h"
 #include "machine/plugbox.h"
@@ -14,6 +15,7 @@
 #include "thread/scheduler.h"
 #include "user/entrantloop.h"
 #include "device/watch.h"
+#include "syscall/guarded_scheduler.h"
 
 Plugbox plugbox;
 CGA_Stream cga_stream;
@@ -21,15 +23,26 @@ Guard guard;
 PIC pic;
 CPU cpu;
 Dispatcher dispatcher;
-Scheduler scheduler;
+Guarded_Scheduler scheduler;
 
 int main() {
     const int stack_size = 2048;
-    cga_stream << "Main started" << endl;
 
-    Watch watch(1000);
+    static void *stack1[stack_size];
+    void *tos1 = &stack1[stack_size - 1];
+    EntrantLoop entrantLoop1(tos1, 0, 50, 25, "C1: 0-25-50");
+
+    static void *stack2[stack_size];
+    void *tos2 = &stack2[stack_size - 1];
+    EntrantLoop entrantLoop2(tos2, 25, 150, 50, "C1: 25-50-150");
+    scheduler.ready(entrantLoop2);
+
+    cpu.enable_int();
+    Watch watch(1000000);
     watch.plugin();
+    watch.windup();
     cga_stream << "Main: End of main reached!" << endl;
+    scheduler.schedule();
     while (true);
 
     return 0;

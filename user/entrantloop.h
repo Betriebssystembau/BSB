@@ -16,29 +16,33 @@
 #include "thread/coroutine.h"
 #include "device/cgastr.h"
 #include "thread/entrant.h"
+#include "syscall/thread.h"
+
 extern CGA_Stream cga_stream;
-class EntrantLoop : public Entrant {
 
-    private:
-        EntrantLoop(const EntrantLoop& loop);
+class EntrantLoop : public Thread {
 
-        int start = 0;
-        int end = 0;
-        int stop = 0;
-        char* name = "";
-        EntrantLoop* threadToKill = 0;
-    public:
-        EntrantLoop(void* tos, int start, int end, int stop, char* name) : Entrant(tos){
-            this->start = start;
-            this->end = end;
-            this->stop = stop;
-            this->name = name;
-        };
+private:
+    EntrantLoop(const EntrantLoop &loop);
 
-        void setThreadToKill(EntrantLoop* toKill) {
-            this->threadToKill = toKill;
-        };
+    int start = 0;
+    int end = 0;
+    int stop = 0;
+    char *name = "";
+    EntrantLoop *threadToKill = 0;
+public:
+    EntrantLoop(void *tos, int start, int end, int stop, char *name) : Thread(tos) {
+        this->start = start;
+        this->end = end;
+        this->stop = stop;
+        this->name = name;
+    };
 
-        void action();
+    void setThreadToKill(EntrantLoop *toKill) {
+        this->threadToKill = toKill;
+    };
+
+    void action();
 };
+
 #endif

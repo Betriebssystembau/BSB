@@ -26,7 +26,6 @@ private:
 
 public:
     PIT(int us) {
-        cga_stream << "PIT Constr." << endl;
         interval(us);
     }
 

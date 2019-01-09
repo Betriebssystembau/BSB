@@ -22,6 +22,7 @@ class Thread : public Entrant
 private:
     Thread(const Thread &copy); // Verhindere Kopieren
 
+public:
     /**
      * Der Konstruktor leitet den Parameter tos an den Konstruktor der Basisklasse Entrant weiter.
      * @param tos
