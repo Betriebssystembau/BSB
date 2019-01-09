@@ -12,10 +12,12 @@
 #define __guarded_scheduler_include__
 
 #include "thread/scheduler.h"
+#include "thread.h"
+#include "guard/secure.h"
 
 /* Hier muesst ihr selbst Code vervollstaendigen */
 
-class Guarded_Scheduler : Scheduler
+class Guarded_Scheduler : public Scheduler
 /* Hier muesst ihr selbst Code vervollstaendigen */
 {
 private:

@@ -15,7 +15,7 @@
 
 /* Hier muesst ihr selbst Code vervollstaendigen */
 
-class Thread : Entrant
+class Thread : public Entrant
 /* Hier muesst ihr selbst Code vervollstaendigen */
 
 {
@@ -26,7 +26,7 @@ private:
      * Der Konstruktor leitet den Parameter tos an den Konstruktor der Basisklasse Entrant weiter.
      * @param tos
      */
-    Thread(void *tos) {}
+    Thread(void *tos) : Entrant(tos) {}
 };
 
 #endif
