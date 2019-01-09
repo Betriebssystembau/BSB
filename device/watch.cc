@@ -22,8 +22,10 @@ void Watch::windup() {
 }
 
 bool Watch::prologue() {
-    while (true);
+    cga_stream << "prologue" << endl;
+    //while (true);
 }
 
 void Watch::epilogue() {
+    cga_stream << "epilogue" << endl;
 }
