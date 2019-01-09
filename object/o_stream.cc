@@ -43,6 +43,10 @@ O_Stream &O_Stream::operator<<(unsigned short number) {
         this->put(ascii_start);
         return *this;
     }
+    if (number < 0) {
+        this->put('-');
+        number *= -1;
+    }
     unsigned short div = 1;
     while (div <= number / this->base) {
         div *= this->base;
@@ -75,7 +79,7 @@ O_Stream &O_Stream::operator<<(short number) {
         this->put(ascii_start);
         return *this;
     }
-    if (number < 0 && base == 10) {
+    if (number < 0) {
         this->put('-');
         number *= -1;
     }
@@ -110,6 +114,10 @@ O_Stream &O_Stream::operator<<(unsigned int number) {
         this->put(ascii_start);
         return *this;
     }
+    if (number < 0) {
+        this->put('-');
+        number *= -1;
+    }
     unsigned int div = 1;
     while (div <= number / this->base) {
         div *= this->base;
@@ -141,7 +149,7 @@ O_Stream &O_Stream::operator<<(int number) {
         this->put(ascii_start);
         return *this;
     }
-    if (number < 0 && base == 10) {
+    if (number < 0) {
         this->put('-');
         number *= -1;
     }
@@ -176,6 +184,10 @@ O_Stream &O_Stream::operator<<(unsigned long number) {
         this->put(ascii_start);
         return *this;
     }
+    if (number < 0) {
+        this->put('-');
+        number *= -1;
+    }
     unsigned long div = 1;
     while (div <= number / this->base) {
         div *= this->base;
@@ -207,7 +219,7 @@ O_Stream &O_Stream::operator<<(long number) {
         this->put(ascii_start);
         return *this;
     }
-    if (number < 0 && base == 10) {
+    if (number < 0) {
         this->put('-');
         number *= -1;
     }
@@ -232,10 +244,14 @@ O_Stream &O_Stream::operator<<(void *pointer) {
     char ascii_start = '0';
     char ascii_alpha_start = 'a';
     *this << "0x";
-    unsigned int number = *(unsigned int *) pointer;
+    int number = *(int *) pointer;
     if (number == 0) {
         this->put(ascii_start);
         return *this;
+    }
+    if (number < 0) {
+        this->put('-');
+        number *= -1;
     }
     long long div = 1;
     while (div <= number / this->base) {
@@ -269,7 +285,6 @@ O_Stream &O_Stream::operator<<(O_Stream &(*fkt)(O_Stream &)) {
 
 O_Stream &endl(O_Stream &os) {
     os << '\n';
-    os.flush();
     return os;
 }
 

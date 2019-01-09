@@ -26,7 +26,7 @@ public:
      * Der Entrant Konstruktor gibt nur den Parameter tos an den Coroutinen Konstruktor weiter.
      * @param tos
      */
-    Entrant(void *tos) : Coroutine(tos){};
+    Entrant(void *tos);
 };
 
 #endif

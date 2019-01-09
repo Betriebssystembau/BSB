@@ -16,18 +16,37 @@ CGA_Stream cga_stream;
 Guard guard;
 PIC pic;
 CPU cpu;
-const int stack_size = 1024;
-
-void *stack_end[stack_size];
-void *tos = stack_end + stack_size - 1;
-
 
 int main() {
-    cga_stream << "Main Start tos " << (long) tos << endl;
-    Application app(tos);
-    cga_stream << "App created" << endl;
-    cga_stream << "New tos " << (long) tos << endl;
-    tos = app.getTos();
-    app.go();
-    cga_stream << "App go terminated" << endl;
+    /*Application app;
+    app.action();*/
+
+    /*CGA_Stream cga_stream;
+    unsigned short i = 5234;
+    int speed = 31;
+     int delay = 1;
+     int test = speed | (delay << 5);
+    long l = -54356;
+    cga_stream << 'h' << 'a' << "test" << hex << i << 'a' << endl << oct << l << " test2";
+    cga_stream << "Repeat test: " << dec << test;
+    cga_stream.flush();
+    Keyboard_Controller keyboard;
+    Key key;
+    while(true) {
+        key = keyboard.key_hit();
+        if (key.valid()) {
+            cga_stream << (char)key;
+        }
+        cga_stream.flush();
+    }*/
+    /*CGA_Screen cga_screen;
+    cga_screen.setpos(10, 10);*/
+
+/* Hier muesst ihr selbst Code vervollstaendigen */
+
+/* Hier muesst ihr selbst Code vervollstaendigen */
+
+/* Hier muesst ihr selbst Code vervollstaendigen */
+
+    return 0;
 }
