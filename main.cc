@@ -41,22 +41,23 @@ int main() {
     void* c1_tos = &c1_stack[stack_size - 1];
     EntrantLoop counter1(c1_tos, 0, 50, 25, "C1: 0-25-50");
     scheduler.ready(counter1);
-    cga_stream << "C1scheduled. SP: "<< (long) counter1.regs.rsp << endl;
+    cga_stream << "Main: C1 scheduled. SP: "<< (long) counter1.regs.rsp << endl;
 
     void* c2_stack[stack_size];
     void* c2_tos = &c2_stack[stack_size - 1];
     EntrantLoop counter2(c2_tos, 51, 100, 75, "C2: 51-75-100");
     scheduler.ready(counter2);
-    cga_stream << "C2 scheduled. SP: "<< (long) counter2.regs.rsp << endl;
+    cga_stream << "Main: C2 scheduled. SP: "<< (long) counter2.regs.rsp << endl;
 
     void* c3_stack[stack_size];
     void* c3_tos = &c3_stack[stack_size - 1];
     EntrantLoop counter3(c3_tos, 101, 150, 0, "C3: 101-0-150");
+    counter3.setThreadToKill(&counter2);
     scheduler.ready(counter3);
-    cga_stream << "C3 scheduled. SP: "<< (long) counter3.regs.rsp << endl;
+    cga_stream << "Main: C3 scheduled. SP: "<< (long) counter3.regs.rsp << endl;
 
     scheduler.schedule();
 
-    cga_stream << "End of main reached!" << endl;
+    cga_stream << "Main: End of main reached!" << endl;
     return 0;
 }
