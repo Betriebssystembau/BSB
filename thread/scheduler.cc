@@ -28,7 +28,7 @@ void Scheduler::exit() {
     cga_stream << "Scheduler: Thread " << (long) this->currentEntrant->regs.rsp << " terminated" << endl;
     this->currentEntrant = (Entrant* )
             this->queue.dequeue();
-    cga_stream << "Scheduler: Next thread: " << (long) this->currentEntrant << endl;
+    cga_stream << "Scheduler: Next thread: " << (long) this->currentEntrant->regs.rsp << endl;
     if (currentEntrant == 0) {
         cga_stream << "Scheduler: All threads finished!" << endl;
     } else {
