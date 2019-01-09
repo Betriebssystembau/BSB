@@ -16,6 +16,7 @@
 #include "machine/pit.h"
 #include "machine/plugbox.h"
 #include "machine/pic.h"
+#include "syscall/guarded_scheduler.h"
 
 extern PIC pic;
 extern Plugbox plugbox;

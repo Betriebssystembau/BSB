@@ -12,6 +12,7 @@
 #include "device/cgastr.h"
 
 extern CGA_Stream cga_stream;
+extern Guarded_Scheduler scheduler;
 
 void Watch::plugin() {
     plugbox.assign(plugbox.timer, *this);
@@ -23,7 +24,9 @@ void Watch::windup() {
 }
 
 bool Watch::prologue() {
+    return true;
 }
 
 void Watch::epilogue() {
+    scheduler.resume();
 }
