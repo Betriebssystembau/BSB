@@ -8,4 +8,19 @@
 /* Systemaufrufschnittstelle zum Scheduler.                                  */
 /*****************************************************************************/
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+void ready(Thread &that) {
+
+}
+
+void exit() {
+
+}
+
+
+void kill(Thread &that) {
+
+}
+
+void resume() {
+
+}
