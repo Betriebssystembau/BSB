@@ -35,7 +35,7 @@
     void Dispatcher::dispatch(Coroutine &next) {
         Coroutine* old = this->life;
         this->life = &next;
-        old->resume(next);
+        old->resume(*this->life);
 
     }
 

@@ -9,6 +9,9 @@
 /*****************************************************************************/
 
 #include "scheduler.h"
+#include "device/cgastr.h"
+
+extern CGA_Stream cga_stream;
 
 void Scheduler::ready(Entrant &that) {
     this->queue.enqueue((Chain * ) & that);
@@ -21,10 +24,10 @@ void Scheduler::schedule() {
 }
 
 void Scheduler::exit() {
-    this->currentEntrant = (Entrant * )
-    this->queue.dequeue();
-    Coroutine &cur = *this->currentEntrant;
-    this->dispatch(cur);
+    cga_stream << "Exit" << endl;
+    this->currentEntrant = (Entrant* )
+            this->queue.dequeue();
+    this->dispatch(*this->currentEntrant);
 }
 
 void Scheduler::kill(Entrant &that) {
@@ -32,8 +35,9 @@ void Scheduler::kill(Entrant &that) {
 }
 
 void Scheduler::resume() {
-    this->queue.enqueue((Chain * ) & this->currentEntrant);
+    cga_stream << "Enqueueing" << (long) currentEntrant->regs.rsp << endl;
+    this->queue.enqueue((Chain * ) this->currentEntrant);
     this->currentEntrant = (Entrant * )
-    this->queue.dequeue();
+            this->queue.dequeue();
     this->dispatch(*this->currentEntrant);
 }

@@ -26,11 +26,11 @@ void EntrantLoop::action() {
         if (i == stop) {
             cga_stream << this->name << ": Pausing, let the others do some work" << endl;
             scheduler.resume();
+            cga_stream << this->name << ": Resumed" << endl;
         }
     }
     cga_stream << this->name
             << ": Sum from " << start << " to " << end << " is " << sum << endl;
-    while(true);
-    scheduler.exit();
+    scheduler.resume();
 }
 
