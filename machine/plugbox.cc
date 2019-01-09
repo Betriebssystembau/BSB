@@ -13,7 +13,10 @@
 /* Hier muesst ihr selbst Code vervollstaendigen */
 #include "plugbox.h"
 
+extern CGA_Stream cga_stream;
+
 Plugbox::Plugbox() {
+    //cga_stream << "plugbox constructor" << endl;
     for (int i = 0; i < 64; i++) {
         this->gates[i] = &this->panic;
     }

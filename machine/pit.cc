@@ -13,6 +13,9 @@
 #include "pit.h"
 
 void PIT::interval(int us) {
+    IO_Port counter0Low(0x40);
+    IO_Port controlLow(0x43);
+
     if (us < 0) {
         return;
     }
@@ -21,8 +24,8 @@ void PIT::interval(int us) {
     }
     this->us = us;
 
-    char ctrlByte = 00110100;
-    float ticksFloat = (us /tick_length_us) + 0.5;
+    char ctrlByte = 0b00110100;
+    int ticksFloat = ((us * 1000 + 500) / tick_length_us);
     int ticks = ticksFloat;
 
     int lsb = ticks % 256;

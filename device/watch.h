@@ -19,6 +19,7 @@
 
 extern PIC pic;
 extern Plugbox plugbox;
+
 class Watch : public Gate, public PIT {
 private:
     Watch(const Watch &copy); // Verhindere Kopieren
@@ -27,7 +28,6 @@ public:
      * Initialisiert die Uhr.
     */
     Watch(int us) : PIT(us) {
-
     }
 
     void plugin();

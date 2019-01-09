@@ -15,9 +15,9 @@
 
 #include "guard/gate.h"
 #include "device/panic.h"
+#include "device/cgastr.h"
 
-class Plugbox
- {
+class Plugbox {
 private:
     Panic panic;
 
@@ -27,9 +27,11 @@ private:
       * @param copy
       */
 
- public:
-     Plugbox ();
+public:
+    Plugbox();
+
     Plugbox(const Plugbox &copy);
+
     /**
      * Interrupt-Nummer des Timer Bausteins
      */
@@ -44,15 +46,15 @@ private:
      * @param slot
      * @param gate
      */
-    void assign (unsigned int slot, Gate& gate);
+    void assign(unsigned int slot, Gate &gate);
 
     /**
      * Hiermit kann das Gate-Objekt abgefragt werden, das zu der Unterbrechung Nummer slot in die Plugbox eingetragen wurde.
      * @param slot
      * @return
      */
-    Gate& report (unsigned int slot);
+    Gate &report(unsigned int slot);
 
- };
+};
 
 #endif

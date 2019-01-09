@@ -10,7 +10,9 @@
 #include "watch.h"
 
 #include "device/cgastr.h"
+
 extern CGA_Stream cga_stream;
+
 void Watch::plugin() {
     plugbox.assign(plugbox.timer, *this);
 }
@@ -20,10 +22,8 @@ void Watch::windup() {
 }
 
 bool Watch::prologue() {
-    cga_stream << "Watch!" << endl;
-    while(true);
+    while (true);
 }
 
 void Watch::epilogue() {
-
 }
