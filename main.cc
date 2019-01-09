@@ -23,7 +23,7 @@ Dispatcher dispatcher;
 Scheduler scheduler;
 
 int main() {
-    int stack_size = 2048;
+    const int stack_size = 2048;
     cga_stream << "Main started" << endl;
 
     //toc switch test
@@ -37,19 +37,19 @@ int main() {
 
     //Scheduler test
 
-    void* c1_stack[stack_size];
+    static void* c1_stack[stack_size];
     void* c1_tos = &c1_stack[stack_size - 1];
     EntrantLoop counter1(c1_tos, 0, 50, 25, "C1: 0-25-50");
     scheduler.ready(counter1);
     cga_stream << "Main: C1 scheduled. SP: "<< (long) counter1.regs.rsp << endl;
 
-    void* c2_stack[stack_size];
+    static void* c2_stack[stack_size];
     void* c2_tos = &c2_stack[stack_size - 1];
     EntrantLoop counter2(c2_tos, 51, 100, 75, "C2: 51-75-100");
     scheduler.ready(counter2);
     cga_stream << "Main: C2 scheduled. SP: "<< (long) counter2.regs.rsp << endl;
 
-    void* c3_stack[stack_size];
+    static void* c3_stack[stack_size];
     void* c3_tos = &c3_stack[stack_size - 1];
     EntrantLoop counter3(c3_tos, 101, 150, 0, "C3: 101-0-150");
     counter3.setThreadToKill(&counter2);
