@@ -13,6 +13,7 @@
 #include "thread/dispatch.h"
 #include "thread/scheduler.h"
 #include "user/entrantloop.h"
+#include "device/watch.h"
 
 Plugbox plugbox;
 CGA_Stream cga_stream;
@@ -36,7 +37,7 @@ int main() {
     */
 
     //Scheduler test
-
+    /*
     static void* c1_stack[stack_size];
     void* c1_tos = &c1_stack[stack_size - 1];
     EntrantLoop counter1(c1_tos, 0, 50, 25, "C1: 0-25-50");
@@ -57,7 +58,10 @@ int main() {
     cga_stream << "Main: C3 scheduled. SP: "<< (long) counter3.regs.rsp << endl;
 
     scheduler.schedule();
-
+    */
+   Watch watch(1000);
+   watch.plugin();
     cga_stream << "Main: End of main reached!" << endl;
+    while(true);
     return 0;
 }

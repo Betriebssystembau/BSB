@@ -17,6 +17,8 @@
 #include "machine/plugbox.h"
 #include "machine/pic.h"
 
+extern PIC pic;
+extern Plugbox plugbox;
 class Watch : public Gate, public PIT {
 private:
     Watch(const Watch &copy); // Verhindere Kopieren
@@ -27,6 +29,8 @@ public:
     Watch(int us) : PIT(us) {
 
     }
+
+    void plugin();
 
     /**
     * "zieht die Uhr auf". Danach laeuft sie los und loest in

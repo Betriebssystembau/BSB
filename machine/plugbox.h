@@ -20,14 +20,6 @@ class Plugbox
  {
 private:
     Panic panic;
-    /**
-     * Interrupt-Nummer des Timer Bausteins
-     */
-    const int timer = 32;
-    /**
-     * Interrupt-Nummer der Tastatur
-     */
-    const int keyboard = 33;
 
     Gate *gates[64];
     /**
@@ -38,6 +30,14 @@ private:
  public:
      Plugbox ();
     Plugbox(const Plugbox &copy);
+    /**
+     * Interrupt-Nummer des Timer Bausteins
+     */
+    const int timer = 32;
+    /**
+     * Interrupt-Nummer der Tastatur
+     */
+    const int keyboard = 33;
 
     /**
      * Mit dieser Methode kann das Objekt einer spezialisierten Unterbrechungsbehandlung gate zu der Unterbrechung Nummer slot in die Plugbox eingetragen werden.
