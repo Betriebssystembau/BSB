@@ -15,19 +15,25 @@ extern CGA_Stream cga_stream;
 
 void Scheduler::ready(Entrant &that) {
     this->queue.enqueue((Chain * ) & that);
+
 }
 
 void Scheduler::schedule() {
-    Chain *chain = this->queue.dequeue();
-    Entrant *entrant = (Entrant *) chain;
-    go(*entrant);
+    this->currentEntrant = (Entrant*) this->queue.dequeue();
+
+    go(*this->currentEntrant);
 }
 
 void Scheduler::exit() {
-    cga_stream << "Exit" << endl;
+    cga_stream << "Scheduler: Thread " << (long) this->currentEntrant->regs.rsp << " terminated" << endl;
     this->currentEntrant = (Entrant* )
             this->queue.dequeue();
-    this->dispatch(*this->currentEntrant);
+    cga_stream << "Scheduler: Next thread: " << (long) this->currentEntrant << endl;
+    if (currentEntrant == 0) {
+        cga_stream << "Scheduler: All threads finished!" << endl;
+    } else {
+        this->dispatch(*this->currentEntrant);  
+    }
 }
 
 void Scheduler::kill(Entrant &that) {
@@ -35,8 +41,8 @@ void Scheduler::kill(Entrant &that) {
 }
 
 void Scheduler::resume() {
-    cga_stream << "Enqueueing" << (long) currentEntrant->regs.rsp << endl;
-    this->queue.enqueue((Chain * ) this->currentEntrant);
+    this->queue.enqueue(this->currentEntrant);
+
     this->currentEntrant = (Entrant * )
             this->queue.dequeue();
     this->dispatch(*this->currentEntrant);
