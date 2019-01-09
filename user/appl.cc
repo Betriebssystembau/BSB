@@ -9,18 +9,18 @@
 /*****************************************************************************/
 
 /* INCLUDES */
-
 #include "user/appl.h"
 #include "user/loop.h"
 #include "device/cgastr.h"
+#include "machine/toc.h"
 #include "guard/secure.h"
 #include "thread/dispatch.h"
 
 /* GLOBALE VARIABLEN */
 
+extern Dispatcher dispatcher;
 extern CGA_Stream cga_stream;
 extern CPU cpu;
-extern Dispatcher dispatcher;
 
 void Application::action() {
     void* loop_stack[64];

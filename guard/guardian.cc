@@ -25,6 +25,8 @@ extern CGA_Stream cga_stream;
 /*           erweitert.                                                     */
 
 void guardian(unsigned int slot) {
+    cga_stream << "Int: " << slot << endl;
+    cga_stream.flush();
     cpu.disable_int();
     bool epilogue = plugbox.report(slot).prologue();
     cpu.enable_int();

@@ -37,6 +37,8 @@ public:
      * Diese Methode enthält die Aktion der Anwendung.
      */
     void action();
+
+    void* stack_start;
 };
 
 #endif
