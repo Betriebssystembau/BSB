@@ -11,9 +11,11 @@
 #ifndef __thread_include__
 #define __thread_include__
 
+#include "thread/entrant.h"
+
 /* Hier muesst ihr selbst Code vervollstaendigen */
 
-class Thread
+class Thread : Entrant
 /* Hier muesst ihr selbst Code vervollstaendigen */
 
 {

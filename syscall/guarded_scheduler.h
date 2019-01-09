@@ -11,9 +11,11 @@
 #ifndef __guarded_scheduler_include__
 #define __guarded_scheduler_include__
 
+#include "thread/scheduler.h"
+
 /* Hier muesst ihr selbst Code vervollstaendigen */
 
-class Guarded_Scheduler
+class Guarded_Scheduler : Scheduler
 /* Hier muesst ihr selbst Code vervollstaendigen */
 {
 private:
