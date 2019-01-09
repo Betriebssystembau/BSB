@@ -26,8 +26,8 @@
 extern CGA_Stream cga_stream;
 extern "C"
 {
-    void toc_go(struct toc *regs);
-    void toc_switch(struct toc *regs_now, struct toc *reg_then);
+void toc_go(struct toc *regs);
+void toc_switch(struct toc *regs_now, struct toc *reg_then);
 };
 
 Coroutine::Coroutine(void *tos) {

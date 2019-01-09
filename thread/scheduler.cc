@@ -19,20 +19,21 @@ void Scheduler::ready(Entrant &that) {
 }
 
 void Scheduler::schedule() {
-    this->currentEntrant = (Entrant*) this->queue.dequeue();
+    this->currentEntrant = (Entrant * )
+    this->queue.dequeue();
 
     go(*this->currentEntrant);
 }
 
 void Scheduler::exit() {
     cga_stream << "Scheduler: Thread " << (long) this->currentEntrant->regs.rsp << " terminated" << endl;
-    this->currentEntrant = (Entrant* )
-            this->queue.dequeue();
+    this->currentEntrant = (Entrant * )
+    this->queue.dequeue();
     cga_stream << "Scheduler: Next thread: " << (long) this->currentEntrant->regs.rsp << endl;
     if (currentEntrant == 0) {
         cga_stream << "Scheduler: All threads finished!" << endl;
     } else {
-        this->dispatch(*this->currentEntrant);  
+        this->dispatch(*this->currentEntrant);
     }
 }
 
@@ -44,6 +45,6 @@ void Scheduler::resume() {
     this->queue.enqueue(this->currentEntrant);
 
     this->currentEntrant = (Entrant * )
-            this->queue.dequeue();
+    this->queue.dequeue();
     this->dispatch(*this->currentEntrant);
 }

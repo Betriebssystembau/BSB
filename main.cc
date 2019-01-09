@@ -26,23 +26,28 @@ Dispatcher dispatcher;
 Guarded_Scheduler scheduler;
 
 int main() {
-    const int stack_size = 2048;
+    {
+        Secure secure;
+        const int stack_size = 2048;
 
-    static void *stack1[stack_size];
-    void *tos1 = &stack1[stack_size - 1];
-    EntrantLoop entrantLoop1(tos1, 0, 50, 25, "C1: 0-25-50");
+        static void *stack1[stack_size];
+        void *tos1 = &stack1[stack_size - 1];
+        EntrantLoop entrantLoop1(tos1, 0, 50, 25, "C1: 0-25-50");
+        scheduler.ready(entrantLoop1);
 
-    static void *stack2[stack_size];
-    void *tos2 = &stack2[stack_size - 1];
-    EntrantLoop entrantLoop2(tos2, 25, 150, 50, "C1: 25-50-150");
-    scheduler.ready(entrantLoop2);
+        static void *stack2[stack_size];
+        void *tos2 = &stack2[stack_size - 1];
+        EntrantLoop entrantLoop2(tos2, 25, 150, 50, "C2: 25-50-150");
+        scheduler.ready(entrantLoop2);
 
-    cpu.enable_int();
-    Watch watch(1000000);
-    watch.plugin();
-    watch.windup();
-    cga_stream << "Main: End of main reached!" << endl;
-    scheduler.schedule();
+        Watch watch(100);
+        watch.plugin();
+        watch.windup();
+        cga_stream << "Main: End of main reached!" << endl;
+
+        cpu.enable_int();
+        scheduler.schedule();
+    }
     while (true);
 
     return 0;

@@ -20,7 +20,6 @@ void Watch::plugin() {
 
 void Watch::windup() {
     pic.allow(PIC::timer);
-    cga_stream << "windup" << endl;
 }
 
 bool Watch::prologue() {
@@ -28,5 +27,6 @@ bool Watch::prologue() {
 }
 
 void Watch::epilogue() {
-    scheduler.resume();
+    cga_stream << "epi" << endl;
+    scheduler.Scheduler::resume();
 }
