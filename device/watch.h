@@ -14,25 +14,35 @@
 
 #include "guard/gate.h"
 #include "machine/pit.h"
+#include "machine/plugbox.h"
+#include "machine/pic.h"
 
-class Watch : public Gate, public PIT
- {
+class Watch : public Gate, public PIT {
 private:
-    Watch (const Watch &copy); // Verhindere Kopieren
+    Watch(const Watch &copy); // Verhindere Kopieren
 public:
-    // WATCH: Initialisiert die Uhr.
-    Watch (int us) : PIT (us)
-    {}
+    /**
+     * Initialisiert die Uhr.
+    */
+    Watch(int us) : PIT(us) {
 
-    // WINDUP: "zieht die Uhr auf". Danach laeuft sie los und loest in
-    //         regelmaessigen Abstaenden Unterbrechungen aus.
-    void windup ();
+    }
 
-    // PROLOGUE: Prologue der Uhrenunterbrechung
-    bool prologue ();
+    /**
+    * "zieht die Uhr auf". Danach laeuft sie los und loest in
+    * regelmaessigen Abstaenden Unterbrechungen aus.
+    */
+    void windup();
 
-    // EPILOGUE: Epilogue der Uhrenunterbrechung
-    void epilogue ();
- };
+    /**
+     * Prologue der Uhrenunterbrechung
+     */
+    bool prologue();
+
+    /**
+     * Epilogue der Uhrenunterbrechung
+     */
+    void epilogue();
+};
 
 #endif

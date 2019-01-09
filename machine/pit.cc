@@ -8,4 +8,10 @@
 /* Programmable Interval Timer.                                              */
 /*****************************************************************************/
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+/* Hier muesst ihr selbst Code vervollstaendigen */
+
+#include "pit.h"
+
+void PIT::interval(int us) {
+    this->us = us;
+}

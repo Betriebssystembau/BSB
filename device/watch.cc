@@ -7,9 +7,16 @@
 /*---------------------------------------------------------------------------*/
 /*****************************************************************************/
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
- 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+#include "watch.h"
 
+void Watch::windup() {
+
+}
+
+bool Watch::prologue() {
+
+}
+
+void Watch::epilogue() {
+
+}
