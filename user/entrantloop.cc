@@ -31,6 +31,10 @@ void EntrantLoop::action() {
     }
     cga_stream << this->name
             << ": Sum from " << start << " to " << end << " is " << sum << endl;
+    if (this->threadToKill != 0) {
+        cga_stream << this->name << ": Kill it with fire: " << this->threadToKill -> name << endl;
+        scheduler.kill(*this->threadToKill);
+    }
     scheduler.exit();
 }
 

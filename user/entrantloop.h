@@ -26,12 +26,17 @@ class EntrantLoop : public Entrant {
         int end = 0;
         int stop = 0;
         char* name = "";
+        EntrantLoop* threadToKill = 0;
     public:
         EntrantLoop(void* tos, int start, int end, int stop, char* name) : Entrant(tos){
             this->start = start;
             this->end = end;
             this->stop = stop;
             this->name = name;
+        };
+
+        void setThreadToKill(EntrantLoop* toKill) {
+            this->threadToKill = toKill;
         };
 
         void action();
