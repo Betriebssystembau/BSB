@@ -29,7 +29,8 @@ void EntrantLoop::action() {
         }
     }
     cga_stream << this->name
-            << "Sum from " << start << " to " << end << " is " << sum << endl;
+            << ": Sum from " << start << " to " << end << " is " << sum << endl;
+    while(true);
     scheduler.exit();
 }
 

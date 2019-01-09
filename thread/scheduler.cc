@@ -17,7 +17,7 @@ void Scheduler::ready(Entrant &that) {
 void Scheduler::schedule() {
     Chain *chain = this->queue.dequeue();
     Entrant *entrant = (Entrant *) chain;
-    entrant->go();
+    go(*entrant);
 }
 
 void Scheduler::exit() {
