@@ -31,9 +31,7 @@ extern "C"
 };
 
 Coroutine::Coroutine(void *tos) {
-    cga_stream << "Creating a coroutine" << endl;
     toc_settle(&regs, tos, kickoff, this);
-    cga_stream << "toc settled" << endl;
 }
 
 void Coroutine::go() {
