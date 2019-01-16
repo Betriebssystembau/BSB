@@ -32,7 +32,7 @@ void Scheduler::exit() {
         cga_stream << "Scheduler: All threads finished!" << endl;
         while(true);
     } else {
-        cga_stream << "Scheduler: Next thread: " << (long) this->currentEntrant->regs.rsp << endl;
+        cga_stream << "Scheduler: Next thread: " << this->currentEntrant->name << endl;
         this->dispatch(*this->currentEntrant);
     }
 }

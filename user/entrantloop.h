@@ -28,7 +28,6 @@ private:
     int start = 0;
     int end = 0;
     int stop = 0;
-    char *name = "";
     int row = -1;
     EntrantLoop *threadToKill = 0;
 public:

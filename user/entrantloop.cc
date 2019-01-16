@@ -22,19 +22,21 @@ extern Guarded_Scheduler scheduler;
 void EntrantLoop::action() {
     int sum = 0;
     for (int i = start; i <= end; i++) {
-        {Secure secure;
+        {
+            Secure secure;
             int x = -1;
             int y = -1;
             cga_stream.getpos(x, y);
             cga_stream.setpos(0, row);
             cga_stream << this->name << ": my next number is: " << i << endl;
             sum += i;
+            cga_stream.setpos(x,y);
         }
     }
-    {Secure secure;
-        cga_stream << endl << this->name
+    {
+        Secure secure;
+        cga_stream << this->name
                << ": Sum from " << start << " to " << end << " is " << sum << endl;
-        cga_stream.setpos(0,10);
     }
     scheduler.exit();
 }
