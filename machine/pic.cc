@@ -24,7 +24,7 @@ void PIC::allow(int interrupt_device) {
         masterUp.outb(allowedInterrupts);
     } else {
         char allowedInterrupts = slaveUp.inb();
-        allowedInterrupts &= ~(1 << interrupt_device - 8);
+        allowedInterrupts &= ~(1 << (interrupt_device - 8));
         slaveUp.outb(allowedInterrupts);
     }
 }
@@ -36,7 +36,7 @@ void PIC::forbid(int interrupt_device) {
         masterUp.outb(allowedInterrupts);
     } else {
         char allowedInterrupts = slaveUp.inb();
-        allowedInterrupts |= (1 << interrupt_device - 8);
+        allowedInterrupts |= (1 << (interrupt_device - 8));
         slaveUp.outb(allowedInterrupts);
     }
 }
@@ -48,6 +48,6 @@ bool PIC::is_masked(int interrupt_device) {
         return (allowedInterrupts & (1 << interrupt_device)) != 0;
     } else {
         allowedInterrupts = slaveUp.inb();
-        return (allowedInterrupts & (1 << interrupt_device - 8)) != 0;
+        return (allowedInterrupts & (1 << (interrupt_device - 8))) != 0;
     }
 }

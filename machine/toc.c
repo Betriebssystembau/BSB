@@ -34,7 +34,7 @@ void toc_settle(struct toc *regs, void *tos, void (*kickoff)(void*, void*, void*
     regs->rbp = sp;
     regs->rsp = sp;    
 
-    for (int i = 0; i < sizeof(regs->fpu); i++) {
+    for (unsigned int i = 0; i < sizeof(regs->fpu); i++) {
         regs->fpu[i] = 0;
     }
 }
