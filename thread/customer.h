@@ -17,6 +17,7 @@
 class Customer : public Entrant {
 private:
     Customer(const Customer &copy); // Verhindere Kopieren
+    Waitingroom *currentWaitingroom;
 public:
 
     /**
@@ -29,7 +30,7 @@ public:
      * Mit dieser Methode wird im Customer vermerkt, dass dieser derzeit im Waitingroom w auf ein Ereignis wartet.
      * @param w
      */
-    void waiting_in(Waitingroom *w) {}
+    void waiting_in(Waitingroom *w) {currentWaitingroom = w;}
 
     /**
      * Hiermit kann abgefragt werden, in welchem Waitingroom Objekt der Customer eingetragen ist.
@@ -38,7 +39,9 @@ public:
      * bereits terminiert ist oder noch gar nicht beim Scheduler angemeldet wurde.
      * @return
      */
-    Waitingroom *waiting_in() {}
+    Waitingroom *waiting_in() {
+        return currentWaitingroom;
+    }
 };
 
 #endif

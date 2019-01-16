@@ -40,6 +40,8 @@ public:
      * @param that
      */
     void kill(Customer &that);
+
+    Customer* getCurrentCustomer(){ return (Customer*)this->currentEntrant;}
 };
 
 #endif

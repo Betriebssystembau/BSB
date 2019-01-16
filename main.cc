@@ -17,6 +17,7 @@
 #include "device/watch.h"
 #include "syscall/guarded_scheduler.h"
 #include "meeting/bellringer.h"
+#include "syscall/guarded_organizer.h"
 
 Plugbox plugbox;
 CGA_Stream cga_stream;
@@ -24,9 +25,8 @@ Guard guard;
 PIC pic;
 CPU cpu;
 Dispatcher dispatcher;
-Guarded_Scheduler scheduler;
+Guarded_Organizer scheduler;
 Bellringer bellringer;
-
 
 int main() {
     {

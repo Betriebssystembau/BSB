@@ -10,14 +10,21 @@
 
 #include "semaphore.h"
 
+extern Guarded_Organizer scheduler;
+
 void Semaphore::p() {
     if (this->counter > 0) {
         this->counter--;
     } else {
-        //TODO
+        scheduler.block(scheduler.getCurrentCustomer(), this);
     }
 }
 
 void Semaphore::v() {
-    if (this->)
+    Customer* customer = (Customer*)this->dequeue();
+    if(customer == 0){
+        this->counter++;
+    } else {
+        scheduler.wakeup(customer);
+    }
 }
