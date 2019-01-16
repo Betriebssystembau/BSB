@@ -24,6 +24,9 @@ public:
      * @param tos
      */
     Entrant(void *tos) : Chain(), Coroutine(tos){};
+
+
+    char *name = "";
 };
 
 #endif

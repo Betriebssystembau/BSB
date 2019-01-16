@@ -29,6 +29,7 @@ void Plugbox::assign(unsigned int slot, Gate &gate) {
 }
 
 Gate &Plugbox::report(unsigned int slot) {
+
     if (slot < 64) {
         return *this->gates[slot];
     } else {
