@@ -2,19 +2,24 @@
 /* Betriebssysteme                                                           */
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
-/*                         C G A _ S T R E A M                               */
+/*                          B E L L R I N G E R                              */
 /*                                                                           */
 /*---------------------------------------------------------------------------*/
-/* Die Klasse CGA_Stream ermoeglicht die Ausgabe verschiedener Datentypen    */
-/* als Zeichenketten auf dem CGA Bildschirm eines PCs.                       */
-/* Fuer weitergehende Formatierung oder spezielle Effekte stehen die         */
-/* Methoden der Klasse CGA_Screen zur Verfuegung.                            */
+/* Der "Gloeckner" wird im Rahmen der Timer-Epilog Bearbeitung aktiviert.    */
+/* Er prueft, ob irgendwelche Glocken (Bell-Objekte) laeuten muessen. Die    */
+/* Glocken befinden sich in einer Queue, die der Gloeckner verwaltet.        */
 /*****************************************************************************/
 
-#include "device/cgastr.h"
+#include "bellringer.h"
 
-void CGA_Stream::flush() {
-    this->print(this->text, index, 0x0f);
-    this->text[0] = '\0';
-    this->index = 0;
+void Bellringer::check() {
+
+}
+
+void Bellringer::job(Bell *bell, int ticks) {
+
+}
+
+void Bellringer::cancel(Bell *bell) {
+
 }

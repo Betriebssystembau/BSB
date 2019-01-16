@@ -29,9 +29,10 @@ void EntrantLoop::action() {
             cga_stream.getpos(x, y);
             cga_stream.setpos(0, row);
             cga_stream << this->name << ": my next number is: " << i << endl;
-            sum += i;
             cga_stream.setpos(x,y);
         }
+        sum += i;
+
     }
     {
         Secure secure;

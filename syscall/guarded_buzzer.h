@@ -2,19 +2,30 @@
 /* Betriebssysteme                                                           */
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
-/*                         C G A _ S T R E A M                               */
+/*                         G U A R D E D _ B U Z Z E R                       */
 /*                                                                           */
 /*---------------------------------------------------------------------------*/
-/* Die Klasse CGA_Stream ermoeglicht die Ausgabe verschiedener Datentypen    */
-/* als Zeichenketten auf dem CGA Bildschirm eines PCs.                       */
-/* Fuer weitergehende Formatierung oder spezielle Effekte stehen die         */
-/* Methoden der Klasse CGA_Screen zur Verfuegung.                            */
+/* Schnittstelle von Anwendungsthreads zu Buzzer-Objekten.                   */
 /*****************************************************************************/
 
-#include "device/cgastr.h"
+#ifndef __Guarded_Buzzer_include__
+#define __Guarded_Buzzer_include__
 
-void CGA_Stream::flush() {
-    this->print(this->text, index, 0x0f);
-    this->text[0] = '\0';
-    this->index = 0;
-}
+#include "meeting/buzzer.h"
+#include "guard/secure.h"
+
+class Guarded_Buzzer : public Buzzer {
+private:
+    Guarded_Buzzer(const Guarded_Buzzer &copy); // Verhindere Kopieren
+public:
+    Guarded_Buzzer() {}
+
+    virtual ~Guarded_Buzzer();
+
+    void set(int ms);
+
+    void sleep();
+
+};
+
+#endif

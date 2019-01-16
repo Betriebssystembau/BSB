@@ -16,6 +16,8 @@
 #include "user/entrantloop.h"
 #include "device/watch.h"
 #include "syscall/guarded_scheduler.h"
+#include "meeting/bellringer.h"
+#include "syscall/guarded_organizer.h"
 
 Plugbox plugbox;
 CGA_Stream cga_stream;
@@ -23,7 +25,8 @@ Guard guard;
 PIC pic;
 CPU cpu;
 Dispatcher dispatcher;
-Guarded_Scheduler scheduler;
+Guarded_Organizer scheduler;
+Bellringer bellringer;
 
 int main() {
     {
@@ -35,12 +38,12 @@ int main() {
 
         static void *stack1[stack_size];
         void *tos1 = &stack1[stack_size - 1];
-        EntrantLoop entrantLoop1(tos1, 0, 25000, -1, "C1", 1);
+        EntrantLoop entrantLoop1(tos1, 0, 55000, -1, "C1", 1);
         scheduler.Scheduler::ready(entrantLoop1);
 
         static void *stack2[stack_size];
         void *tos2 = &stack2[stack_size - 1];
-        EntrantLoop entrantLoop2(tos2, 2, 25000, -1, "C2", 2);
+        EntrantLoop entrantLoop2(tos2, 2, 55000, -1, "C2", 2);
         scheduler.Scheduler::ready(entrantLoop2);
 
         Watch watch(5000000);

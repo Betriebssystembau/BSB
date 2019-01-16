@@ -2,19 +2,26 @@
 /* Betriebssysteme                                                           */
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
-/*                         C G A _ S T R E A M                               */
+/*                    G U A R D E D _ O R G A N I Z E R                      */
 /*                                                                           */
 /*---------------------------------------------------------------------------*/
-/* Die Klasse CGA_Stream ermoeglicht die Ausgabe verschiedener Datentypen    */
-/* als Zeichenketten auf dem CGA Bildschirm eines PCs.                       */
-/* Fuer weitergehende Formatierung oder spezielle Effekte stehen die         */
-/* Methoden der Klasse CGA_Screen zur Verfuegung.                            */
+/* Systemaufrufschnittstelle zum Organizer.                                  */
 /*****************************************************************************/
 
-#include "device/cgastr.h"
+#include "guarded_organizer.h"
 
-void CGA_Stream::flush() {
-    this->print(this->text, index, 0x0f);
-    this->text[0] = '\0';
-    this->index = 0;
+void Guarded_Organizer::ready(Thread &that) {
+
+}
+
+void Guarded_Organizer::exit() {
+
+}
+
+void Guarded_Organizer::kill(Thread &that) {
+
+}
+
+void Guarded_Organizer::resume() {
+
 }

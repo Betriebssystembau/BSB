@@ -22,6 +22,9 @@
 */
 
 #include "device/panic.h"
+#include "device/cgastr.h"
+
+extern CGA_Stream cga_stream;
 
 class Locker {
 private:
@@ -41,6 +44,8 @@ public:
      */
     void enter() {
         if (!this->isFree) {
+            cga_stream << "enter doppelt!";
+            cga_stream.flush();
             Panic panic;
             panic.prologue();
         }
@@ -52,6 +57,8 @@ public:
      */
     void retne() {
         if (this->isFree) {
+            cga_stream << "retne doppelt!";
+            cga_stream.flush();
             Panic panic;
             panic.prologue();
         }

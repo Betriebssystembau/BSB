@@ -2,19 +2,31 @@
 /* Betriebssysteme                                                           */
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
-/*                         C G A _ S T R E A M                               */
+/*                               B U Z Z E R                                 */
 /*                                                                           */
 /*---------------------------------------------------------------------------*/
-/* Die Klasse CGA_Stream ermoeglicht die Ausgabe verschiedener Datentypen    */
-/* als Zeichenketten auf dem CGA Bildschirm eines PCs.                       */
-/* Fuer weitergehende Formatierung oder spezielle Effekte stehen die         */
-/* Methoden der Klasse CGA_Screen zur Verfuegung.                            */
+/* Mit Hilfe des "Weckers" koennen Prozesse eine bestimmte Zeit lang         */
+/* schlafen und sich dann wecken lassen.                                     */
 /*****************************************************************************/
 
-#include "device/cgastr.h"
+#include "buzzer.h"
 
-void CGA_Stream::flush() {
-    this->print(this->text, index, 0x0f);
-    this->text[0] = '\0';
-    this->index = 0;
+Buzzer::Buzzer() {
+
+}
+
+Buzzer::~Buzzer() {
+
+}
+
+void Buzzer::ring() {
+
+}
+
+void Buzzer::set(int ms) {
+
+}
+
+void Buzzer::sleep() {
+
 }

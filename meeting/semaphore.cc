@@ -2,19 +2,29 @@
 /* Betriebssysteme                                                           */
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
-/*                         C G A _ S T R E A M                               */
+/*                           S E M A P H O R E                               */
 /*                                                                           */
 /*---------------------------------------------------------------------------*/
-/* Die Klasse CGA_Stream ermoeglicht die Ausgabe verschiedener Datentypen    */
-/* als Zeichenketten auf dem CGA Bildschirm eines PCs.                       */
-/* Fuer weitergehende Formatierung oder spezielle Effekte stehen die         */
-/* Methoden der Klasse CGA_Screen zur Verfuegung.                            */
+/* Semaphore werden zur Synchronisation von Threads verwendet.               */
 /*****************************************************************************/
 
-#include "device/cgastr.h"
+#include "semaphore.h"
 
-void CGA_Stream::flush() {
-    this->print(this->text, index, 0x0f);
-    this->text[0] = '\0';
-    this->index = 0;
+extern Guarded_Organizer scheduler;
+
+void Semaphore::p() {
+    if (this->counter > 0) {
+        this->counter--;
+    } else {
+        scheduler.block(scheduler.getCurrentCustomer(), this);
+    }
+}
+
+void Semaphore::v() {
+    Customer* customer = (Customer*)this->dequeue();
+    if(customer == 0){
+        this->counter++;
+    } else {
+        scheduler.wakeup(customer);
+    }
 }

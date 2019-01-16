@@ -2,19 +2,21 @@
 /* Betriebssysteme                                                           */
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
-/*                         C G A _ S T R E A M                               */
+/*                        W A I T I N G R O O M                              */
 /*                                                                           */
 /*---------------------------------------------------------------------------*/
-/* Die Klasse CGA_Stream ermoeglicht die Ausgabe verschiedener Datentypen    */
-/* als Zeichenketten auf dem CGA Bildschirm eines PCs.                       */
-/* Fuer weitergehende Formatierung oder spezielle Effekte stehen die         */
-/* Methoden der Klasse CGA_Screen zur Verfuegung.                            */
+/* Liste von Threads, die auf ein Ereignis warten.                           */
 /*****************************************************************************/
 
-#include "device/cgastr.h"
+#include "waitingroom.h"
+#include "thread/customer.h"
 
-void CGA_Stream::flush() {
-    this->print(this->text, index, 0x0f);
-    this->text[0] = '\0';
-    this->index = 0;
+
+Waitingroom::~Waitingroom() {
+    Customer *customer = (Customer *) this->dequeue();
+    customer->resume();
+}
+
+void Waitingroom::remove(Customer *customer) {
+    this->Queue::remove(customer);
 }

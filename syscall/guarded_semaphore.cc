@@ -2,19 +2,31 @@
 /* Betriebssysteme                                                           */
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
-/*                         C G A _ S T R E A M                               */
+/*                   G U A R D E D _ S E M A P H O R E                       */
 /*                                                                           */
 /*---------------------------------------------------------------------------*/
-/* Die Klasse CGA_Stream ermoeglicht die Ausgabe verschiedener Datentypen    */
-/* als Zeichenketten auf dem CGA Bildschirm eines PCs.                       */
-/* Fuer weitergehende Formatierung oder spezielle Effekte stehen die         */
-/* Methoden der Klasse CGA_Screen zur Verfuegung.                            */
+/* Systemaufrufschnittstelle zum Semaphor.                                   */
 /*****************************************************************************/
 
-#include "device/cgastr.h"
+#include "guarded_semaphore.h"
 
-void CGA_Stream::flush() {
-    this->print(this->text, index, 0x0f);
-    this->text[0] = '\0';
-    this->index = 0;
+void Guarded_Semaphore::p() {
+    Secure secure;
+    this->Semaphore::p();
+}
+
+void Guarded_Semaphore::v() {
+    Secure secure;
+    this->Semaphore::v();
+}
+
+void Guarded_Semaphore::wait() {
+    Secure secure;
+    this->Semaphore::wait();
+
+}
+
+void Guarded_Semaphore::signal() {
+    Secure secure;
+    this->Semaphore::signal();
 }

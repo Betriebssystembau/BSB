@@ -44,7 +44,7 @@ void Scheduler::kill(Entrant &that) {
 void Scheduler::resume() {
     this->queue.enqueue(this->currentEntrant);
 
-    this->currentEntrant = (Entrant * )
-            this->queue.dequeue();
+    this->currentEntrant = (Entrant * ) this->queue.dequeue();
     this->dispatch(*this->currentEntrant);
 }
+
