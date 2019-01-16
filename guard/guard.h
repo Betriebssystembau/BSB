@@ -18,6 +18,7 @@
 #include "gate.h"
 #include "object/queue.h"
 #include "object/chain.h"
+#include "machine/cpu.h"
 
 /* Hier muesst ihr selbst Code vervollstaendigen */
 

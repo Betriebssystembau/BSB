@@ -21,6 +21,7 @@ class Panic : public Gate
 private:
     Panic(const Panic &copy); // Verhindere Kopieren
 public:
+
     Panic() {}
 
     /**
