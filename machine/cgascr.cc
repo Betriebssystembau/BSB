@@ -85,6 +85,10 @@ void CGA_Screen::print(char *text, int length, unsigned char attrib) {
     this->getpos(x, y);
     for (int i = 0; i < length; i++) {
         if (text[i] == '\n') {
+            while (x < 80) {
+                show(x, y, ' ', attrib);
+                x++;
+            }
             increaseY(x, y);
         } else {
             show(x, y, text[i], attrib);
