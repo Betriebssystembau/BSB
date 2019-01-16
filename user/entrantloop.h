@@ -28,14 +28,15 @@ private:
     int start = 0;
     int end = 0;
     int stop = 0;
-    char *name = "";
+    int row = -1;
     EntrantLoop *threadToKill = 0;
 public:
-    EntrantLoop(void *tos, int start, int end, int stop, char *name) : Thread(tos) {
+    EntrantLoop(void *tos, int start, int end, int stop, char *name, int row) : Thread(tos) {
         this->start = start;
         this->end = end;
         this->stop = stop;
         this->name = name;
+        this->row = row;
     };
 
     void setThreadToKill(EntrantLoop *toKill) {

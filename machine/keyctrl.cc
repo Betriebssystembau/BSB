@@ -12,9 +12,11 @@
 
 #include "machine/keyctrl.h"
 #include "machine/pic.h"
+#include "device/cgastr.h"
 
 /* STATIC MEMERS */
 extern PIC pic;
+extern CGA_Stream cga_stream;
 
 unsigned char Keyboard_Controller::normal_tab[] =
         {

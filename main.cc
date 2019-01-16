@@ -32,22 +32,23 @@ int main() {
     {
         Secure secure;
         cga_stream << "Main: Starting" << endl;
+        cga_stream << "Dummy" << endl;
+        cga_stream << "Dummy" << endl;
         const int stack_size = 2048;
 
         static void *stack1[stack_size];
         void *tos1 = &stack1[stack_size - 1];
-        EntrantLoop entrantLoop1(tos1, 0, 15000, -1, "C1:");
-        scheduler.ready(entrantLoop1);
+        EntrantLoop entrantLoop1(tos1, 0, 55000, -1, "C1", 1);
+        scheduler.Scheduler::ready(entrantLoop1);
 
         static void *stack2[stack_size];
         void *tos2 = &stack2[stack_size - 1];
-        EntrantLoop entrantLoop2(tos2, 25, 15000, -1, "C2:");
-        scheduler.ready(entrantLoop2);
+        EntrantLoop entrantLoop2(tos2, 2, 55000, -1, "C2", 2);
+        scheduler.Scheduler::ready(entrantLoop2);
 
-        Watch watch(500000);
+        Watch watch(5000000);
         watch.plugin();
         watch.windup();
-        cga_stream << "Main: End of main reached!" << endl;
 
         cpu.enable_int();
         scheduler.schedule();

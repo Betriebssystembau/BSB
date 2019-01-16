@@ -36,7 +36,5 @@ public:
     void print (char* text, int length, unsigned char attrib);
 };
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
-
 #endif
 

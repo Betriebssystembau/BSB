@@ -13,22 +13,31 @@
 
 #include "user/entrantloop.h"
 #include "device/cgastr.h"
-#include "thread/scheduler.h"
+#include "syscall/guarded_scheduler.h"
+#include "guard/secure.h"
 
 extern CGA_Stream cga_stream;
-extern Scheduler scheduler;
+extern Guarded_Scheduler scheduler;
+
 void EntrantLoop::action() {
-    cga_stream << this->name << ": Starting to count" << endl;
     int sum = 0;
     for (int i = start; i <= end; i++) {
-        cga_stream << this->name << ": my next number is: " << i << endl;
+        {
+            Secure secure;
+            int x = -1;
+            int y = -1;
+            cga_stream.getpos(x, y);
+            cga_stream.setpos(0, row);
+            cga_stream << this->name << ": my next number is: " << i << endl;
+            cga_stream.setpos(x,y);
+        }
         sum += i;
+
     }
-    cga_stream << this->name
+    {
+        Secure secure;
+        cga_stream << this->name
                << ": Sum from " << start << " to " << end << " is " << sum << endl;
-    if (this->threadToKill != 0) {
-        cga_stream << this->name << ": Kill it with fire: " << this->threadToKill -> name << endl;
-        scheduler.kill(*this->threadToKill);
     }
     scheduler.exit();
 }
