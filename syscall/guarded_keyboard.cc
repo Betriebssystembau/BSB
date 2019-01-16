@@ -2,27 +2,10 @@
 /* Betriebssysteme                                                           */
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
-/*                             T H R E A D                                   */
+/*                   G U A R D E D _ K E Y B O A R D                         */
 /*                                                                           */
 /*---------------------------------------------------------------------------*/
-/* Benutzerschnittstelle eines Threads.                                      */
+/* Systemaufrufschnittstelle zur Tastatur.                                   */
 /*****************************************************************************/
 
-#ifndef __thread_include__
-#define __thread_include__
-
-#include "thread/customer.h"
-
-class Thread : public Customer {
-private:
-    Thread(const Thread &copy); // Verhindere Kopieren
-
-public:
-    /**
-     * Der Konstruktor leitet den Parameter tos an den Konstruktor der Basisklasse Entrant weiter.
-     * @param tos
-     */
-    Thread(void *tos) : Customer(tos) {}
-};
-
-#endif
+/* Hier muesst ihr selbst Code vervollstaendigen */ 

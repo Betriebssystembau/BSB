@@ -2,27 +2,21 @@
 /* Betriebssysteme                                                           */
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
-/*                             T H R E A D                                   */
+/*                        W A I T I N G R O O M                              */
 /*                                                                           */
 /*---------------------------------------------------------------------------*/
-/* Benutzerschnittstelle eines Threads.                                      */
+/* Liste von Threads, die auf ein Ereignis warten.                           */
 /*****************************************************************************/
 
-#ifndef __thread_include__
-#define __thread_include__
-
+#include "waitingroom.h"
 #include "thread/customer.h"
 
-class Thread : public Customer {
-private:
-    Thread(const Thread &copy); // Verhindere Kopieren
 
-public:
-    /**
-     * Der Konstruktor leitet den Parameter tos an den Konstruktor der Basisklasse Entrant weiter.
-     * @param tos
-     */
-    Thread(void *tos) : Customer(tos) {}
-};
+Waitingroom::~Waitingroom() {
+    Customer *customer = (Customer *) this->dequeue();
+    customer->resume();
+}
 
-#endif
+void Waitingroom::remove(Customer *customer) {
+    this->Queue::remove(customer);
+}

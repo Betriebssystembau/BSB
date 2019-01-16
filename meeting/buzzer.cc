@@ -2,27 +2,31 @@
 /* Betriebssysteme                                                           */
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
-/*                             T H R E A D                                   */
+/*                               B U Z Z E R                                 */
 /*                                                                           */
 /*---------------------------------------------------------------------------*/
-/* Benutzerschnittstelle eines Threads.                                      */
+/* Mit Hilfe des "Weckers" koennen Prozesse eine bestimmte Zeit lang         */
+/* schlafen und sich dann wecken lassen.                                     */
 /*****************************************************************************/
 
-#ifndef __thread_include__
-#define __thread_include__
+#include "buzzer.h"
 
-#include "thread/customer.h"
+Buzzer::Buzzer() {
 
-class Thread : public Customer {
-private:
-    Thread(const Thread &copy); // Verhindere Kopieren
+}
 
-public:
-    /**
-     * Der Konstruktor leitet den Parameter tos an den Konstruktor der Basisklasse Entrant weiter.
-     * @param tos
-     */
-    Thread(void *tos) : Customer(tos) {}
-};
+Buzzer::~Buzzer() {
 
-#endif
+}
+
+void Buzzer::ring() {
+
+}
+
+void Buzzer::set(int ms) {
+
+}
+
+void Buzzer::sleep() {
+
+}

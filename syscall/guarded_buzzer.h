@@ -2,27 +2,30 @@
 /* Betriebssysteme                                                           */
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
-/*                             T H R E A D                                   */
+/*                         G U A R D E D _ B U Z Z E R                       */
 /*                                                                           */
 /*---------------------------------------------------------------------------*/
-/* Benutzerschnittstelle eines Threads.                                      */
+/* Schnittstelle von Anwendungsthreads zu Buzzer-Objekten.                   */
 /*****************************************************************************/
 
-#ifndef __thread_include__
-#define __thread_include__
+#ifndef __Guarded_Buzzer_include__
+#define __Guarded_Buzzer_include__
 
-#include "thread/customer.h"
+#include "meeting/buzzer.h"
+#include "guard/secure.h"
 
-class Thread : public Customer {
+class Guarded_Buzzer : public Buzzer {
 private:
-    Thread(const Thread &copy); // Verhindere Kopieren
-
+    Guarded_Buzzer(const Guarded_Buzzer &copy); // Verhindere Kopieren
 public:
-    /**
-     * Der Konstruktor leitet den Parameter tos an den Konstruktor der Basisklasse Entrant weiter.
-     * @param tos
-     */
-    Thread(void *tos) : Customer(tos) {}
+    Guarded_Buzzer() {}
+
+    virtual ~Guarded_Buzzer();
+
+    void set(int ms);
+
+    void sleep();
+
 };
 
 #endif

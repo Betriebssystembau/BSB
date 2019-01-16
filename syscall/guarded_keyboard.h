@@ -2,27 +2,25 @@
 /* Betriebssysteme                                                           */
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
-/*                             T H R E A D                                   */
+/*                   G U A R D E D _ K E Y B O A R D                         */
 /*                                                                           */
 /*---------------------------------------------------------------------------*/
-/* Benutzerschnittstelle eines Threads.                                      */
+/* Systemaufrufschnittstelle zur Tastatur.                                   */
 /*****************************************************************************/
 
-#ifndef __thread_include__
-#define __thread_include__
+#ifndef __Guarded_Keyboard_include__
+#define __Guarded_Keyboard_include__
 
-#include "thread/customer.h"
-
-class Thread : public Customer {
+/* Hier muesst ihr selbst Code vervollstaendigen */ 
+        
+class Guarded_Keyboard 
+/* Hier muesst ihr selbst Code vervollstaendigen */         
+ {
 private:
-    Thread(const Thread &copy); // Verhindere Kopieren
-
+      Guarded_Keyboard (const Guarded_Keyboard &copy); // Verhindere Kopieren
 public:
-    /**
-     * Der Konstruktor leitet den Parameter tos an den Konstruktor der Basisklasse Entrant weiter.
-     * @param tos
-     */
-    Thread(void *tos) : Customer(tos) {}
-};
+      Guarded_Keyboard () {}
+/* Hier muesst ihr selbst Code vervollstaendigen */         
+ };
 
 #endif

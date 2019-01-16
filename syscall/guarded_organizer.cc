@@ -2,27 +2,26 @@
 /* Betriebssysteme                                                           */
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
-/*                             T H R E A D                                   */
+/*                    G U A R D E D _ O R G A N I Z E R                      */
 /*                                                                           */
 /*---------------------------------------------------------------------------*/
-/* Benutzerschnittstelle eines Threads.                                      */
+/* Systemaufrufschnittstelle zum Organizer.                                  */
 /*****************************************************************************/
 
-#ifndef __thread_include__
-#define __thread_include__
+#include "guarded_organizer.h"
 
-#include "thread/customer.h"
+void Guarded_Organizer::ready(Thread &that) {
 
-class Thread : public Customer {
-private:
-    Thread(const Thread &copy); // Verhindere Kopieren
+}
 
-public:
-    /**
-     * Der Konstruktor leitet den Parameter tos an den Konstruktor der Basisklasse Entrant weiter.
-     * @param tos
-     */
-    Thread(void *tos) : Customer(tos) {}
-};
+void Guarded_Organizer::exit() {
 
-#endif
+}
+
+void Guarded_Organizer::kill(Thread &that) {
+
+}
+
+void Guarded_Organizer::resume() {
+
+}

@@ -2,27 +2,23 @@
 /* Betriebssysteme                                                           */
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
-/*                             T H R E A D                                   */
+/*                          O R G A N I Z E R                                */
 /*                                                                           */
 /*---------------------------------------------------------------------------*/
-/* Benutzerschnittstelle eines Threads.                                      */
+/* Ein Organizer ist ein spezieller Scheduler, der zusaetzlich das Warten    */
+/* von Threads (Customer) auf Ereignisse erlaubt.                            */
 /*****************************************************************************/
 
-#ifndef __thread_include__
-#define __thread_include__
+#include "organizer.h"
 
-#include "thread/customer.h"
+void Organizer::block(Customer &customer, Waitingroom &waitingroom) {
 
-class Thread : public Customer {
-private:
-    Thread(const Thread &copy); // Verhindere Kopieren
+}
 
-public:
-    /**
-     * Der Konstruktor leitet den Parameter tos an den Konstruktor der Basisklasse Entrant weiter.
-     * @param tos
-     */
-    Thread(void *tos) : Customer(tos) {}
-};
+void Organizer::wakeup(Customer &customer) {
 
-#endif
+}
+
+void Organizer::kill(Customer &that) {
+
+}

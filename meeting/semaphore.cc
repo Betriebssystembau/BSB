@@ -2,27 +2,22 @@
 /* Betriebssysteme                                                           */
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
-/*                             T H R E A D                                   */
+/*                           S E M A P H O R E                               */
 /*                                                                           */
 /*---------------------------------------------------------------------------*/
-/* Benutzerschnittstelle eines Threads.                                      */
+/* Semaphore werden zur Synchronisation von Threads verwendet.               */
 /*****************************************************************************/
 
-#ifndef __thread_include__
-#define __thread_include__
+#include "semaphore.h"
 
-#include "thread/customer.h"
+void Semaphore::p() {
+    if (this->counter > 0) {
+        this->counter--;
+    } else {
+        //TODO
+    }
+}
 
-class Thread : public Customer {
-private:
-    Thread(const Thread &copy); // Verhindere Kopieren
-
-public:
-    /**
-     * Der Konstruktor leitet den Parameter tos an den Konstruktor der Basisklasse Entrant weiter.
-     * @param tos
-     */
-    Thread(void *tos) : Customer(tos) {}
-};
-
-#endif
+void Semaphore::v() {
+    if (this->)
+}

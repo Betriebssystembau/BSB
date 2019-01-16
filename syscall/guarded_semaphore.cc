@@ -2,27 +2,31 @@
 /* Betriebssysteme                                                           */
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
-/*                             T H R E A D                                   */
+/*                   G U A R D E D _ S E M A P H O R E                       */
 /*                                                                           */
 /*---------------------------------------------------------------------------*/
-/* Benutzerschnittstelle eines Threads.                                      */
+/* Systemaufrufschnittstelle zum Semaphor.                                   */
 /*****************************************************************************/
 
-#ifndef __thread_include__
-#define __thread_include__
+#include "guarded_semaphore.h"
 
-#include "thread/customer.h"
+void Guarded_Semaphore::p() {
+    Secure secure;
+    this->Semaphore::p();
+}
 
-class Thread : public Customer {
-private:
-    Thread(const Thread &copy); // Verhindere Kopieren
+void Guarded_Semaphore::v() {
+    Secure secure;
+    this->Semaphore::v();
+}
 
-public:
-    /**
-     * Der Konstruktor leitet den Parameter tos an den Konstruktor der Basisklasse Entrant weiter.
-     * @param tos
-     */
-    Thread(void *tos) : Customer(tos) {}
-};
+void Guarded_Semaphore::wait() {
+    Secure secure;
+    this->Semaphore::wait();
 
-#endif
+}
+
+void Guarded_Semaphore::signal() {
+    Secure secure;
+    this->Semaphore::signal();
+}
