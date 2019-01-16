@@ -32,6 +32,7 @@ void Scheduler::exit() {
     cga_stream << "Scheduler: Next thread: " << (long) this->currentEntrant->regs.rsp << endl;
     if (currentEntrant == 0) {
         cga_stream << "Scheduler: All threads finished!" << endl;
+        while(true);
     } else {
         this->dispatch(*this->currentEntrant);
     }
@@ -45,6 +46,6 @@ void Scheduler::resume() {
     this->queue.enqueue(this->currentEntrant);
 
     this->currentEntrant = (Entrant * )
-    this->queue.dequeue();
+            this->queue.dequeue();
     this->dispatch(*this->currentEntrant);
 }

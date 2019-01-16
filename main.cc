@@ -33,23 +33,24 @@ int main() {
 
         static void *stack1[stack_size];
         void *tos1 = &stack1[stack_size - 1];
-        EntrantLoop entrantLoop1(tos1, 0, 50, 25, "C1: 0-25-50");
+        EntrantLoop entrantLoop1(tos1, 0, 15000, -1, "C1:");
         scheduler.ready(entrantLoop1);
 
         static void *stack2[stack_size];
         void *tos2 = &stack2[stack_size - 1];
-        EntrantLoop entrantLoop2(tos2, 25, 150, 50, "C2: 25-50-150");
+        EntrantLoop entrantLoop2(tos2, 25, 15000, -1, "C2:");
         scheduler.ready(entrantLoop2);
 
-        Watch watch(50000);
+        Watch watch(500000);
         watch.plugin();
         watch.windup();
         cga_stream << "Main: End of main reached!" << endl;
 
         cpu.enable_int();
         scheduler.schedule();
+        while (true);
     }
-    while (true);
+
 
     return 0;
 }

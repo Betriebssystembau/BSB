@@ -39,7 +39,7 @@ void Coroutine::go() {
 }
 
 void Coroutine::resume(Coroutine &next) {
-    cga_stream << "Coroutine: Switching stack from - to: " << (long) regs.rsp;
-    cga_stream << " - " << (long) next.regs.rsp << endl;
+    //cga_stream << "Coroutine: Switching stack from - to: " << (long) regs.rsp;
+    //cga_stream << " - " << (long) next.regs.rsp << endl;
     toc_switch(&regs, &(next.regs));
 }
