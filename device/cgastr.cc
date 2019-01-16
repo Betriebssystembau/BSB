@@ -13,8 +13,6 @@
 
 #include "device/cgastr.h"
 
-/* Hier muesst ihr selbst Code vervollstaendigen */
-
 void CGA_Stream::flush() {
     this->print(this->text, index, 0x0f);
     this->text[0] = '\0';
