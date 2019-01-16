@@ -27,6 +27,5 @@ bool Watch::prologue() {
 }
 
 void Watch::epilogue() {
-    cga_stream << "epi" << endl;
     scheduler.Scheduler::resume();
 }

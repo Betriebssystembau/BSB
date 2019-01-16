@@ -28,6 +28,7 @@ Guarded_Scheduler scheduler;
 int main() {
     {
         Secure secure;
+        cga_stream << "Main: Starting" << endl;
         const int stack_size = 2048;
 
         static void *stack1[stack_size];
@@ -40,7 +41,7 @@ int main() {
         EntrantLoop entrantLoop2(tos2, 25, 150, 50, "C2: 25-50-150");
         scheduler.ready(entrantLoop2);
 
-        Watch watch(100);
+        Watch watch(50000);
         watch.plugin();
         watch.windup();
         cga_stream << "Main: End of main reached!" << endl;

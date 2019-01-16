@@ -14,7 +14,9 @@
 #include "thread/scheduler.h"
 #include "thread.h"
 #include "guard/secure.h"
+#include "guard/guard.h"
 
+extern Guard guard;
 /* Hier muesst ihr selbst Code vervollstaendigen */
 
 class Guarded_Scheduler : public Scheduler
