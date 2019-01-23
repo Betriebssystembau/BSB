@@ -21,8 +21,8 @@ void Semaphore::p() {
 }
 
 void Semaphore::v() {
-    Customer* customer = (Customer*)this->dequeue();
-    if(customer == 0){
+    Customer *customer = (Customer *) this->dequeue();
+    if (customer == 0) {
         this->counter++;
     } else {
         scheduler.wakeup(customer);

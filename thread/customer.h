@@ -30,7 +30,7 @@ public:
      * Mit dieser Methode wird im Customer vermerkt, dass dieser derzeit im Waitingroom w auf ein Ereignis wartet.
      * @param w
      */
-    void waiting_in(Waitingroom *w) {currentWaitingroom = w;}
+    void waiting_in(Waitingroom *w) { currentWaitingroom = w; }
 
     /**
      * Hiermit kann abgefragt werden, in welchem Waitingroom Objekt der Customer eingetragen ist.

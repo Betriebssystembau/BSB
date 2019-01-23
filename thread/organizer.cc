@@ -14,7 +14,7 @@
 void Organizer::block(Customer &customer, Waitingroom &waitingroom) {
     customer.waiting_in(waitingroom);
     waitingroom.queue(customer);
-    this->currentEntrant = (Entrant * ) this->queue.dequeue();
+    this->currentEntrant = (Entrant *) this->queue.dequeue();
     this->dispatch(*this->currentEntrant);
 }
 
@@ -24,6 +24,10 @@ void Organizer::wakeup(Customer &customer) {
 }
 
 void Organizer::kill(Customer &that) {
-    this->Scheduler::kill(that);
-    //TODO: that aus waitingromm entfernen
+    Waitingroom *waitingroom = that.waiting_in();
+    if (waitingroom == 0) {
+        this->Scheduler::kill(that);
+    } else {
+        waitingroom->remove(that);
+    }
 }

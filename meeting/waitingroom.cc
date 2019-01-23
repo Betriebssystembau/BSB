@@ -18,5 +18,6 @@ Waitingroom::~Waitingroom() {
 }
 
 void Waitingroom::remove(Customer *customer) {
+    customer.waiting_in(0);
     this->Queue::remove(customer);
 }
