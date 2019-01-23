@@ -10,14 +10,19 @@
 
 #include "waitingroom.h"
 #include "thread/customer.h"
+#include "syscall/guarded_organizer.h"
 
+extern Guarded_Organizer scheduler;
 
 Waitingroom::~Waitingroom() {
     Customer *customer = (Customer *) this->dequeue();
-    customer->resume();
+    while (customer) {
+        scheduler.wakeup(*customer);
+        customer = (Customer *) this->dequeue();
+    }
 }
 
 void Waitingroom::remove(Customer *customer) {
-    customer.waiting_in(0);
+    customer->waiting_in(0);
     this->Queue::remove(customer);
 }

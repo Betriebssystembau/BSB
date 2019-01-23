@@ -12,10 +12,10 @@
 #include "organizer.h"
 
 void Organizer::block(Customer &customer, Waitingroom &waitingroom) {
-    customer.waiting_in(waitingroom);
-    waitingroom.queue(customer);
+    customer.waiting_in(&waitingroom);
+    waitingroom.enqueue(&customer);
     this->currentEntrant = (Entrant *) this->queue.dequeue();
-    this->dispatch(*this->currentEntrant);
+    this->dispatch(*(this->currentEntrant));
 }
 
 void Organizer::wakeup(Customer &customer) {
@@ -28,6 +28,6 @@ void Organizer::kill(Customer &that) {
     if (waitingroom == 0) {
         this->Scheduler::kill(that);
     } else {
-        waitingroom->remove(that);
+        waitingroom->remove(&that);
     }
 }

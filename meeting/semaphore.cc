@@ -9,6 +9,7 @@
 /*****************************************************************************/
 
 #include "semaphore.h"
+#include "syscall/guarded_organizer.h"
 
 extern Guarded_Organizer scheduler;
 
@@ -16,7 +17,7 @@ void Semaphore::p() {
     if (this->counter > 0) {
         this->counter--;
     } else {
-        scheduler.block(scheduler.getCurrentCustomer(), this);
+        scheduler.block(*scheduler.getCurrentCustomer(), *this);
     }
 }
 
@@ -25,6 +26,6 @@ void Semaphore::v() {
     if (customer == 0) {
         this->counter++;
     } else {
-        scheduler.wakeup(customer);
+        scheduler.wakeup(*customer);
     }
 }

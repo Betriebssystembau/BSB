@@ -56,7 +56,7 @@ QEMU ?= qemu-system-x86_64
 CC ?= gcc
 CXX ?= g++
 CFLAGS := $(CFLAGS) -m64 -Wall -Wno-write-strings -fno-stack-protector -mno-red-zone -nostdlib -I. -g #-DDEBUG
-CXXFLAGS := $(CFLAGS) -Wno-non-virtual-dtor -fno-threadsafe-statics -fno-use-cxa-atexit -fno-rtti -fno-exceptions
+CXXFLAGS := $(CFLAGS) -Wno-non-virtual-dtor -fno-threadsafe-statics -fno-use-cxa-atexit -fno-rtti -fno-exceptions -std=c++11
 
 ifneq ($(shell which grub-mkrescue 2> /dev/null),)
 MKRESCUE = grub-mkrescue

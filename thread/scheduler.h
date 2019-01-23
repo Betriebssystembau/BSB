@@ -17,12 +17,13 @@
 
 /* Hier muesst ihr selbst Code vervollstaendigen */
 
-class Scheduler : Dispatcher
+class Scheduler : public Dispatcher
 /* Hier muesst ihr selbst Code vervollstaendigen */
 {
 private:
     Scheduler(const Scheduler &copy); // Verhindere Kopieren
 /* Hier muesst ihr selbst Code vervollstaendigen */
+protected:
     Queue queue;
     Entrant *currentEntrant;
 
