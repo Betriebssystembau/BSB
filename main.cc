@@ -48,8 +48,8 @@ int main() {
         void *tos2 = &stack2[stack_size - 1];
         EntrantLoop entrantLoop2(tos2, 2, 55000, -1, "C2", 2);
         scheduler.Scheduler::ready(entrantLoop2);
+        entrantLoop2.setWaitingRoom(&waitingroom);
 
-        entrantLoop1.setThreadToKill(&entrantLoop2);
         Watch watch(5000000);
         watch.plugin();
         watch.windup();

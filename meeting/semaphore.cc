@@ -16,12 +16,13 @@ extern Guarded_Organizer scheduler;
 extern CGA_Stream cga_stream;
 
 void Semaphore::p() {
+
     if (this->counter > 0) {
         this->counter--;
     } else {
-        cga_stream << "p: " << scheduler.active() << endl;
         scheduler.block((Customer &) *scheduler.active(), *this);
     }
+    
 }
 
 void Semaphore::v() {

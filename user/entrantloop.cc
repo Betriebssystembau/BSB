@@ -26,14 +26,12 @@ void EntrantLoop::action() {
         {
             int x = -1;
             int y = -1;
-            cga_stream << this->name << " vor wait" << endl;
             this->waitingroomToBlock->wait();
-            //cga_stream.getpos(x, y);
-            //cga_stream.setpos(0, row);
+            cga_stream.getpos(x, y);
+            cga_stream.setpos(0, row);
             cga_stream << this->name << ": my next number is: " << i << endl;
-            //cga_stream.setpos(x, y);
+            cga_stream.setpos(x, y);
             this->waitingroomToBlock->signal();
-            cga_stream << this->name << " nach signal" << endl;
         }
         sum += i;
 
