@@ -14,8 +14,11 @@
 void Organizer::block(Customer &customer, Waitingroom &waitingroom) {
     customer.waiting_in(&waitingroom);
     waitingroom.enqueue(&customer);
+
     this->currentEntrant = (Entrant *) this->queue.dequeue();
-    this->dispatch(*(this->currentEntrant));
+    if (this->currentEntrant) {
+        this->dispatch(*(this->currentEntrant));
+    }
 }
 
 void Organizer::wakeup(Customer &customer) {

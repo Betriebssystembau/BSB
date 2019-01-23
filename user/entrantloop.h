@@ -18,6 +18,8 @@
 #include "thread/entrant.h"
 #include "syscall/thread.h"
 #include "thread/customer.h"
+#include "meeting/semaphore.h"
+#include "syscall/guarded_semaphore.h";
 
 extern CGA_Stream cga_stream;
 
@@ -31,7 +33,7 @@ private:
     int stop = 0;
     int row = -1;
     EntrantLoop *threadToKill = 0;
-    Waitingroom* waitingroomToBlock;
+    Guarded_Semaphore *waitingroomToBlock;
 public:
     EntrantLoop(void *tos, int start, int end, int stop, char *name, int row) : Customer(tos) {
         this->start = start;
@@ -45,7 +47,7 @@ public:
         this->threadToKill = toKill;
     };
 
-    void setWaitingRoom(Waitingroom* waitingroom) {
+    void setWaitingRoom(Guarded_Semaphore *waitingroom) {
         this->waitingroomToBlock = waitingroom;
     }
 

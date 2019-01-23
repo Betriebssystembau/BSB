@@ -24,25 +24,24 @@ void EntrantLoop::action() {
     int sum = 0;
     for (int i = start; i <= end; i++) {
         {
-            Secure secure;
             int x = -1;
             int y = -1;
-            cga_stream.getpos(x, y);
-            cga_stream.setpos(0, row);
+            cga_stream << this->name << " vor wait" << endl;
+            this->waitingroomToBlock->wait();
+            //cga_stream.getpos(x, y);
+            //cga_stream.setpos(0, row);
             cga_stream << this->name << ": my next number is: " << i << endl;
-            cga_stream.setpos(x,y);
+            //cga_stream.setpos(x, y);
+            this->waitingroomToBlock->signal();
+            cga_stream << this->name << " nach signal" << endl;
         }
         sum += i;
-
-        if (threadToKill && i == 500) {
-            scheduler.Organizer::block(*threadToKill, *this->waitingroomToBlock);
-        }
 
     }
     {
         Secure secure;
         cga_stream << this->name
-               << ": Sum from " << start << " to " << end << " is " << sum << endl;
+                   << ": Sum from " << start << " to " << end << " is " << sum << endl;
     }
     scheduler.exit();
 }
