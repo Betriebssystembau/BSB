@@ -25,9 +25,9 @@ void Organizer::wakeup(Customer &customer) {
 
 void Organizer::kill(Customer &that) {
     Waitingroom *waitingroom = that.waiting_in();
-    if (waitingroom == 0) {
-        this->Scheduler::kill(that);
-    } else {
+    if (waitingroom) {
         waitingroom->remove(&that);
+    } else {
+        this->Scheduler::kill(that);
     }
 }

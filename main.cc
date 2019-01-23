@@ -18,6 +18,7 @@
 #include "syscall/guarded_scheduler.h"
 #include "meeting/bellringer.h"
 #include "syscall/guarded_organizer.h"
+#include "syscall/guarded_semaphore.h"
 
 Plugbox plugbox;
 CGA_Stream cga_stream;
@@ -36,16 +37,19 @@ int main() {
         cga_stream << "Dummy" << endl;
         const int stack_size = 2048;
 
+        Guarded_Semaphore waitingroom(1);
         static void *stack1[stack_size];
         void *tos1 = &stack1[stack_size - 1];
         EntrantLoop entrantLoop1(tos1, 0, 55000, -1, "C1", 1);
         scheduler.Scheduler::ready(entrantLoop1);
+        entrantLoop1.setWaitingRoom(&waitingroom);
 
         static void *stack2[stack_size];
         void *tos2 = &stack2[stack_size - 1];
         EntrantLoop entrantLoop2(tos2, 2, 55000, -1, "C2", 2);
         scheduler.Scheduler::ready(entrantLoop2);
 
+        entrantLoop1.setThreadToKill(&entrantLoop2);
         Watch watch(5000000);
         watch.plugin();
         watch.windup();

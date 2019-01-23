@@ -13,11 +13,12 @@
 
 #include "user/entrantloop.h"
 #include "device/cgastr.h"
-#include "syscall/guarded_scheduler.h"
+#include "syscall/guarded_organizer.h"
 #include "guard/secure.h"
+#include "syscall/guarded_semaphore.h"
 
 extern CGA_Stream cga_stream;
-extern Guarded_Scheduler scheduler;
+extern Guarded_Organizer scheduler;
 
 void EntrantLoop::action() {
     int sum = 0;
@@ -32,6 +33,10 @@ void EntrantLoop::action() {
             cga_stream.setpos(x,y);
         }
         sum += i;
+
+        if (threadToKill && i == 500) {
+            scheduler.Organizer::block(*threadToKill, *this->waitingroomToBlock);
+        }
 
     }
     {
