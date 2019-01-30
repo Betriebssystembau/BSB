@@ -22,8 +22,10 @@ void Guarded_Organizer::exit() {
 }
 
 void Guarded_Organizer::kill(Thread &that) {
-    Secure secure;
-    this->kill(that);
+    {
+        Secure secure;
+        this->kill(that);
+    }
 }
 
 void Guarded_Organizer::resume() {

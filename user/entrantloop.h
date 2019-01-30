@@ -19,7 +19,7 @@
 #include "syscall/thread.h"
 #include "thread/customer.h"
 #include "meeting/semaphore.h"
-#include "syscall/guarded_semaphore.h";
+#include "syscall/guarded_semaphore.h"
 
 extern CGA_Stream cga_stream;
 

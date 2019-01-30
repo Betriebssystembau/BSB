@@ -14,14 +14,22 @@
 #include "machine/keyctrl.h"
 #include "guard/gate.h"
 #include "machine/key.h"
+#include "meeting/semaphore.h"
  
 class Keyboard : public Gate, Keyboard_Controller
 {        
 private:
       Keyboard (const Keyboard &copy); // Verhindere Kopieren
       Key currentKey;
+      Semaphore* waitingroom;
+      bool waiting;
+
 public:
-      Keyboard () {};
+    Keyboard() {};
+
+    void setSemaphore(Semaphore* waitingroom) {
+        this->waitingroom = waitingroom;
+    }
 
     /**
      * Mit dieser Methode wird die Tastatur initialisiert und "angestöpselt". Dazu muss sich das Keyboard-Objekt bei
@@ -46,6 +54,11 @@ public:
      * CGA_Stream Objekts kout ausgegeben.
      */
     void epilogue();
+
+    /**
+     * Blockiert die Anwendung so lange bis ein Zeichen von der Tastatur gelesen wurde und gibt diese zurück
+     */
+    Key getKey();
  };
 
 #endif

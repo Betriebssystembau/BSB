@@ -12,6 +12,7 @@
 #include "device/keyboard.h"
 #include "machine/pic.h"
 #include "machine/plugbox.h"
+#include "device/panic.h"
 
 extern CGA_Stream cga_stream;
 extern Plugbox plugbox;
@@ -24,15 +25,31 @@ void Keyboard::plugin() {
 
 bool Keyboard::prologue() {
     this->currentKey = key_hit();
-    cga_stream << "keyboard prologue";
     cga_stream.flush();
     return true;
 }
 
 void Keyboard::epilogue() {
-    cga_stream<<"keyboard epilogue";
     if (this->currentKey.valid()) {
-        cga_stream << (unsigned char) this->currentKey;
+        //cga_stream << (unsigned char) this->currentKey;
+        if (this->waiting) {
+            this->waiting = false;
+            this->waitingroom->signal();
+        }
     }
     cga_stream.flush();
+}
+
+Key Keyboard::getKey() {
+    if (this->currentKey) {
+        return this->currentKey;
+    } else {
+        if (!this->waitingroom) {
+            Panic().prologue();
+        } else {
+            this->waiting = true;
+            this->waitingroom->wait();
+        }
+    }
+    return this->currentKey;
 }

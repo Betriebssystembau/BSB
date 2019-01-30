@@ -19,20 +19,30 @@
 #include "meeting/bellringer.h"
 #include "syscall/guarded_organizer.h"
 #include "syscall/guarded_semaphore.h"
+#include "syscall/guarded_keyboard.h"
+#include "user/waiting_key_output.h"
 
 Plugbox plugbox;
 CGA_Stream cga_stream;
 Guard guard;
 PIC pic;
 CPU cpu;
-Dispatcher dispatcher;
+Dispatcher dispatcher; 
 Guarded_Organizer scheduler;
 Bellringer bellringer;
+Guarded_Keyboard keyboard;
+
+const int KEYBOARD_BUFFER_SIZE = 1;
 
 int main() {
     {
+        Semaphore keyboardSemaphore(KEYBOARD_BUFFER_SIZE);
+        keyboard.plugin();
+        keyboard.setSemaphore(&keyboardSemaphore);
         Secure secure;
         cga_stream << "Main: Starting" << endl;
+        cga_stream << "Dummy" << endl;
+        cga_stream << "Dummy" << endl;
         cga_stream << "Dummy" << endl;
         cga_stream << "Dummy" << endl;
         const int stack_size = 2048;
@@ -49,6 +59,11 @@ int main() {
         EntrantLoop entrantLoop2(tos2, 2, 55000, -1, "C2", 2);
         scheduler.Scheduler::ready(entrantLoop2);
         entrantLoop2.setWaitingRoom(&waitingroom);
+
+        static void *stack3[stack_size];
+        void *tos3 = &stack3[stack_size -1];
+        WaitingKeyOutput outputApp(tos3);
+        scheduler.Scheduler::ready(outputApp);
 
         Watch watch(5000000);
         watch.plugin();

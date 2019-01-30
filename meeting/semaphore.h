@@ -25,12 +25,14 @@ public:
     Semaphore(int c) : counter(c) {}
 
     /**
-     * Warteoperation: Sofern der Semaphorzähler größer als Null ist, wird er nur um eins erniedrigt. Anderenfalls wird der aktuell laufende Prozess (ein Customer Objekt) an die Warteliste angefügt und blockiert.
+     * Warteoperation: Sofern der Semaphorzähler größer als Null ist, wird er nur um eins erniedrigt.
+     * Anderenfalls wird der aktuell laufende Prozess (ein Customer Objekt) an die Warteliste angefügt und blockiert.
      */
     void p();
 
     /**
-     * Freigabeoperation: Wenn auf der Warteliste mindestens ein Customer eingetragen ist, wird der erste davon aufgeweckt. Anderenfalls wird der Semaphorzähler um eins erhöht.
+     * Freigabeoperation: Wenn auf der Warteliste mindestens ein Customer eingetragen ist,
+     * wird der erste davon aufgeweckt. Anderenfalls wird der Semaphorzähler um eins erhöht.
      */
     void v();
 
