@@ -24,6 +24,7 @@
 #include "user/waiting_key_output.h"
 #include "user/buzzerTester.h"
 #include "object/list.h"
+#include "thread/idle.h"
 
 Plugbox plugbox;
 CGA_Stream cga_stream;
@@ -40,6 +41,7 @@ const int KEYBOARD_BUFFER_SIZE = 1;
 
 static void *idleStack[stack_size];
 void *idleTos = &idleStack[stack_size - 1];
+const void * initIdleTos = idleTos;
 
 int main() {
     {
@@ -63,14 +65,24 @@ int main() {
 
         static void *stack1[stack_size];
         void *tos1 = &stack1[stack_size - 1];
+<<<<<<< 7a0650668c2d6e8df47dd3d671f04750dbdefb65
         EntrantLoop entrantLoop1(tos1, 0, 55000, -1, "C1", 1);
         //scheduler.Scheduler::ready(entrantLoop1);
+=======
+        EntrantLoop entrantLoop1(tos1, 0, 1500, -1, "C1", 1);
+        scheduler.Scheduler::ready(entrantLoop1);
+>>>>>>> Idle thread um scheduler laufen zu lassen
         entrantLoop1.setWaitingRoom(&waitingroom);
 
         static void *stack2[stack_size];
         void *tos2 = &stack2[stack_size - 1];
+<<<<<<< 7a0650668c2d6e8df47dd3d671f04750dbdefb65
         EntrantLoop entrantLoop2(tos2, 2, 55000, -1, "C2", 2);
         //scheduler.Scheduler::ready(entrantLoop2);
+=======
+        EntrantLoop entrantLoop2(tos2, 2, 500, -1, "C2", 2);
+        scheduler.Scheduler::ready(entrantLoop2);
+>>>>>>> Idle thread um scheduler laufen zu lassen
         entrantLoop2.setWaitingRoom(&waitingroom);
 
         static void *stack3[stack_size];
@@ -88,7 +100,10 @@ int main() {
         BuzzerTester buzzerTester2(tos5, 18, 50000, &waitingroom);
         scheduler.Scheduler::ready(buzzerTester2);
 
-        Watch watch(5000000);
+        Idle idle(idleTos);
+        scheduler.Scheduler::ready(idle);
+
+        Watch watch(5000);
         watch.plugin();
         watch.windup();
 

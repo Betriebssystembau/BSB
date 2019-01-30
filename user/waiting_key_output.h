@@ -35,7 +35,7 @@ class WaitingKeyOutput: public Customer {
                     cga_stream.setpos(0,3);
                     cga_stream << "Not waiting.......... " << endl;
                     cga_stream.setpos(0,4);
-                    cga_stream << "Pressed: " << keyChar << endl;
+                    cga_stream << "Last Key: " << keyChar << endl;
                     cga_stream.setpos(x,y);
                 }
             }

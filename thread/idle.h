@@ -5,9 +5,11 @@
 #include "object/chain.h"
 #include "machine/cpu.h"
 #include "syscall/guarded_organizer.h"
+#include "device/cgastr.h"
 
 extern CPU cpu;
 extern Guarded_Organizer scheduler;
+extern CGA_Stream cga_stream;
 
 class Idle: public Customer {
 private:
@@ -26,8 +28,9 @@ public:
     char *name = "";
 
     void action() {
-        cpu.idle();
-        scheduler.exit();
+        while(true) {
+            cpu.idle();
+        }
     }
 };
 

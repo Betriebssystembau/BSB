@@ -20,9 +20,6 @@ extern CGA_Stream cga_stream;
 extern Guard guard;
 extern CPU cpu;
 
-extern void *idleStack;
-extern void *idleTos;
-
 void Scheduler::ready(Entrant &that) {
     this->queue.enqueue((Chain * ) & that);
 }
@@ -42,10 +39,6 @@ void Scheduler::exit() {
             cga_stream << "Scheduler: All threads finished!" << endl;
         } else {
             cga_stream << "Scheduler: No active Threads left, but somebody is sleeping!" << endl;
-            Idle idle(idleTos);
-            this->Scheduler::ready(idle);
-            cga_stream << "Scheduler: Idling" << endl;
-            this->schedule();
         }
     } else {
         cga_stream << "Scheduler: Next thread: " << this->currentEntrant->name << endl;
