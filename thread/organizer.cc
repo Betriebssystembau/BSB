@@ -24,6 +24,10 @@ void Organizer::block(Customer &customer, Waitingroom &waitingroom) {
 void Organizer::wakeup(Customer &customer) {
     customer.waiting_in(0);
     this->ready(customer);
+    if (!this->active()) {
+        this->Scheduler::schedule();
+    }
+
 }
 
 void Organizer::kill(Customer &that) {

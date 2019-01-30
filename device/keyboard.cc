@@ -41,7 +41,7 @@ void Keyboard::epilogue() {
 }
 
 Key Keyboard::getKey() {
-    if (this->currentKey) {
+    if (this->currentKey && this->currentKey.valid()) {
         return this->currentKey;
     } else {
         if (!this->waitingroom) {

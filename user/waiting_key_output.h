@@ -28,8 +28,8 @@ class WaitingKeyOutput: public Customer {
                 }
 
                 cga_stream.setpos(0,4);
-
-                cga_stream << "Pressed: " << (unsigned char) keyboard.getKey() << endl;
+                unsigned char keyChar = (unsigned char) keyboard.getKey();
+                cga_stream << "Pressed: " << keyChar << endl;
                 cga_stream.setpos(x,y);
 
             }
