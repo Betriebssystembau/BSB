@@ -30,6 +30,12 @@ public:
       void enqueue (Chain* item);
       Chain* dequeue ();
       void remove (Chain*);
+      bool isEmpty() {
+          if (!head) {
+              return true;
+          }
+          return false;
+      }
  };
 
 #endif

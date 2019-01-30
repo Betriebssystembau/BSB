@@ -10,6 +10,9 @@
 /*****************************************************************************/
 
 #include "organizer.h"
+#include "device/cgastr.h"
+
+extern CGA_Stream cga_stream;
 
 void Organizer::block(Customer &customer, Waitingroom &waitingroom) {
     customer.waiting_in(&waitingroom);
@@ -24,10 +27,6 @@ void Organizer::block(Customer &customer, Waitingroom &waitingroom) {
 void Organizer::wakeup(Customer &customer) {
     customer.waiting_in(0);
     this->ready(customer);
-    if (!this->active()) {
-        this->Scheduler::schedule();
-    }
-
 }
 
 void Organizer::kill(Customer &that) {

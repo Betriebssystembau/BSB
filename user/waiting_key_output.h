@@ -3,6 +3,7 @@
 
 #include "thread/customer.h"
 #include "syscall/guarded_keyboard.h"
+#include "guard/secure.h"
 #include "device/cgastr.h"
 
 extern Guarded_Keyboard keyboard;
@@ -25,13 +26,18 @@ class WaitingKeyOutput: public Customer {
                     cga_stream.getpos(x, y);
                     cga_stream.setpos(0,3);
                     cga_stream << "Waiting.............. " << endl;
+                    cga_stream.setpos(x,y);
                 }
-
-                cga_stream.setpos(0,4);
                 unsigned char keyChar = (unsigned char) keyboard.getKey();
-                cga_stream << "Pressed: " << keyChar << endl;
-                cga_stream.setpos(x,y);
-
+                {
+                    Secure secure;
+                    cga_stream.getpos(x,y);
+                    cga_stream.setpos(0,3);
+                    cga_stream << "Not waiting.......... " << endl;
+                    cga_stream.setpos(0,4);
+                    cga_stream << "Pressed: " << keyChar << endl;
+                    cga_stream.setpos(x,y);
+                }
             }
         }
 };

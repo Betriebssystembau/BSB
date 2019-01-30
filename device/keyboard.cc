@@ -25,7 +25,6 @@ void Keyboard::plugin() {
 
 bool Keyboard::prologue() {
     this->currentKey = key_hit();
-    cga_stream.flush();
     return true;
 }
 
@@ -37,7 +36,6 @@ void Keyboard::epilogue() {
             this->waitingroom->signal();
         }
     }
-    cga_stream.flush();
 }
 
 Key Keyboard::getKey() {

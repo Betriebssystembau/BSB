@@ -14,6 +14,8 @@
 #include "dispatch.h"
 #include "object/queue.h"
 #include "thread/entrant.h"
+#include "object/list.h"
+#include "meeting/waitingroom.h"
 
 /* Hier muesst ihr selbst Code vervollstaendigen */
 
@@ -26,6 +28,7 @@ private:
 protected:
     Queue queue;
     Entrant *currentEntrant;
+    List* waitingRooms;
 
 public:
     Scheduler() {
@@ -64,6 +67,33 @@ public:
      * der Ready-Liste anfügen und den ersten aktivieren.
      */
     void resume();
+
+    /**
+     * Übergibt dem Scheduler eine Liste von Waitingrooms um zu prüfen,
+     * ob noch schlafende Threads vorhanden sind;
+     */
+    void setWaitingRooms(List* waitingRooms) {
+        this->waitingRooms = waitingRooms;
+    }
+
+    /**
+     * Prüft ob noch geblockte Threads vorhanden sind.
+     */
+    bool isThreadSleeping() {
+        Waitingroom* current = (Waitingroom*)this->waitingRooms->first();
+        if (!current) {
+            return false;
+        }
+        Waitingroom* next = (Waitingroom*) current->next;
+        do {
+            if (! current->isEmpty()) {
+                return true;
+            }
+            current = next;
+            next = (Waitingroom*) current->next;
+        } while(next);
+        return false;
+    }
 };
 
 #endif

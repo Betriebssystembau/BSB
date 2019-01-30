@@ -10,12 +10,16 @@
 
 #include "scheduler.h"
 #include "device/cgastr.h"
+#include "guard/guard.h"
+#include "machine/cpu.h"
+#include "guard/secure.h"
 
 extern CGA_Stream cga_stream;
+extern Guard guard;
+extern CPU cpu;
 
 void Scheduler::ready(Entrant &that) {
     this->queue.enqueue((Chain * ) & that);
-
 }
 
 void Scheduler::schedule() {
@@ -29,7 +33,24 @@ void Scheduler::exit() {
     cga_stream << "Scheduler: Thread " << this->currentEntrant->name << " terminated" << endl;
     this->currentEntrant = (Entrant * ) this->queue.dequeue();
     if (!currentEntrant) {
-        cga_stream << "Scheduler: All threads finished! Waiting for new ones" << endl;
+        if (!isThreadSleeping()) {
+            cga_stream << "Scheduler: All threads finished!" << endl;
+        } else {
+            cga_stream << "Scheduler: No active Threads left, but somebody is sleeping!" << endl;
+            bool guardState = guard.avail();
+            if (!guardState) {
+                guard.leave();
+                cga_stream << "Scheduler: Unlocking..." << endl;
+            }
+            while (this->queue.isEmpty()) {
+                cpu.idle();
+            }
+            cga_stream << "Scheduler: Somebody woke up!" << endl;
+            if (!guardState) {
+                guard.enter();
+            }
+            this->schedule();
+        }
     } else {
         cga_stream << "Scheduler: Next thread: " << this->currentEntrant->name << endl;
         this->dispatch(*this->currentEntrant);

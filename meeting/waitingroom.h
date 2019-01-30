@@ -12,10 +12,11 @@
 #define __waitingroom_include__
 
 #include "object/queue.h"
+#include "object/chain.h"
 
 class Customer; // Forward declaration
 
-class Waitingroom : public Queue {
+class Waitingroom : public Queue, public Chain {
 private:
     Waitingroom(const Waitingroom &copy); // Verhindere Kopieren
 public:

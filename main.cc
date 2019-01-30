@@ -23,6 +23,7 @@
 #include "syscall/guarded_buzzer.h"
 #include "user/waiting_key_output.h"
 #include "user/buzzerTester.h"
+#include "object/list.h"
 
 Plugbox plugbox;
 CGA_Stream cga_stream;
@@ -39,9 +40,17 @@ const int KEYBOARD_BUFFER_SIZE = 1;
 int main() {
     {
         Semaphore keyboardSemaphore(KEYBOARD_BUFFER_SIZE);
+        Guarded_Semaphore waitingroom(1);
+
+        List waitingrooms;
+        waitingrooms.enqueue(&keyboardSemaphore);
+        waitingrooms.enqueue(&waitingroom);
+        scheduler.setWaitingRooms(&waitingrooms);
+
         keyboard.plugin();
         keyboard.setSemaphore(&keyboardSemaphore);
         Secure secure;
+
         cga_stream << "Main: Starting" << endl;
         cga_stream << "Dummy" << endl;
         cga_stream << "Dummy" << endl;
@@ -49,7 +58,6 @@ int main() {
         cga_stream << "Dummy" << endl;
         const int stack_size = 2048;
 
-        Guarded_Semaphore waitingroom(1);
         static void *stack1[stack_size];
         void *tos1 = &stack1[stack_size - 1];
         EntrantLoop entrantLoop1(tos1, 0, 55000, -1, "C1", 1);
@@ -85,7 +93,5 @@ int main() {
         scheduler.schedule();
         while (true);
     }
-
-
     return 0;
 }
