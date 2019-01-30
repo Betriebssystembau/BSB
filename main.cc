@@ -65,24 +65,14 @@ int main() {
 
         static void *stack1[stack_size];
         void *tos1 = &stack1[stack_size - 1];
-<<<<<<< 7a0650668c2d6e8df47dd3d671f04750dbdefb65
-        EntrantLoop entrantLoop1(tos1, 0, 55000, -1, "C1", 1);
-        //scheduler.Scheduler::ready(entrantLoop1);
-=======
         EntrantLoop entrantLoop1(tos1, 0, 1500, -1, "C1", 1);
-        scheduler.Scheduler::ready(entrantLoop1);
->>>>>>> Idle thread um scheduler laufen zu lassen
+        //scheduler.Scheduler::ready(entrantLoop1);
         entrantLoop1.setWaitingRoom(&waitingroom);
 
         static void *stack2[stack_size];
         void *tos2 = &stack2[stack_size - 1];
-<<<<<<< 7a0650668c2d6e8df47dd3d671f04750dbdefb65
-        EntrantLoop entrantLoop2(tos2, 2, 55000, -1, "C2", 2);
-        //scheduler.Scheduler::ready(entrantLoop2);
-=======
         EntrantLoop entrantLoop2(tos2, 2, 500, -1, "C2", 2);
-        scheduler.Scheduler::ready(entrantLoop2);
->>>>>>> Idle thread um scheduler laufen zu lassen
+        //scheduler.Scheduler::ready(entrantLoop2);
         entrantLoop2.setWaitingRoom(&waitingroom);
 
         static void *stack3[stack_size];
