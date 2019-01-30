@@ -35,7 +35,11 @@ Guarded_Organizer scheduler;
 Bellringer bellringer;
 Guarded_Keyboard keyboard;
 
+const int stack_size = 2048;
 const int KEYBOARD_BUFFER_SIZE = 1;
+
+static void *idleStack[stack_size];
+void *idleTos = &idleStack[stack_size - 1];
 
 int main() {
     {
@@ -56,7 +60,6 @@ int main() {
         cga_stream << "Dummy" << endl;
         cga_stream << "Dummy" << endl;
         cga_stream << "Dummy" << endl;
-        const int stack_size = 2048;
 
         static void *stack1[stack_size];
         void *tos1 = &stack1[stack_size - 1];

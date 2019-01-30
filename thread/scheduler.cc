@@ -13,10 +13,15 @@
 #include "guard/guard.h"
 #include "machine/cpu.h"
 #include "guard/secure.h"
+#include "thread/entrant.h"
+#include "thread/idle.h"
 
 extern CGA_Stream cga_stream;
 extern Guard guard;
 extern CPU cpu;
+
+extern void *idleStack;
+extern void *idleTos;
 
 void Scheduler::ready(Entrant &that) {
     this->queue.enqueue((Chain * ) & that);
@@ -37,18 +42,9 @@ void Scheduler::exit() {
             cga_stream << "Scheduler: All threads finished!" << endl;
         } else {
             cga_stream << "Scheduler: No active Threads left, but somebody is sleeping!" << endl;
-            bool guardState = guard.avail();
-            if (!guardState) {
-                guard.leave();
-                cga_stream << "Scheduler: Unlocking..." << endl;
-            }
-            while (this->queue.isEmpty()) {
-                cpu.idle();
-            }
-            cga_stream << "Scheduler: Somebody woke up!" << endl;
-            if (!guardState) {
-                guard.enter();
-            }
+            Idle idle(idleTos);
+            this->Scheduler::ready(idle);
+            cga_stream << "Scheduler: Idling" << endl;
             this->schedule();
         }
     } else {
