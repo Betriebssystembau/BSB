@@ -20,14 +20,16 @@
 #include "syscall/guarded_organizer.h"
 #include "syscall/guarded_semaphore.h"
 #include "syscall/guarded_keyboard.h"
+#include "syscall/guarded_buzzer.h"
 #include "user/waiting_key_output.h"
+#include "user/buzzerTester.h"
 
 Plugbox plugbox;
 CGA_Stream cga_stream;
 Guard guard;
 PIC pic;
 CPU cpu;
-Dispatcher dispatcher; 
+Dispatcher dispatcher;
 Guarded_Organizer scheduler;
 Bellringer bellringer;
 Guarded_Keyboard keyboard;
@@ -51,19 +53,29 @@ int main() {
         static void *stack1[stack_size];
         void *tos1 = &stack1[stack_size - 1];
         EntrantLoop entrantLoop1(tos1, 0, 55000, -1, "C1", 1);
-        scheduler.Scheduler::ready(entrantLoop1);
+        //scheduler.Scheduler::ready(entrantLoop1);
         entrantLoop1.setWaitingRoom(&waitingroom);
 
         static void *stack2[stack_size];
         void *tos2 = &stack2[stack_size - 1];
         EntrantLoop entrantLoop2(tos2, 2, 55000, -1, "C2", 2);
-        scheduler.Scheduler::ready(entrantLoop2);
+        //scheduler.Scheduler::ready(entrantLoop2);
         entrantLoop2.setWaitingRoom(&waitingroom);
 
         static void *stack3[stack_size];
-        void *tos3 = &stack3[stack_size -1];
+        void *tos3 = &stack3[stack_size - 1];
         WaitingKeyOutput outputApp(tos3);
-        scheduler.Scheduler::ready(outputApp);
+        //scheduler.Scheduler::ready(outputApp);
+
+        static void *stack4[stack_size];
+        void *tos4 = &stack4[stack_size - 1];
+        BuzzerTester buzzerTester(tos4, 15, 10000, &waitingroom);
+        scheduler.Scheduler::ready(buzzerTester);
+
+        static void *stack5[stack_size];
+        void *tos5 = &stack5[stack_size - 1];
+        BuzzerTester buzzerTester2(tos5, 18, 50000, &waitingroom);
+        scheduler.Scheduler::ready(buzzerTester2);
 
         Watch watch(5000000);
         watch.plugin();

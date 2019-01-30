@@ -11,6 +11,9 @@
 /*****************************************************************************/
 
 #include "bellringer.h"
+#include "device/cgastr.h"
+
+extern CGA_Stream cga_stream;
 
 void Bellringer::check() {
     Bell *currentBell = (Bell *) this->bells.dequeue();
@@ -26,10 +29,12 @@ void Bellringer::check() {
         }
     }
 
-    Bell *next = (Bell *) currentBell->next;
-    while (next != 0) {
-        next->tick();
-        next = (Bell *) next->next;
+    if (currentBell != 0) {
+        Bell *next = (Bell *) currentBell->next;
+        while (next != 0) {
+            next->tick();
+            next = (Bell *) next->next;
+        }
     }
 }
 

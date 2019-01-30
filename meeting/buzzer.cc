@@ -10,6 +10,9 @@
 /*****************************************************************************/
 
 #include "buzzer.h"
+#include "device/cgastr.h"
+
+extern CGA_Stream cga_stream;
 
 Buzzer::Buzzer() {
 
@@ -31,10 +34,10 @@ void Buzzer::ring() {
 }
 
 void Buzzer::set(int ms) {
-    //TODO zu ms umrechnen:
-    this->ticks = ms;
+    this->ticks = ((ms * 1000 + 500) / 838);
+    bellringer.job(this, this->ticks);
 }
 
 void Buzzer::sleep() {
-    bellringer.job(this, this->ticks);
+    scheduler.block(*((Customer *) scheduler.active()), *this);
 }
