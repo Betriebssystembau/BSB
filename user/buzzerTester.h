@@ -32,7 +32,7 @@ public:
             this->writeMutex->wait();
             cga_stream.getpos(x, y);
             cga_stream.setpos(0, yPos);
-            cga_stream << "Hallo: " << counter++ << endl;
+            cga_stream << "Hallo: " << ++counter << endl;
             cga_stream.setpos(x, y);
             this->writeMutex->signal();
             buzzer.set(buzzerCounter);

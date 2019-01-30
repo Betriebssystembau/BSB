@@ -65,35 +65,35 @@ int main() {
 
         static void *stack1[stack_size];
         void *tos1 = &stack1[stack_size - 1];
-        EntrantLoop entrantLoop1(tos1, 0, 1500, -1, "C1", 1);
-        //scheduler.Scheduler::ready(entrantLoop1);
+        EntrantLoop entrantLoop1(tos1, 0, 15000, -1, "C1", 1);
+        scheduler.Scheduler::ready(entrantLoop1);
         entrantLoop1.setWaitingRoom(&waitingroom);
 
         static void *stack2[stack_size];
         void *tos2 = &stack2[stack_size - 1];
-        EntrantLoop entrantLoop2(tos2, 2, 500, -1, "C2", 2);
-        //scheduler.Scheduler::ready(entrantLoop2);
+        EntrantLoop entrantLoop2(tos2, 2, 5000, -1, "C2", 2);
+        scheduler.Scheduler::ready(entrantLoop2);
         entrantLoop2.setWaitingRoom(&waitingroom);
 
         static void *stack3[stack_size];
         void *tos3 = &stack3[stack_size - 1];
         WaitingKeyOutput outputApp(tos3);
-        //scheduler.Scheduler::ready(outputApp);
+        scheduler.Scheduler::ready(outputApp);
 
         static void *stack4[stack_size];
         void *tos4 = &stack4[stack_size - 1];
-        BuzzerTester buzzerTester(tos4, 15, 10000, &waitingroom);
-        scheduler.Scheduler::ready(buzzerTester);
+        BuzzerTester buzzerTester(tos4, 15, 1000, &waitingroom);
+        //scheduler.Scheduler::ready(buzzerTester);
 
         static void *stack5[stack_size];
         void *tos5 = &stack5[stack_size - 1];
-        BuzzerTester buzzerTester2(tos5, 18, 50000, &waitingroom);
-        scheduler.Scheduler::ready(buzzerTester2);
+        BuzzerTester buzzerTester2(tos5, 18, 500, &waitingroom);
+        //scheduler.Scheduler::ready(buzzerTester2);
 
         Idle idle(idleTos);
         scheduler.Scheduler::ready(idle);
 
-        Watch watch(5000);
+        Watch watch(500);
         watch.plugin();
         watch.windup();
 

@@ -26,7 +26,9 @@ void Bellringer::check() {
         } else {
             finished = true;
             this->bells.insert_first(currentBell);
+            currentBell->tick();
         }
+        currentBell = (Bell* ) this->bells.dequeue();
     }
 
     if (currentBell != 0) {
@@ -50,17 +52,15 @@ void Bellringer::job(Bell *bell, int ticks) {
     } else {
         while (currentBell != 0 && !finished) {
             if (currentBell->wait() > ticks) {
-                if (lastBell == 0) {
-                    this->bells.insert_first(bell);
-                } else {
-                    this->bells.insert_after(lastBell, bell);
-                }
+                this->bells.insert_after(lastBell, bell);
                 finished = true;
+                return;
             } else {
                 lastBell = currentBell;
                 currentBell = (Bell *) currentBell->next;
             }
         }
+        this->bells.insert_after(lastBell, bell);
     }
 }
 
