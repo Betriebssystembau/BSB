@@ -15,10 +15,12 @@
 
 #include "object/list.h"
 #include "bell.h"
+#include "object/list.h"
 
 class Bellringer : public List {
 private:
     Bellringer(const Bellringer &copy); // Verhindere Kopieren
+    List bells;
 public:
     Bellringer() {}
 

@@ -14,10 +14,16 @@
 
 #include "waitingroom.h"
 #include "bell.h"
+#include "bellringer.h"
+#include "syscall/guarded_organizer.h"
+
+extern Bellringer bellringer;
+extern Guarded_Organizer scheduler;
 
 class Buzzer : public Waitingroom, public Bell {
 private:
     Buzzer(const Buzzer &copy); // Verhindere Kopieren
+    int ticks;
 
 public:
     /**

@@ -10,9 +10,11 @@
 #include "watch.h"
 
 #include "device/cgastr.h"
+#include "meeting/bellringer.h"
 
 extern CGA_Stream cga_stream;
 extern Guarded_Scheduler scheduler;
+extern Bellringer bellringer;
 
 void Watch::plugin() {
     plugbox.assign(plugbox.timer, *this);
@@ -27,5 +29,6 @@ bool Watch::prologue() {
 }
 
 void Watch::epilogue() {
+    bellringer.check();
     scheduler.Scheduler::resume();
 }
