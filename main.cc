@@ -60,8 +60,8 @@ int main() {
         cga_stream << "Main: Starting" << endl;
         cga_stream << "Dummy" << endl;
         cga_stream << "Dummy" << endl;
-        cga_stream << "Dummy" << endl;
-        cga_stream << "Dummy" << endl;
+        cga_stream << "Keylogger:" << endl;
+        cga_stream << "Waiting for Key..." << endl;
 
         static void *stack1[stack_size];
         void *tos1 = &stack1[stack_size - 1];

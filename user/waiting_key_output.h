@@ -21,19 +21,10 @@ class WaitingKeyOutput: public Customer {
             while (true) {
                 int x = 0;
                 int y = 0;
-                {
-                    Secure secure;
-                    cga_stream.getpos(x, y);
-                    cga_stream.setpos(0,3);
-                    cga_stream << "Waiting.............. " << endl;
-                    cga_stream.setpos(x,y);
-                }
                 unsigned char keyChar = (unsigned char) keyboard.getKey();
                 {
                     Secure secure;
                     cga_stream.getpos(x,y);
-                    cga_stream.setpos(0,3);
-                    cga_stream << "Not waiting.......... " << endl;
                     cga_stream.setpos(0,4);
                     cga_stream << "Last Key: " << keyChar << endl;
                     cga_stream.setpos(x,y);
